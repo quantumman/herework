@@ -22,7 +22,7 @@ init route =
         ( model, appCommand ) =
             App.init router
     in
-        { router = router } ! [ Cmd.map Router routerCommand, Cmd.map App appCommand ]
+        { model | router = router } ! [ Cmd.map Router routerCommand, Cmd.map App appCommand ]
 
 
 type Msg
