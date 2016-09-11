@@ -1,8 +1,11 @@
 module App exposing (..)
 
+import Aui.Avatars exposing (..)
+import Component.Layout exposing (..)
 import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
+import Models exposing (..)
 import Navigation
 import Router as Router exposing (..)
 
@@ -11,12 +14,21 @@ import Router as Router exposing (..)
 
 
 type alias Model =
-    { router : Router.Model }
+    { router : Router.Model
+    , user : User
+    }
+
+
+initialModel : Router.Model -> Model
+initialModel router =
+    { router = router
+    , user = initialModelUser
+    }
 
 
 init : Router.Model -> ( Model, Cmd Msg )
 init router =
-    { router = router } ! [ Cmd.none ]
+    (initialModel router) ! [ Cmd.none ]
 
 
 
@@ -44,9 +56,69 @@ subscriptions model =
 
 
 
+-- STYLE
+
+
+paneHeaderStyle : Attribute Msg
+paneHeaderStyle =
+    style
+        [ ( "height", "80px" )
+        ]
+
+
+menuWidth : Attribute Msg
+menuWidth =
+    style [ ( "width", "50px" ) ]
+
+
+subMenuWidth : Attribute Msg
+subMenuWidth =
+    style [ ( "width", "370px" ) ]
+
+
+mainContentWitdh : Attribute Msg
+mainContentWitdh =
+    style [ ( "width", "600px" ) ]
+
+
+
 -- VIEW
 
 
 view : Model -> Html Msg
 view model =
-    div [] [ text "Hello World" ]
+    div []
+        [ group
+            [ item [ menuWidth ]
+                [ header [ loggedInUser model.user ]
+                , div [] [ text "Vertical Menu" ]
+                ]
+            , item [ subMenuWidth ]
+                [ header []
+                , text "B"
+                ]
+            , item [ mainContentWitdh ]
+                [ header []
+                , text "C"
+                ]
+            ]
+        ]
+
+
+header : List (Html Msg) -> Html Msg
+header =
+    div [ paneHeaderStyle ]
+
+
+loggedInUser : User -> Html Msg
+loggedInUser user =
+    let
+        align =
+            style
+                [ ( "margin-left", "9px" )
+                , ( "margin-top", "15px" )
+                ]
+    in
+        div [ menuWidth, align ]
+            [ avatar config user.avatar
+            ]
