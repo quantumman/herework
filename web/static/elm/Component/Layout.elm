@@ -15,7 +15,7 @@ group items =
         <| (List.map .item items)
 
 
-item : List (Html msg) -> Item msg
-item content =
+item : List (Attribute msg) -> List (Html msg) -> Item msg
+item attributes content =
     Item
-        <| div [ class "aui-item" ] content
+        <| div (attributes ++ [ class "aui-item" ]) content
