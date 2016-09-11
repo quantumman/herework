@@ -1,27 +1,33 @@
 module Main exposing (..)
 
+import App as App exposing (..)
 import Hop exposing (makeUrl, makeUrlFromLocation, matchUrl, setQuery)
 import Hop.Types exposing (Config, Query, Location, PathMatcher, Router)
-import Html exposing (Html, div, text)
+import Html exposing (Html)
+import Html.App as Html exposing (..)
 import Navigation
 import Router as Router exposing (..)
 
 
 type alias Model =
-    { router : Router.Model }
+    App.Model
 
 
 init : ( Route, Hop.Types.Location ) -> ( Model, Cmd Msg )
 init route =
     let
-        ( router, command ) =
+        ( router, routerCommand ) =
             Router.init route
+
+        ( model, appCommand ) =
+            App.init router
     in
-        { router = router } ! [ Cmd.map Router command ]
+        { router = router } ! [ Cmd.map Router routerCommand, Cmd.map App appCommand ]
 
 
 type Msg
-    = Router Router.Route
+    = App App.Msg
+    | Router Router.Route
 
 
 urlUpdate : ( Route, Hop.Types.Location ) -> Model -> ( Model, Cmd Msg )
@@ -32,6 +38,13 @@ urlUpdate router model =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update message model =
     case message of
+        App subMessage ->
+            let
+                ( model', command ) =
+                    App.update subMessage model
+            in
+                model' ! [ Cmd.map App command ]
+
         Router route ->
             let
                 ( router, command ) =
@@ -42,12 +55,12 @@ update message model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
+    Sub.map App <| App.subscriptions model
 
 
 view : Model -> Html Msg
 view model =
-    div [] [ text "Hello World" ]
+    Html.map App <| App.view model
 
 
 main : Program Never
