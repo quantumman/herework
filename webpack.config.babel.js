@@ -32,7 +32,7 @@ export default {
         test: /\.css$/,
         loader: 'style!css',
       }, {
-        test: /.(png|woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/,
+        test: /.(png|woff(2)?|eot|ttf|svg|gif)(\?[a-z0-9=\.]+)?$/,
         loader: 'url?limit=100000',
       },
     ],
