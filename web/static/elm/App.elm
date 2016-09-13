@@ -2,6 +2,8 @@ module App exposing (..)
 
 import Aui.Avatars exposing (..)
 import Component.Layout exposing (..)
+import Component.VerticalMenu as V exposing (..)
+import FontAwesome.Web as Icon exposing (edit)
 import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
@@ -66,7 +68,7 @@ paneHeaderStyle =
         ]
 
 
-menuWidth : Attribute Msg
+menuWidth : Attribute msg
 menuWidth =
     style [ ( "width", "50px" ) ]
 
@@ -91,7 +93,11 @@ view model =
         [ group
             [ item [ menuWidth ]
                 [ header [ loggedInUser model.user ]
-                , div [] [ text "Vertical Menu" ]
+                , V.menu [ menuWidth ]
+                    [ menuItem [] Icon.comments_o "Messages"
+                    , menuItem [] Icon.tasks "Tasks"
+                    , menuItem [] Icon.bar_chart "Activity"
+                    ]
                 ]
             , item [ subMenuWidth ]
                 [ header []
