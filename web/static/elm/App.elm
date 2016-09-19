@@ -3,6 +3,7 @@ module App exposing (..)
 import Aui.Avatars exposing (..)
 import Component.Layout exposing (..)
 import Component.VerticalMenu as V exposing (..)
+import Component.SubMenu as S exposing (..)
 import FontAwesome.Web as Icon exposing (edit)
 import Html exposing (..)
 import Html.App as Html
@@ -18,6 +19,7 @@ import Router as Router exposing (..)
 type alias Model =
     { router : Router.Model
     , user : User
+    , messages : List Message
     }
 
 
@@ -25,6 +27,7 @@ initialModel : Router.Model -> Model
 initialModel router =
     { router = router
     , user = initialModelUser
+    , messages = [ initialModelMessage ]
     }
 
 
@@ -101,7 +104,7 @@ view model =
                 ]
             , item [ subMenuWidth ]
                 [ header []
-                , text "B"
+                , S.subMenu model
                 ]
             , item [ mainContentWitdh ]
                 [ header []
