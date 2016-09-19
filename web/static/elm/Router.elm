@@ -11,6 +11,7 @@ import Navigation
 
 type Route
     = Messages
+    | MessageDetail Int
     | Tasks
     | Activity
     | NotFound
@@ -24,6 +25,11 @@ rootMatcher =
 messagesMatcher : PathMatcher Route
 messagesMatcher =
     match1 Messages "messages"
+
+
+messageDetailMatcher : PathMatcher Route
+messageDetailMatcher =
+    match2 MessageDetail "messages" int
 
 
 tasksMatcher : PathMatcher Route
@@ -40,6 +46,7 @@ matchers : List (PathMatcher Route)
 matchers =
     [ rootMatcher
     , messagesMatcher
+    , messageDetailMatcher
     , tasksMatcher
     , activityMatcher
     ]
@@ -50,6 +57,9 @@ reverse route =
     case route of
         Messages ->
             matcherToPath rootMatcher []
+
+        MessageDetail id ->
+            matcherToPath messageDetailMatcher [ toString id ]
 
         Tasks ->
             matcherToPath tasksMatcher []
