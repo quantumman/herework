@@ -49,3 +49,11 @@ type alias NavItemGroup a =
     , header : Maybe String
     }
 
+
+toNavItemGroup : String -> List { title : String, url : String } -> NavItemGroup Item
+toNavItemGroup label xs =
+    let
+        items =
+            List.map (\{ title, url } -> Item title url False) xs
+    in
+        NavItemGroup items (Just label)
