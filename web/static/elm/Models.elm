@@ -22,7 +22,7 @@ type alias Message =
 
 
 initialModelMessage =
-    { title = ""
+    { title = "test"
     , url = "issues/1"
     }
 
