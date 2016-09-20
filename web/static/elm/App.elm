@@ -27,7 +27,12 @@ initialModel : Router.Model -> Model
 initialModel router =
     { router = router
     , user = initialModelUser
-    , messages = [ initialModelMessage ]
+    , messages =
+        [ initialModelMessage
+        , { title = "foobar", url = "messages/1" }
+        , { title = "REQUEST: Working with BOT", url = "messages/2" }
+        , { title = "QUESTION: How can we make issue ?", url = "messages/3" }
+        ]
     }
 
 
