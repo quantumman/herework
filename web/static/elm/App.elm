@@ -9,6 +9,7 @@ import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
 import Models exposing (..)
+import Models as App exposing (Model)
 import Navigation
 import Router as Router exposing (..)
 
@@ -16,7 +17,7 @@ import Router as Router exposing (..)
 -- MODEL
 
 
-init : Router.Model -> ( Model, Cmd Msg )
+init : Router.Model -> ( App.Model, Cmd Msg )
 init router =
     (initialModel router) ! [ Cmd.none ]
 
@@ -29,7 +30,7 @@ type Msg
     = App
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
+update : Msg -> App.Model -> ( App.Model, Cmd Msg )
 update message model =
     case message of
         App ->
@@ -40,7 +41,7 @@ update message model =
 -- SUBSCRIPTION
 
 
-subscriptions : Model -> Sub Msg
+subscriptions : App.Model -> Sub Msg
 subscriptions model =
     Sub.none
 
@@ -75,7 +76,7 @@ mainContentWitdh =
 -- VIEW
 
 
-view : Model -> Html Msg
+view : App.Model -> Html Msg
 view model =
     div []
         [ group
