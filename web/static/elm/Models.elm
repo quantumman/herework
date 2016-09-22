@@ -31,10 +31,11 @@ initialModelMessage =
 -- VIEW MODEL
 
 
-type alias Item =
+type alias Item msg =
     { title : String
     , url : String
     , selected : Bool
+    , attributes : List (Attribute msg)
     }
 
 
@@ -50,10 +51,10 @@ type alias NavItemGroup a =
     }
 
 
-toNavItemGroup : String -> List { title : String, url : String } -> NavItemGroup Item
+toNavItemGroup : String -> List { title : String, url : String } -> NavItemGroup (Item msg)
 toNavItemGroup label xs =
     let
         items =
-            List.map (\{ title, url } -> Item title url False) xs
+            List.map (\{ title, url } -> Item title url False []) xs
     in
         NavItemGroup items (Just label)

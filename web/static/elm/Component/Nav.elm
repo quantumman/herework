@@ -6,7 +6,7 @@ import Html.Attributes exposing (..)
 import Models exposing (..)
 
 
-defaultItemView : Item -> ItemView msg
+defaultItemView : Item msg -> ItemView msg
 defaultItemView item =
     { selected = item.selected
     , view =
@@ -28,7 +28,7 @@ toView item =
         [ item.view ]
 
 
-horizontalNav : List Item -> Html msg
+horizontalNav : List (Item msg) -> Html msg
 horizontalNav items =
     horizontalNav' <| List.map defaultItemView items
 
@@ -45,7 +45,7 @@ horizontalNav' itemViews =
         ]
 
 
-verticalNav : List (NavItemGroup Item) -> Html msg
+verticalNav : List (NavItemGroup (Item msg)) -> Html msg
 verticalNav groups =
     let
         itemViewGroup group =
