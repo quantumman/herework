@@ -1,4 +1,4 @@
-moudle Update exposing (..)
+module Update exposing (..)
 
 import Html exposing (..)
 import Html.App as Html
