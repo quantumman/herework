@@ -5,6 +5,13 @@ import Html.App as Html
 import Html.Attributes exposing (..)
 
 
+type alias Model =
+    { router : Router.Model
+    , user : User
+    , messages : List Message
+    }
+
+
 type alias User =
     { avatar : String
     }
