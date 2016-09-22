@@ -51,7 +51,7 @@ type alias NavItemGroup a =
     }
 
 
-toNavItemGroup : String -> List { title : String, url : String } -> NavItemGroup (Item msg)
+toNavItemGroup : String -> List { model | title : String, url : String } -> NavItemGroup (Item msg)
 toNavItemGroup label xs =
     let
         items =
