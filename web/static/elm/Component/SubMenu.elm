@@ -22,8 +22,8 @@ type alias Model m =
 -- VIEW
 
 
-subMenu : Model m -> Html msg
-subMenu model =
+view : Model m -> Html msg
+view model =
     case model.router.route of
         Messages ->
             verticalNav <| [ toNavItemGroup "MESSAGES" model.messages ]
