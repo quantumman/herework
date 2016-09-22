@@ -16,26 +16,6 @@ import Router as Router exposing (..)
 -- MODEL
 
 
-type alias Model =
-    { router : Router.Model
-    , user : User
-    , messages : List Message
-    }
-
-
-initialModel : Router.Model -> Model
-initialModel router =
-    { router = router
-    , user = initialModelUser
-    , messages =
-        [ initialModelMessage
-        , { title = "foobar", url = "messages/1" }
-        , { title = "REQUEST: Working with BOT", url = "messages/2" }
-        , { title = "QUESTION: How can we make issue ?", url = "messages/3" }
-        ]
-    }
-
-
 init : Router.Model -> ( Model, Cmd Msg )
 init router =
     (initialModel router) ! [ Cmd.none ]
