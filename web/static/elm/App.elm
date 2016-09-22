@@ -2,8 +2,8 @@ module App exposing (..)
 
 import Aui.Avatars exposing (..)
 import Component.Layout exposing (..)
-import Component.VerticalMenu as V exposing (..)
 import Component.SubMenu as SubMenu exposing (..)
+import Component.VerticalMenu as V exposing (..)
 import FontAwesome.Web as Icon exposing (edit)
 import Html exposing (..)
 import Html.App as Html
