@@ -5,9 +5,11 @@ import Hop exposing (makeUrl, makeUrlFromLocation, matchUrl, setQuery)
 import Hop.Types exposing (Config, Query, Location, PathMatcher, Router)
 import Html exposing (Html)
 import Html.App as Html exposing (..)
+import Message as App exposing (..)
 import Models as App exposing (Model)
 import Navigation
 import Router as Router exposing (..)
+import Update as App exposing (..)
 
 
 type alias Model =

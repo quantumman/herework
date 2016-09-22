@@ -8,8 +8,9 @@ import FontAwesome.Web as Icon exposing (edit)
 import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
-import Models exposing (..)
+import Message exposing (..)
 import Models as App exposing (Model)
+import Models exposing (..)
 import Navigation
 import Router as Router exposing (..)
 
@@ -20,21 +21,6 @@ import Router as Router exposing (..)
 init : Router.Model -> ( App.Model, Cmd Msg )
 init router =
     (initialModel router) ! [ Cmd.none ]
-
-
-
--- UPDATE
-
-
-type Msg
-    = App
-
-
-update : Msg -> App.Model -> ( App.Model, Cmd Msg )
-update message model =
-    case message of
-        App ->
-            model ! [ Cmd.none ]
 
 
 
