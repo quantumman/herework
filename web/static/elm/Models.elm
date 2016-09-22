@@ -28,6 +28,14 @@ initialModelMessage =
 
 
 
+-- MISC
+
+
+type alias Url =
+    String
+
+
+
 -- VIEW MODEL
 
 
