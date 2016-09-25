@@ -26,12 +26,16 @@ type alias Model m =
 
 view : Model m -> Html Msg
 view model =
-    case model.router.route of
-        Messages ->
-            verticalNav <| [ makeNavItemGroup "MESSAGES" model.messages ]
+    let
+        items =
+            case model.router.route of
+                Messages ->
+                    [ makeNavItemGroup "MESSAGES" model.messages ]
 
-        other ->
-            div [] []
+                other ->
+                    []
+    in
+        verticalNav items
 
 
 makeNavItemGroup : String -> List Message -> NavItemGroup Item
