@@ -3,6 +3,7 @@ module Models exposing (..)
 import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
+import Message exposing (Msg)
 import Router as Router exposing (..)
 
 
@@ -49,26 +50,18 @@ initialModelMessage =
 
 
 
--- MISC
-
-
-type alias Url =
-    String
-
-
-
 -- VIEW MODEL
 
 
-type alias Item msg =
+type alias Item =
     { title : String
     , selected : Bool
-    , attributes : List (Attribute msg)
+    , attributes : List (Attribute Msg)
     }
 
 
-type alias ItemView msg =
-    { view : Html msg
+type alias ItemView =
+    { view : Html Msg
     , selected : Bool
     }
 
@@ -79,7 +72,7 @@ type alias NavItemGroup a =
     }
 
 
-toNavItemGroup : String -> List { model | title : String } -> NavItemGroup (Item msg)
+toNavItemGroup : String -> List { model | title : String } -> NavItemGroup Item
 toNavItemGroup label xs =
     let
         items =

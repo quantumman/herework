@@ -4,18 +4,19 @@ import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
 import Models exposing (..)
+import Message exposing (Msg)
 
 
-defaultItemView : Item msg -> ItemView msg
+defaultItemView : Item -> ItemView
 defaultItemView item =
     { selected = item.selected
     , view =
-        a [ href item.url ]
+        a item.attributes
             [ text item.title ]
     }
 
 
-toView : ItemView msg -> Html msg
+toView : ItemView -> Html Msg
 toView item =
     li
         [ class
@@ -28,12 +29,12 @@ toView item =
         [ item.view ]
 
 
-horizontalNav : List (Item msg) -> Html msg
+horizontalNav : List Item -> Html Msg
 horizontalNav items =
     horizontalNav' <| List.map defaultItemView items
 
 
-horizontalNav' : List (ItemView msg) -> Html msg
+horizontalNav' : List ItemView -> Html Msg
 horizontalNav' itemViews =
     nav [ class "aui-navgroup aui-navgroup-horizontal" ]
         [ div [ class "aui-navgroup-inner" ]
@@ -45,7 +46,7 @@ horizontalNav' itemViews =
         ]
 
 
-verticalNav : List (NavItemGroup (Item msg)) -> Html msg
+verticalNav : List (NavItemGroup Item) -> Html Msg
 verticalNav groups =
     let
         itemViewGroup group =
@@ -56,7 +57,7 @@ verticalNav groups =
         verticalNav' <| List.map itemViewGroup groups
 
 
-verticalNav' : List (NavItemGroup (ItemView msg)) -> Html msg
+verticalNav' : List (NavItemGroup ItemView) -> Html Msg
 verticalNav' groups =
     let
         header =
