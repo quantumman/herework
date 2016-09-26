@@ -11,6 +11,7 @@ type alias Model =
     { router : Router.Model
     , user : User
     , messages : List Message
+    , error : Maybe String
     }
 
 
@@ -24,6 +25,7 @@ initialModel router =
         , { title = "REQUEST: Working with BOT", url = "messages/2" }
         , { title = "QUESTION: How can we make issue ?", url = "messages/3" }
         ]
+    , error = Nothing
     }
 
 
