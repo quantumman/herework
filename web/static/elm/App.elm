@@ -4,6 +4,7 @@ import Aui.Avatars exposing (..)
 import Component.Layout exposing (..)
 import Component.SubMenu as SubMenu exposing (..)
 import Component.VerticalMenu as V exposing (..)
+import Component.Error.View as Error exposing (..)
 import FontAwesome.Web as Icon exposing (edit)
 import Html exposing (..)
 import Html.App as Html
@@ -65,7 +66,8 @@ mainContentWitdh =
 view : App.Model -> Html Msg
 view model =
     div []
-        [ group
+        [ Html.map HandleError <| Error.view model
+        , group
             [ item [ menuWidth ]
                 [ header [ loggedInUser model.user ]
                 , V.menu [ menuWidth ]

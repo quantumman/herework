@@ -15,3 +15,6 @@ update message model =
 
         Open url ->
             model ! []
+
+        HandleError error ->
+            model ! []
