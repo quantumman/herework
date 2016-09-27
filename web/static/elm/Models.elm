@@ -3,7 +3,6 @@ module Models exposing (..)
 import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
-import Message exposing (Msg)
 import Router as Router exposing (..)
 
 
