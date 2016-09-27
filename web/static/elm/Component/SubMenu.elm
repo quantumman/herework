@@ -8,6 +8,7 @@ import Html.Events exposing (..)
 import Message exposing (..)
 import Models exposing (..)
 import Router as Router exposing (..)
+import ViewModels exposing (..)
 
 
 -- MODEL
