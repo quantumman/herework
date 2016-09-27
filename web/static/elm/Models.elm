@@ -49,35 +49,3 @@ initialModelMessage =
     { title = "test"
     , url = "issues/1"
     }
-
-
-
--- VIEW MODEL
-
-
-type alias Item =
-    { title : String
-    , selected : Bool
-    , attributes : List (Attribute Msg)
-    }
-
-
-type alias ItemView =
-    { view : Html Msg
-    , selected : Bool
-    }
-
-
-type alias NavItemGroup a =
-    { items : List a
-    , header : Maybe String
-    }
-
-
-toNavItemGroup : String -> List { model | title : String } -> NavItemGroup Item
-toNavItemGroup label xs =
-    let
-        items =
-            List.map (\{ title } -> Item title False []) xs
-    in
-        NavItemGroup items (Just label)
