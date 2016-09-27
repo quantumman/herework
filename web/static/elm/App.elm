@@ -12,6 +12,7 @@ import Html.Attributes exposing (..)
 import Message exposing (..)
 import Models as App exposing (Model)
 import Models exposing (..)
+import ViewModels exposing (..)
 import Navigation
 import Router as Router exposing (..)
 
