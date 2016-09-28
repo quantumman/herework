@@ -47,6 +47,24 @@ initialModelUser =
     }
 
 
+encodeUser : User -> Encode.Value
+encodeUser model =
+    Encode.object
+        [ ( "avatar", Encode.string model.avatar )
+        ]
+
+
+decodeUser : Decoder User
+decodeUser =
+    Decode.object1 User
+        ("avatar" := Decode.string)
+
+
+decodeUsers : Decoder (List User)
+decodeUsers =
+    Decode.list decodeUser
+
+
 
 -- Message
 
