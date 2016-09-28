@@ -6,6 +6,9 @@ import Html.Attributes exposing (..)
 import Router as Router exposing (..)
 
 
+-- Appliation Model
+
+
 type alias Model =
     { router : Router.Model
     , user : User
@@ -28,6 +31,10 @@ initialModel router =
     }
 
 
+
+-- User
+
+
 type alias User =
     { avatar : String
     }
@@ -36,6 +43,10 @@ type alias User =
 initialModelUser =
     { avatar = "https://www.gravatar.com/avatar/00000000000000000000000000000000"
     }
+
+
+
+-- Message
 
 
 type alias Message =
