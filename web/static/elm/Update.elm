@@ -21,5 +21,8 @@ update message model =
         FetchMessages ->
             model ! [ Commands.get decodeMessages Resource.Messages UpdateMessages ]
 
+        UpdateMessages messages ->
+            { model | messages = messages } ! []
+
         HandleError error ->
             model ! []
