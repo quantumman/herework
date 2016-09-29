@@ -8,7 +8,6 @@ import Html.Events exposing (..)
 import Message exposing (..)
 import Models exposing (..)
 import Router as Router exposing (..)
-import ViewModels as VM exposing (..)
 
 
 -- MODEL
@@ -37,21 +36,6 @@ view model =
                     []
     in
         Nav.vnav items
-
-
-makeNavItemGroup : String -> List Message -> NavItemGroup VM.Item
-makeNavItemGroup label messages =
-    { items = List.map makeItem messages
-    , header = (Just label)
-    }
-
-
-makeItem : Message -> VM.Item
-makeItem { title, url } =
-    { title = title
-    , selected = False
-    , attributes = [ onClick FetchMessages, href "#" ]
-    }
 
 
 messages : List Message -> List ( Nav.Header, List Nav.Item )
