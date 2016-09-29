@@ -80,21 +80,31 @@ verticalNav' groups =
             ]
 
 
-header : String -> Html Msg
+type Header
+    = Header (Html Msg)
+
+
+header : String -> Header
 header label =
-    div [ class "aui-nav-heading" ]
-        [ strong [] [ text label ] ]
+    Header
+        <| div [ class "aui-nav-heading" ]
+            [ strong [] [ text label ] ]
 
 
-item : List (Attribute Msg) -> Bool -> String -> Html Msg
+type Item
+    = Item (Html Msg)
+
+
+item : List (Attribute Msg) -> Bool -> String -> Item
 item attributes isSelected label =
-    li
-        [ class
-            (if isSelected then
-                "aui-nav-selected"
-             else
-                ""
-            )
-        ]
-        [ a attributes [ text label ]
-        ]
+    Item
+        <| li
+            [ class
+                (if isSelected then
+                    "aui-nav-selected"
+                 else
+                    ""
+                )
+            ]
+            [ a attributes [ text label ]
+            ]
