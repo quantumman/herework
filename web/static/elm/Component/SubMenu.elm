@@ -8,7 +8,7 @@ import Html.Events exposing (..)
 import Message exposing (..)
 import Models exposing (..)
 import Router as Router exposing (..)
-import ViewModels exposing (..)
+import ViewModels as VM exposing (..)
 
 
 -- MODEL
@@ -39,14 +39,14 @@ view model =
         verticalNav items
 
 
-makeNavItemGroup : String -> List Message -> NavItemGroup Item
+makeNavItemGroup : String -> List Message -> NavItemGroup VM.Item
 makeNavItemGroup label messages =
     { items = List.map makeItem messages
     , header = (Just label)
     }
 
 
-makeItem : Message -> Item
+makeItem : Message -> VM.Item
 makeItem { title, url } =
     { title = title
     , selected = False
