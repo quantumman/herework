@@ -108,3 +108,16 @@ item attributes isSelected label =
             ]
             [ a attributes [ text label ]
             ]
+
+
+vnav : List ( Header, List Item ) -> Html Msg
+vnav groups =
+    let
+        renderMenu ( Header header, items ) =
+            ul [ class "aui-nav __skate" ]
+                (header :: (List.map (\(Item item) -> item) items))
+    in
+        nav [ class "aui-navgroup aui-navgroup-vertical" ]
+            [ div [ class "aui-navgroup-inner" ]
+                (List.map (\group -> renderMenu group) groups)
+            ]
