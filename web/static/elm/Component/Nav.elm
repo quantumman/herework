@@ -4,10 +4,10 @@ import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
 import Message exposing (Msg)
-import ViewModels exposing (..)
+import ViewModels as VM exposing (..)
 
 
-defaultItemView : Item -> ItemView
+defaultItemView : VM.Item -> ItemView
 defaultItemView item =
     { selected = item.selected
     , view =
@@ -29,7 +29,7 @@ toView item =
         [ item.view ]
 
 
-horizontalNav : List Item -> Html Msg
+horizontalNav : List VM.Item -> Html Msg
 horizontalNav items =
     horizontalNav' <| List.map defaultItemView items
 
@@ -46,7 +46,7 @@ horizontalNav' itemViews =
         ]
 
 
-verticalNav : List (NavItemGroup Item) -> Html Msg
+verticalNav : List (NavItemGroup VM.Item) -> Html Msg
 verticalNav groups =
     let
         itemViewGroup group =
