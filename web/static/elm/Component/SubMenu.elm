@@ -1,6 +1,6 @@
 module Component.SubMenu exposing (..)
 
-import Component.Nav exposing (verticalNav)
+import Component.Nav as Nav exposing (..)
 import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
@@ -52,3 +52,12 @@ makeItem { title, url } =
     , selected = False
     , attributes = [ onClick FetchMessages, href "#" ]
     }
+
+
+messages : List Message -> List ( Nav.Header, List Nav.Item )
+messages ms =
+    let
+        toItem message =
+            Nav.item [ onClick FetchMessages, href "#" ] False message.title
+    in
+        [ ( Nav.header "MESSAGES", List.map toItem ms ) ]
