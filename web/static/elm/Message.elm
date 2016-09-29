@@ -11,4 +11,5 @@ type Msg
     = Fetch Url
     | Open Url
     | FetchMessages
+    | UpdateMessages (List Message)
     | HandleError Error.Msg
