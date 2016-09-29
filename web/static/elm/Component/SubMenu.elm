@@ -50,5 +50,5 @@ makeItem : Message -> Item
 makeItem { title, url } =
     { title = title
     , selected = False
-    , attributes = [ onClick (Fetch url), href "#" ]
+    , attributes = [ onClick FetchMessages, href "#" ]
     }
