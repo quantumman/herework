@@ -22,3 +22,10 @@ get decoder resource msg =
     url resource
         |> Jwt.get "" decoder
         |> performRequest msg
+
+
+post : Decoder a -> Resource -> Encode.Value -> (a -> App.Msg) -> Cmd App.Msg
+post decoder resource payload msg =
+    Http.string (Encode.encode 0 payload)
+        |> Jwt.post "" decoder (url resource)
+        |> performRequest msg
