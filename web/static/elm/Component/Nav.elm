@@ -121,3 +121,15 @@ vnav groups =
             [ div [ class "aui-navgroup-inner" ]
                 (List.map (\group -> renderMenu group) groups)
             ]
+
+
+hnav : List Item -> Html Msg
+hnav items =
+    nav [ class "aui-navgroup aui-navgroup-horizontal" ]
+        [ div [ class "aui-navgroup-inner" ]
+            [ div [ class "aui-navgroup-primary" ]
+                [ ul [ class "aui-nav" ]
+                    (List.map (\(Item item) -> item) items)
+                ]
+            ]
+        ]
