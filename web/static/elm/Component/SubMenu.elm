@@ -31,12 +31,12 @@ view model =
         items =
             case model.router.route of
                 Messages ->
-                    [ makeNavItemGroup "MESSAGES" model.messages ]
+                    messages model.messages
 
                 other ->
                     []
     in
-        verticalNav items
+        Nav.vnav items
 
 
 makeNavItemGroup : String -> List Message -> NavItemGroup VM.Item
