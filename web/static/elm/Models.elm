@@ -99,3 +99,11 @@ decodeMessage =
 decodeMessages : Decoder (List Message)
 decodeMessages =
     Decode.list decodeMessage
+
+
+
+-- MISC
+
+
+type alias Url =
+    String
