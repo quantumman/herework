@@ -36,3 +36,10 @@ put decoder resource payload msg =
     Http.string (Encode.encode 0 payload)
         |> Jwt.send "PUT" "" decoder (url resource)
         |> performRequest msg
+
+
+patch : Decoder a -> Resource -> Encode.Value -> (a -> App.Msg) -> Cmd App.Msg
+patch decoder resource payload msg =
+    Http.string (Encode.encode 0 payload)
+        |> Jwt.send "PATCH" "" decoder (url resource)
+        |> performRequest msg
