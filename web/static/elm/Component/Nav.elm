@@ -78,3 +78,9 @@ verticalNav' groups =
             [ div [ class "aui-navgroup-inner" ]
                 (List.map view groups)
             ]
+
+
+header : String -> Html Msg
+header label =
+    div [ class "aui-nav-heading" ]
+        [ strong [] [ text label ] ]
