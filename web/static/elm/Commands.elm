@@ -6,6 +6,7 @@ import Json.Decode as Decode exposing (..)
 import Json.Encode as Encode exposing (..)
 import Jwt exposing (..)
 import Message as App exposing (..)
+import Resource exposing (..)
 import Task exposing (Task)
 
 
@@ -14,3 +15,10 @@ performRequest msg task =
     task
         |> Task.mapError Error.Http
         |> Task.perform HandleError msg
+
+
+get : Decoder a -> Resource -> (a -> App.Msg) -> Cmd App.Msg
+get decoder resource msg =
+    url resource
+        |> Jwt.get "" decoder
+        |> performRequest msg
