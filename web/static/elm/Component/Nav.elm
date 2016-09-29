@@ -84,3 +84,17 @@ header : String -> Html Msg
 header label =
     div [ class "aui-nav-heading" ]
         [ strong [] [ text label ] ]
+
+
+item : List (Attribute Msg) -> Bool -> String -> Html Msg
+item attributes isSelected label =
+    li
+        [ class
+            (if isSelected then
+                "aui-nav-selected"
+             else
+                ""
+            )
+        ]
+        [ a attributes [ text label ]
+        ]
