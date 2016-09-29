@@ -10,4 +10,5 @@ import Models exposing (..)
 type Msg
     = Fetch Url
     | Open Url
+    | FetchMessages
     | HandleError Error.Msg
