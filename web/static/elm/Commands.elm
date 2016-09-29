@@ -43,3 +43,9 @@ patch decoder resource payload msg =
     Http.string (Encode.encode 0 payload)
         |> Jwt.send "PATCH" "" decoder (url resource)
         |> performRequest msg
+
+
+delete : Resource -> (() -> App.Msg) -> Cmd App.Msg
+delete resource msg =
+    Jwt.send "DELETE" "" (Decode.null ()) (url resource) Http.empty
+        |> performRequest msg
