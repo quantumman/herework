@@ -20,32 +20,32 @@ performRequest msg task =
 get : Decoder a -> Resource -> (a -> App.Msg) -> Cmd App.Msg
 get decoder resource msg =
     url resource
-        |> Jwt.get "" decoder
+        |> Jwt.get "1238a" decoder
         |> performRequest msg
 
 
 post : Decoder a -> Resource -> Encode.Value -> (a -> App.Msg) -> Cmd App.Msg
 post decoder resource payload msg =
     Http.string (Encode.encode 0 payload)
-        |> Jwt.post "" decoder (url resource)
+        |> Jwt.post "1238a" decoder (url resource)
         |> performRequest msg
 
 
 put : Decoder a -> Resource -> Encode.Value -> (a -> App.Msg) -> Cmd App.Msg
 put decoder resource payload msg =
     Http.string (Encode.encode 0 payload)
-        |> Jwt.send "PUT" "" decoder (url resource)
+        |> Jwt.send "PUT" "1238a" decoder (url resource)
         |> performRequest msg
 
 
 patch : Decoder a -> Resource -> Encode.Value -> (a -> App.Msg) -> Cmd App.Msg
 patch decoder resource payload msg =
     Http.string (Encode.encode 0 payload)
-        |> Jwt.send "PATCH" "" decoder (url resource)
+        |> Jwt.send "PATCH" "1238a" decoder (url resource)
         |> performRequest msg
 
 
 delete : Resource -> (() -> App.Msg) -> Cmd App.Msg
 delete resource msg =
-    Jwt.send "DELETE" "" (Decode.null ()) (url resource) Http.empty
+    Jwt.send "DELETE" "1238a" (Decode.null ()) (url resource) Http.empty
         |> performRequest msg
