@@ -17,6 +17,7 @@ type alias Model m =
     { m
         | router : Router.Model
         , messages : List Message
+        , selectedMessage : Message
     }
 
 
@@ -30,7 +31,7 @@ view model =
         items =
             case model.router.route of
                 Messages ->
-                    messages model.messages
+                    messages model.messages model.selectedMessage
 
                 other ->
                     []
@@ -38,10 +39,12 @@ view model =
         Nav.vnav items
 
 
-messages : List Message -> List ( Nav.Header, List Nav.Item )
-messages ms =
+messages : List Message -> Message -> List ( Nav.Header, List Nav.Item )
+messages ms selected =
     let
         toItem message =
-            Nav.item [ onClick FetchMessages, href "#" ] False message.title
+            Nav.item [ onClick FetchMessages, href "#" ]
+                (selected.id == message.id)
+                message.title
     in
         [ ( Nav.header "MESSAGES", List.map toItem ms ) ]
