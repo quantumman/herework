@@ -107,3 +107,9 @@ decodeMessages =
 
 type alias Url =
     String
+
+
+type alias SelectableItem a =
+    { selected : Bool
+    , item : a
+    }
