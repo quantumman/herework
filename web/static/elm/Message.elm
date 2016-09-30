@@ -12,4 +12,6 @@ type Msg
     | Open Url
     | FetchMessages
     | UpdateMessages (List Message)
+    | FetchComments Message
+    | UpdateComments (List Comment)
     | HandleError Error.Msg

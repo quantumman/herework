@@ -24,5 +24,11 @@ update message model =
         UpdateMessages messages ->
             { model | messages = messages } ! []
 
+        FetchComments message ->
+            { model | selectedMessage = message } ! [ Commands.get decodeComments (Resource.Comments message.id) UpdateComments ]
+
+        UpdateComments comments ->
+            { model | comments = comments } ! []
+
         HandleError error ->
             model ! []
