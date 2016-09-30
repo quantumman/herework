@@ -108,6 +108,17 @@ decodeMessages =
 
 
 
+-- Comment
+
+
+type alias Comment =
+    { id : Int
+    , body : String
+    , user : User
+    }
+
+
+
 -- MISC
 
 
