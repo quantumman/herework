@@ -15,6 +15,7 @@ type alias Model =
     { router : Router.Model
     , user : User
     , messages : List Message
+    , selectedMessage : Message
     , error : Maybe String
     }
 
@@ -25,10 +26,11 @@ initialModel router =
     , user = initialModelUser
     , messages =
         [ initialModelMessage
-        , { title = "foobar", url = "messages/1" }
-        , { title = "REQUEST: Working with BOT", url = "messages/2" }
-        , { title = "QUESTION: How can we make issue ?", url = "messages/3" }
+        , { id = 1, title = "foobar", url = "messages/1" }
+        , { id = 2, title = "REQUEST: Working with BOT", url = "messages/2" }
+        , { id = 3, title = "QUESTION: How can we make issue ?", url = "messages/3" }
         ]
+    , selectedMessage = initialModelMessage
     , error = Nothing
     }
 
@@ -70,13 +72,15 @@ decodeUsers =
 
 
 type alias Message =
-    { title : String
+    { id : Int
+    , title : String
     , url : String
     }
 
 
 initialModelMessage =
-    { title = "test"
+    { id = 0
+    , title = "test"
     , url = "issues/1"
     }
 
@@ -84,14 +88,16 @@ initialModelMessage =
 encodeMessage : Message -> Encode.Value
 encodeMessage model =
     Encode.object
-        [ ( "title", Encode.string model.title )
+        [ ( "id", Encode.int model.id )
+        , ( "title", Encode.string model.title )
         , ( "url", Encode.string model.url )
         ]
 
 
 decodeMessage : Decoder Message
 decodeMessage =
-    Decode.object2 Message
+    Decode.object3 Message
+        ("id" := Decode.int)
         ("title" := Decode.string)
         ("url" := Decode.string)
 
