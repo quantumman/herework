@@ -8,6 +8,7 @@ type Resource
     | Message Int
     | Users
     | User Int
+    | Comments Int
 
 
 url : Resource -> Url
@@ -24,3 +25,6 @@ url resource =
 
         User id ->
             "/api/users/" ++ toString id
+
+        Comments messageId ->
+            "/api/messages/" ++ (toString messageId) ++ "/comments"
