@@ -120,6 +120,28 @@ type alias Comment =
     }
 
 
+encodeComment : Comment -> Encode.Value
+encodeComment model =
+    Encode.object
+        [ ( "id", Encode.int model.id )
+        , ( "body", Encode.string model.body )
+        , ( "user", encodeUser model.user )
+        ]
+
+
+decodeComment : Decoder Comment
+decodeComment =
+    Decode.object3 Comment
+        ("id" := Decode.int)
+        ("body" := Decode.string)
+        ("user" := decodeUser)
+
+
+decodeComments : Decoder (List Comment)
+decodeComments =
+    Decode.list decodeComment
+
+
 
 -- MISC
 
