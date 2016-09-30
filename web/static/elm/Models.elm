@@ -16,6 +16,7 @@ type alias Model =
     , user : User
     , messages : List Message
     , selectedMessage : Message
+    , comments : List Comment
     , error : Maybe String
     }
 
@@ -31,6 +32,7 @@ initialModel router =
         , { id = 3, title = "QUESTION: How can we make issue ?", url = "messages/3" }
         ]
     , selectedMessage = initialModelMessage
+    , comments = []
     , error = Nothing
     }
 
