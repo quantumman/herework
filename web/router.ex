@@ -19,8 +19,9 @@ defmodule Herework.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Herework do
-  #   pipe_through :api
-  # end
+  scope "/api", Herework do
+    pipe_through :api
+
+    resources "/messages", MessageController, except: [:new, :edit]
+  end
 end
