@@ -18,8 +18,8 @@ update message model =
         Open url ->
             model ! []
 
-        FetchMessages ->
-            model ! [ Commands.get decodeMessages Resource.Messages UpdateMessages ]
+        FetchMessages url ->
+            model ! [ Commands.get decodeMessages url UpdateMessages ]
 
         UpdateMessages messages ->
             { model | messages = messages } ! []

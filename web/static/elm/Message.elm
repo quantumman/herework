@@ -10,7 +10,7 @@ import Models exposing (..)
 type Msg
     = Fetch Url
     | Open Url
-    | FetchMessages
+    | FetchMessages Url
     | UpdateMessages (List Message)
     | FetchComments Message
     | UpdateComments (List Comment)
