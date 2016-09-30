@@ -27,9 +27,9 @@ initialModel router =
     , user = initialModelUser
     , messages =
         [ initialModelMessage
-        , { id = 1, title = "foobar", url = "messages/1", comments_url = "foobar" }
-        , { id = 2, title = "REQUEST: Working with BOT", url = "messages/2", comments_url = "foobar" }
-        , { id = 3, title = "QUESTION: How can we make issue ?", url = "messages/3", comments_url = "foboar" }
+        , { id = 1, title = "foobar", url = "messages/1", comments_url = "foobar", creator = initialModelUser }
+        , { id = 2, title = "REQUEST: Working with BOT", url = "messages/2", comments_url = "foobar", creator = initialModelUser }
+        , { id = 3, title = "QUESTION: How can we make issue ?", url = "messages/3", comments_url = "foboar", creator = initialModelUser }
         ]
     , selectedMessage = initialModelMessage
     , comments = []
@@ -78,6 +78,7 @@ type alias Message =
     , title : String
     , url : String
     , comments_url : String
+    , creator : User
     }
 
 
@@ -86,6 +87,7 @@ initialModelMessage =
     , title = "test"
     , url = "issues/1"
     , comments_url = "/api/messages/0/comments"
+    , creator = initialModelUser
     }
 
 
@@ -96,16 +98,18 @@ encodeMessage model =
         , ( "title", Encode.string model.title )
         , ( "url", Encode.string model.url )
         , ( "comments_url", Encode.string model.comments_url )
+        , ( "creator", encodeUser model.creator )
         ]
 
 
 decodeMessage : Decoder Message
 decodeMessage =
-    Decode.object4 Message
+    Decode.object5 Message
         ("id" := Decode.int)
         ("title" := Decode.string)
         ("url" := Decode.string)
         ("comments_url" := Decode.string)
+        ("creator" := decodeUser)
 
 
 decodeMessages : Decoder (List Message)
