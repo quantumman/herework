@@ -8,14 +8,14 @@ defmodule Herework.CommentController do
     render(conn, "index.json", comments: comments)
   end
 
-  def create(conn, %{"comment" => comment_params}) do
+  def create(conn, %{"message_id" => message_id, "comment" => comment_params}) do
     changeset = Comment.changeset(%Comment{}, comment_params)
 
     case Repo.insert(changeset) do
       {:ok, comment} ->
         conn
         |> put_status(:created)
-        |> put_resp_header("location", comment_path(conn, :show, comment))
+        |> put_resp_header("location", message_comment_path(conn, :show, message_id, comment))
         |> render("show.json", comment: comment)
       {:error, changeset} ->
         conn
