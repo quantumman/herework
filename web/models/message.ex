@@ -4,6 +4,8 @@ defmodule Herework.Message do
   schema "messages" do
     field :title, :string
 
+    has_many :comments, Herework.Comment
+
     timestamps()
   end
 
