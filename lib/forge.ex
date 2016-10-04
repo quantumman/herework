@@ -11,4 +11,10 @@ defmodule Forge do
   register :comment, %Herework.Comment{
     body: Faker.Lorem.sentence
   }
+
+  register :user, %Herework.User{
+    avatar: Faker.Internet.image_url,
+    name: Faker.Name.name,
+    email: Faker.Internet.email
+  }
 end
