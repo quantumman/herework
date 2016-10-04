@@ -4,6 +4,8 @@ defmodule Herework.Team do
   schema "teams" do
     field :domain, :string
 
+    has_many :members, Herework.User
+
     timestamps()
   end
 

@@ -8,6 +8,7 @@ defmodule Herework.User do
 
     has_many :messages, Herework.Message
     has_many :comments, Herework.Comment
+    belongs_to :team, Herework.Team
 
     timestamps()
   end
