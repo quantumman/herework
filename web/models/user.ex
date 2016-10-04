@@ -7,6 +7,7 @@ defmodule Herework.User do
     field :email, :string
 
     has_many :messages, Herework.Message
+    has_many :comments, Herework.Comment
 
     timestamps()
   end
