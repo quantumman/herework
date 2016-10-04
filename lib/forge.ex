@@ -7,4 +7,8 @@ defmodule Forge do
   register :message, %Herework.Message{
     title: Faker.Lorem.word
   }
+
+  register :comment, %Herework.Comment{
+    body: Faker.Lorem.sentence
+  }
 end
