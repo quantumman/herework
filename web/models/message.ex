@@ -5,6 +5,7 @@ defmodule Herework.Message do
     field :title, :string
 
     has_many :comments, Herework.Comment
+    belongs_to :creator, Herework.User
 
     timestamps()
   end
