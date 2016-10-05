@@ -12,13 +12,15 @@ defmodule Herework.MessageView do
   def render("message.json", %{message: message}) do
     %{id: message.id,
       title: message.title,
+      created_at: message.inserted_at,
       creator: Herework.UserView.render("user.json", %{user: message.creator})
     }
   end
 
   def render("create.json", %{message: message}) do
     %{id: message.id,
-      title: message.title
+      title: message.title,
+      created_at: message.inserted_at
     }
   end
 

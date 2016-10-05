@@ -26,6 +26,7 @@ defmodule Herework.MessageControllerTest do
     assert json_response(conn, 200) == [
       %{"id" => message.id,
         "title" => message.title,
+        "created_at" => TestHelper.formatted_time(message.creator.inserted_at),
         "creator" => %{
           "id" => message.creator.id,
           "name" => message.creator.name,
@@ -45,6 +46,7 @@ defmodule Herework.MessageControllerTest do
     assert json_response(conn, 200) ==
       %{"id" => message.id,
         "title" => message.title,
+        "created_at" => TestHelper.formatted_time(message.creator.inserted_at),
         "creator" => %{
           "id" => message.creator.id,
           "name" => message.creator.name,
