@@ -18,7 +18,7 @@ update message model =
             model ! []
 
         FetchMessages url ->
-            model ! [ Commands.get decodeMessages url UpdateMessages ]
+            model ! [ Commands.fetchMessages url ]
 
         UpdateMessages messages ->
             { model | messages = messages } ! []
