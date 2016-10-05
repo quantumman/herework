@@ -1,24 +1,35 @@
 defmodule Herework.MessageControllerTest do
   use Herework.ConnCase
+  require Forge
 
   alias Herework.Message
   @valid_attrs %{title: "some content"}
   @invalid_attrs %{}
 
   setup %{conn: conn} do
-    {:ok, conn: put_req_header(conn, "accept", "application/json")}
+    {:ok, message} = Forge.saved_message
+
+    {:ok,
+     conn: put_req_header(conn, "accept", "application/json"),
+     message: message
+    }
   end
 
-  test "lists all entries on index", %{conn: conn} do
+  test "lists all entries on index", %{conn: conn, message: message} do
     conn = get conn, message_path(conn, :index)
-    assert json_response(conn, 200) == []
+    assert json_response(conn, 200) == [
+      %{"id" => message.id,
+        "title" => message.title
+       }
+    ]
   end
 
-  test "shows chosen resource", %{conn: conn} do
-    message = Repo.insert! %Message{}
+  test "shows chosen resource", %{conn: conn, message: message} do
     conn = get conn, message_path(conn, :show, message)
-    assert json_response(conn, 200) == %{"id" => message.id,
-      "title" => message.title}
+    assert json_response(conn, 200) ==
+      %{"id" => message.id,
+        "title" => message.title
+       }
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
@@ -38,8 +49,7 @@ defmodule Herework.MessageControllerTest do
     assert json_response(conn, 422)["errors"] != %{}
   end
 
-  test "updates and renders chosen resource when data is valid", %{conn: conn} do
-    message = Repo.insert! %Message{}
+  test "updates and renders chosen resource when data is valid", %{conn: conn, message: message} do
     conn = put conn, message_path(conn, :update, message), message: @valid_attrs
     assert json_response(conn, 200)["id"]
     assert Repo.get_by(Message, @valid_attrs)
