@@ -4,7 +4,7 @@ defmodule Herework.Comment do
   schema "comments" do
     field :body, :string
 
-    belongs_to :creator, Herework.User
+    belongs_to :creator, Herework.User, foreign_key: :creator_id
 
     timestamps()
   end

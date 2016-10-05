@@ -7,7 +7,7 @@ defmodule Herework.User do
     field :email, :string
 
     has_many :messages, Herework.Message, foreign_key: :creator_id
-    has_many :comments, Herework.Comment
+    has_many :comments, Herework.Comment, foreign_key: :creator_id
     belongs_to :team, Herework.Team
 
     timestamps()
