@@ -38,6 +38,24 @@ initialModel router =
 
 
 
+-- Resoruce
+
+
+type alias Resource =
+    { messages_url : Url
+    , tasks_url : Url
+    , activity_url : Url
+    }
+
+
+initialModelResource =
+    { messages_url = ""
+    , tasks_url = ""
+    , activity_url = ""
+    }
+
+
+
 -- User
 
 
