@@ -60,3 +60,8 @@ delete resource msg =
 fetchMessages : Url -> Cmd App.Msg
 fetchMessages url =
     get decodeMessages url App.UpdateMessages
+
+
+fetchComments : Url -> Cmd App.Msg
+fetchComments url =
+    get decodeComments url App.UpdateComments
