@@ -13,6 +13,7 @@ import Router as Router exposing (..)
 
 type alias Model =
     { router : Router.Model
+    , resource : Resource
     , user : User
     , messages : List Message
     , selectedMessage : Message
@@ -24,6 +25,7 @@ type alias Model =
 initialModel : Router.Model -> Model
 initialModel router =
     { router = router
+    , resource = initialModelResource
     , user = initialModelUser
     , messages =
         [ initialModelMessage
