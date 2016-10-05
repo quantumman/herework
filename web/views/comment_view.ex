@@ -11,6 +11,18 @@ defmodule Herework.CommentView do
 
   def render("comment.json", %{comment: comment}) do
     %{id: comment.id,
-      body: comment.body}
+      body: comment.body,
+      creator: Herework.UserView.render("user.json", %{user: comment.creator})
+    }
+  end
+
+  def render("update.json", %{comment: comment}) do
+    render_one(comment, Herework.CommentView, "create.json")
+  end
+
+  def render("create.json", %{comment: comment}) do
+    %{id: comment.id,
+      body: comment.body
+    }
   end
 end

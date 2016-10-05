@@ -1,6 +1,8 @@
 defmodule Herework.Comment do
   use Herework.Web, :model
 
+  @derive {Poison.Encoder, except: [:__meta__]}
+
   schema "comments" do
     field :body, :string
 

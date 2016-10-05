@@ -4,7 +4,7 @@ defmodule Herework.CommentController do
   alias Herework.Comment
 
   def index(conn, _params) do
-    comments = Repo.all(Comment)
+    comments = Repo.all(Comment) |> Repo.preload(:creator)
     render(conn, "index.json", comments: comments)
   end
 
@@ -16,7 +16,7 @@ defmodule Herework.CommentController do
         conn
         |> put_status(:created)
         |> put_resp_header("location", message_comment_path(conn, :show, message_id, comment))
-        |> render("show.json", comment: comment)
+        |> render("create.json", comment: comment)
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
@@ -25,7 +25,7 @@ defmodule Herework.CommentController do
   end
 
   def show(conn, %{"id" => id}) do
-    comment = Repo.get!(Comment, id)
+    comment = Repo.get!(Comment, id) |> Repo.preload(:creator)
     render(conn, "show.json", comment: comment)
   end
 
@@ -35,7 +35,7 @@ defmodule Herework.CommentController do
 
     case Repo.update(changeset) do
       {:ok, comment} ->
-        render(conn, "show.json", comment: comment)
+        render(conn, "update.json", comment: comment)
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)

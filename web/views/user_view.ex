@@ -13,6 +13,8 @@ defmodule Herework.UserView do
     %{id: user.id,
       avatar: user.avatar,
       name: user.name,
-      email: user.email}
+      email: user.email,
+      created_at: user.inserted_at
+    }
   end
 end

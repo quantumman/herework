@@ -1,6 +1,8 @@
 defmodule Herework.User do
   use Herework.Web, :model
 
+  @derive {Poison.Encoder, except: [:__meta__, :messages, :comments, :team]}
+
   schema "users" do
     field :avatar, :string
     field :name, :string
