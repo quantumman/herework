@@ -26,7 +26,8 @@ defmodule Herework.Mixfile do
                     :gettext,
                     :phoenix_ecto,
                     :postgrex,
-                    :blacksmith]]
+                    :blacksmith,
+                    :timex]]
   end
 
   # Specifies which paths to compile per environment.
@@ -46,7 +47,8 @@ defmodule Herework.Mixfile do
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:blacksmith, "~> 0.2"},
-     {:faker, "~> 0.7"}]
+     {:faker, "~> 0.7"},
+     {:timex, "~> 3.0"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
