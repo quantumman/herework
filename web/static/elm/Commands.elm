@@ -51,3 +51,12 @@ delete : Url -> (() -> App.Msg) -> Cmd App.Msg
 delete resource msg =
     Jwt.send "DELETE" "1238a" (Decode.null ()) resource Http.empty
         |> performRequest msg
+
+
+
+-- APIs
+
+
+fetchMessages : Url -> Cmd App.Msg
+fetchMessages url =
+    get decodeMessages url App.UpdateMessages
