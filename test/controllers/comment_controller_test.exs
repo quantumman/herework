@@ -1,29 +1,45 @@
 defmodule Herework.CommentControllerTest do
   use Herework.ConnCase
+  require Forge
 
   alias Herework.Comment
   @valid_attrs %{body: "some content"}
   @invalid_attrs %{}
 
   setup %{conn: conn} do
-    {:ok, conn: put_req_header(conn, "accept", "application/json")}
+    {:ok, message} = Forge.saved_message
+    {:ok, creator} = Forge.saved_user
+    {:ok, comment} =
+      Ecto.build_assoc(creator, :comments, Forge.comment)
+      |> (&Ecto.build_assoc(message, :comments, &1)).()
+      |> Herework.Repo.insert
+
+    {:ok,
+     conn: put_req_header(conn, "accept", "application/json"),
+     comment: comment
+    }
   end
 
-  test "lists all entries on index", %{conn: conn} do
-    conn = get conn, message_comment_path(conn, :index, 1)
-    assert json_response(conn, 200)["data"] == []
+  test "lists all entries on index", %{conn: conn, comment: comment} do
+    conn = get conn, message_comment_path(conn, :index, comment.message_id)
+    assert json_response(conn, 200)["data"] == [%{"body" => comment.body, "id" => comment.id}]
   end
 
-  test "shows chosen resource", %{conn: conn} do
-    comment = Repo.insert! %Comment{}
-    conn = get conn, message_comment_path(conn, :show, 1, comment)
+  test "shows chosen resource", %{conn: conn, comment: comment} do
+    conn = get conn, message_comment_path(conn, :show, comment.message_id, comment)
     assert json_response(conn, 200)["data"] == %{"id" => comment.id,
       "body" => comment.body}
   end
 
-  test "renders page not found when id is nonexistent", %{conn: conn} do
+  test "renders page not found when message_id and id are nonexistent", %{conn: conn} do
     assert_error_sent 404, fn ->
       get conn, message_comment_path(conn, :show, -1, -1)
+    end
+  end
+
+  test "renders page not found when id is nonexistent", %{conn: conn, comment: comment} do
+    assert_error_sent 404, fn ->
+      get conn, message_comment_path(conn, :show, comment.message_id, -1)
     end
   end
 
