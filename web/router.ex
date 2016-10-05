@@ -22,6 +22,7 @@ defmodule Herework.Router do
   scope "/api", Herework do
     pipe_through :api
 
+    resources "/app", AppController, except: [:new, :edit]
     resources "/messages", MessageController, except: [:new, :edit] do
       resources "/comments", CommentController, except: [:new, :edit]
     end
