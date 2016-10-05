@@ -4,7 +4,7 @@ defmodule Herework.MessageController do
   alias Herework.Message
 
   def index(conn, _params) do
-    messages = Repo.all(Message)
+    messages = Repo.all(Message) |> Repo.preload(:creator)
     render(conn, "index.json", messages: messages)
   end
 
@@ -16,7 +16,7 @@ defmodule Herework.MessageController do
         conn
         |> put_status(:created)
         |> put_resp_header("location", message_path(conn, :show, message))
-        |> render("show.json", message: message)
+        |> render("create.json", message: message)
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
@@ -25,7 +25,7 @@ defmodule Herework.MessageController do
   end
 
   def show(conn, %{"id" => id}) do
-    message = Repo.get!(Message, id)
+    message = Repo.get!(Message, id) |> Repo.preload(:creator)
     render(conn, "show.json", message: message)
   end
 
@@ -35,7 +35,7 @@ defmodule Herework.MessageController do
 
     case Repo.update(changeset) do
       {:ok, message} ->
-        render(conn, "show.json", message: message)
+        render(conn, "update.json", message: message)
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
