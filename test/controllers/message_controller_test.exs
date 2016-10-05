@@ -11,13 +11,13 @@ defmodule Herework.MessageControllerTest do
 
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, message_path(conn, :index)
-    assert json_response(conn, 200)["data"] == []
+    assert json_response(conn, 200) == []
   end
 
   test "shows chosen resource", %{conn: conn} do
     message = Repo.insert! %Message{}
     conn = get conn, message_path(conn, :show, message)
-    assert json_response(conn, 200)["data"] == %{"id" => message.id,
+    assert json_response(conn, 200) == %{"id" => message.id,
       "title" => message.title}
   end
 
@@ -29,7 +29,7 @@ defmodule Herework.MessageControllerTest do
 
   test "creates and renders resource when data is valid", %{conn: conn} do
     conn = post conn, message_path(conn, :create), message: @valid_attrs
-    assert json_response(conn, 201)["data"]["id"]
+    assert json_response(conn, 201)["id"]
     assert Repo.get_by(Message, @valid_attrs)
   end
 
@@ -41,7 +41,7 @@ defmodule Herework.MessageControllerTest do
   test "updates and renders chosen resource when data is valid", %{conn: conn} do
     message = Repo.insert! %Message{}
     conn = put conn, message_path(conn, :update, message), message: @valid_attrs
-    assert json_response(conn, 200)["data"]["id"]
+    assert json_response(conn, 200)["id"]
     assert Repo.get_by(Message, @valid_attrs)
   end
 
