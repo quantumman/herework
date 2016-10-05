@@ -6,7 +6,6 @@ import Html.App as Html
 import Html.Attributes exposing (..)
 import Message exposing (..)
 import Models exposing (..)
-import Resource as Resource exposing (..)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -18,14 +17,14 @@ update message model =
         Open url ->
             model ! []
 
-        FetchMessages ->
-            model ! [ Commands.get decodeMessages Resource.Messages UpdateMessages ]
+        FetchMessages url ->
+            model ! [ Commands.get decodeMessages url UpdateMessages ]
 
         UpdateMessages messages ->
             { model | messages = messages } ! []
 
         FetchComments message ->
-            { model | selectedMessage = message } ! [ Commands.get decodeComments (Resource.Comments message.id) UpdateComments ]
+            { model | selectedMessage = message } ! [ Commands.get decodeComments message.comments_url UpdateComments ]
 
         UpdateComments comments ->
             { model | comments = comments } ! []

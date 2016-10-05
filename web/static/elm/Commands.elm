@@ -6,7 +6,7 @@ import Json.Decode as Decode exposing (..)
 import Json.Encode as Encode exposing (..)
 import Jwt exposing (..)
 import Message as App exposing (..)
-import Resource exposing (..)
+import Models exposing (..)
 import Task exposing (Task)
 
 
@@ -17,35 +17,34 @@ performRequest msg task =
         |> Task.perform HandleError msg
 
 
-get : Decoder a -> Resource -> (a -> App.Msg) -> Cmd App.Msg
+get : Decoder a -> Url -> (a -> App.Msg) -> Cmd App.Msg
 get decoder resource msg =
-    url resource
-        |> Jwt.get "1238a" decoder
+    Jwt.get "1238a" decoder resource
         |> performRequest msg
 
 
-post : Decoder a -> Resource -> Encode.Value -> (a -> App.Msg) -> Cmd App.Msg
+post : Decoder a -> Url -> Encode.Value -> (a -> App.Msg) -> Cmd App.Msg
 post decoder resource payload msg =
     Http.string (Encode.encode 0 payload)
-        |> Jwt.post "1238a" decoder (url resource)
+        |> Jwt.post "1238a" decoder resource
         |> performRequest msg
 
 
-put : Decoder a -> Resource -> Encode.Value -> (a -> App.Msg) -> Cmd App.Msg
+put : Decoder a -> Url -> Encode.Value -> (a -> App.Msg) -> Cmd App.Msg
 put decoder resource payload msg =
     Http.string (Encode.encode 0 payload)
-        |> Jwt.send "PUT" "1238a" decoder (url resource)
+        |> Jwt.send "PUT" "1238a" decoder resource
         |> performRequest msg
 
 
-patch : Decoder a -> Resource -> Encode.Value -> (a -> App.Msg) -> Cmd App.Msg
+patch : Decoder a -> Url -> Encode.Value -> (a -> App.Msg) -> Cmd App.Msg
 patch decoder resource payload msg =
     Http.string (Encode.encode 0 payload)
-        |> Jwt.send "PATCH" "1238a" decoder (url resource)
+        |> Jwt.send "PATCH" "1238a" decoder resource
         |> performRequest msg
 
 
-delete : Resource -> (() -> App.Msg) -> Cmd App.Msg
+delete : Url -> (() -> App.Msg) -> Cmd App.Msg
 delete resource msg =
-    Jwt.send "DELETE" "1238a" (Decode.null ()) (url resource) Http.empty
+    Jwt.send "DELETE" "1238a" (Decode.null ()) resource Http.empty
         |> performRequest msg
