@@ -12,6 +12,8 @@ defmodule Herework.MessageView do
   def render("message.json", %{message: message}) do
     %{id: message.id,
       title: message.title,
+      url: "messages",
+      comments_url: "messages/#{message.id}/comments",
       created_at: message.inserted_at,
       creator: Herework.UserView.render("user.json", %{user: message.creator})
     }
@@ -20,6 +22,8 @@ defmodule Herework.MessageView do
   def render("create.json", %{message: message}) do
     %{id: message.id,
       title: message.title,
+      url: "messages",
+      comments_url: "messages/#{message.id}/comments",
       created_at: message.inserted_at
     }
   end
