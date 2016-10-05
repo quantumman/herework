@@ -10,6 +10,9 @@ import Models exposing (..)
 import Task exposing (Task)
 
 
+-- Generic RESTful API commands
+
+
 performRequest : (a -> App.Msg) -> Task Http.Error a -> Cmd App.Msg
 performRequest msg task =
     task
