@@ -24,7 +24,7 @@ update message model =
             { model | messages = messages } ! []
 
         FetchComments message ->
-            { model | selectedMessage = message } ! [ Commands.get decodeComments message.comments_url UpdateComments ]
+            { model | selectedMessage = message } ! [ Commands.fetchComments message.comments_url ]
 
         UpdateComments comments ->
             { model | comments = comments } ! []
