@@ -7,7 +7,10 @@ defmodule Herework.MessageControllerTest do
   @invalid_attrs %{}
 
   setup %{conn: conn} do
-    {:ok, message} = Forge.saved_message
+    {:ok, creator} = Forge.saved_user
+    {:ok, message} =
+      Ecto.build_assoc(creator, :messages, Forge.message)
+      |> Repo.insert
 
     {:ok,
      conn: put_req_header(conn, "accept", "application/json"),
@@ -17,18 +20,38 @@ defmodule Herework.MessageControllerTest do
 
   test "lists all entries on index", %{conn: conn, message: message} do
     conn = get conn, message_path(conn, :index)
+    message = Message
+    |> Repo.get_by(id: message.id)
+    |> Repo.preload(:creator)
     assert json_response(conn, 200) == [
       %{"id" => message.id,
-        "title" => message.title
+        "title" => message.title,
+        "creator" => %{
+          "id" => message.creator.id,
+          "name" => message.creator.name,
+          "email" => message.creator.email,
+          "avatar" => message.creator.avatar,
+          "created_at" => TestHelper.formatted_time(message.creator.inserted_at)
+        }
        }
     ]
   end
 
   test "shows chosen resource", %{conn: conn, message: message} do
     conn = get conn, message_path(conn, :show, message)
+    message = Message
+    |> Repo.get_by(id: message.id)
+    |> Repo.preload(:creator)
     assert json_response(conn, 200) ==
       %{"id" => message.id,
-        "title" => message.title
+        "title" => message.title,
+        "creator" => %{
+          "id" => message.creator.id,
+          "name" => message.creator.name,
+          "email" => message.creator.email,
+          "avatar" => message.creator.avatar,
+          "created_at" => TestHelper.formatted_time(message.creator.inserted_at)
+        }
        }
   end
 
