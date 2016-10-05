@@ -5,7 +5,7 @@ defmodule Herework.Message do
     field :title, :string
 
     has_many :comments, Herework.Comment
-    belongs_to :creator, Herework.User
+    belongs_to :creator, Herework.User, foreign_key: :creator_id, references: :id
 
     timestamps()
   end

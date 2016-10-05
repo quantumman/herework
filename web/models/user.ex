@@ -6,7 +6,7 @@ defmodule Herework.User do
     field :name, :string
     field :email, :string
 
-    has_many :messages, Herework.Message
+    has_many :messages, Herework.Message, foreign_key: :creator_id
     has_many :comments, Herework.Comment
     belongs_to :team, Herework.Team
 
