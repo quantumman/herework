@@ -18,7 +18,7 @@ update message model =
             model ! []
 
         InitResource resource ->
-            { model | resource = resource } ! []
+            { model | resource = resource } ! [ Commands.fetchMessages resource.messages_url ]
 
         FetchMessages url ->
             model ! [ Commands.fetchMessages url ]
