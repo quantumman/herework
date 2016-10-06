@@ -57,6 +57,11 @@ delete resource msg =
 -- APIs
 
 
+initApp : Url -> Cmd App.Msg
+initApp url =
+    get decodeResource url InitResource
+
+
 fetchMessages : Url -> Cmd App.Msg
 fetchMessages url =
     get decodeMessages url App.UpdateMessages
