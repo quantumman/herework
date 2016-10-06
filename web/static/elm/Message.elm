@@ -10,6 +10,7 @@ import Models exposing (..)
 type Msg
     = Fetch Url
     | Open Url
+    | InitResource Resource
     | FetchMessages Url
     | UpdateMessages (List Message)
     | FetchComments Message

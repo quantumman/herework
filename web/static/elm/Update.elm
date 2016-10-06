@@ -17,6 +17,9 @@ update message model =
         Open url ->
             model ! []
 
+        InitResource resource ->
+            { model | resource = resource } ! []
+
         FetchMessages url ->
             model ! [ Commands.fetchMessages url ]
 
