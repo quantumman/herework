@@ -20,7 +20,13 @@ type alias Model m =
 
 view : Model m -> Html Msg
 view model =
-    div [] []
+    div []
+        [ ul []
+            (model.comments
+                |> List.map comment
+                |> List.map (\c -> li [] [ c ])
+            )
+        ]
 
 
 comment : Comment -> Html Msg
