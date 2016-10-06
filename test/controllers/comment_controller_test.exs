@@ -27,7 +27,7 @@ defmodule Herework.CommentControllerTest do
     comment = Comment
       |> Herework.Repo.get_by(id: comment.id)
       |> Herework.Repo.preload(:creator)
-    assert json_response(conn, 200)["data"] == [
+    assert json_response(conn, 200) == [
       %{"id" => comment.id,
         "body" => comment.body,
         "creator" => %{
@@ -46,7 +46,7 @@ defmodule Herework.CommentControllerTest do
     comment = Comment
       |> Herework.Repo.get_by(id: comment.id)
       |> Herework.Repo.preload(:creator)
-    assert json_response(conn, 200)["data"] ==
+    assert json_response(conn, 200) ==
       %{"id" => comment.id,
         "body" => comment.body,
         "creator" => %{
