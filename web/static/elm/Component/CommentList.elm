@@ -21,3 +21,9 @@ type alias Model m =
 view : Model m -> Html Msg
 view model =
     div [] []
+
+
+comment : Comment -> Html Msg
+comment model =
+    div []
+        [ text model.body ]
