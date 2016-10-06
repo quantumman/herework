@@ -57,6 +57,14 @@ initialModelResource =
     }
 
 
+decodeResource : Decoder Resource
+decodeResource =
+    Decode.object3 Resource
+        ("messages_url" := Decode.string)
+        ("tasks_url" := Decode.string)
+        ("activity_url" := Decode.string)
+
+
 
 -- User
 
