@@ -1,6 +1,7 @@
 module App exposing (..)
 
 import Aui.Avatars exposing (..)
+import Commands as Commands exposing (..)
 import Component.Error.View as Error exposing (..)
 import Component.Layout exposing (..)
 import Component.SubMenu as SubMenu exposing (..)
@@ -21,7 +22,7 @@ import Router as Router exposing (..)
 
 init : Router.Model -> ( App.Model, Cmd Msg )
 init router =
-    (initialModel router) ! [ Cmd.none ]
+    (initialModel router) ! [ Commands.initApp "/api/app" ]
 
 
 
