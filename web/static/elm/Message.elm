@@ -11,7 +11,7 @@ type Msg
     = Fetch Url
     | Open Url
     | InitResource Resource
-    | FetchMessages Url
+    | FetchMessages
     | UpdateMessages (List Message)
     | FetchComments Message
     | UpdateComments (List Comment)

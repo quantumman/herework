@@ -20,8 +20,8 @@ update message model =
         InitResource resource ->
             { model | resource = resource } ! [ Commands.fetchMessages resource.messages_url ]
 
-        FetchMessages url ->
-            model ! [ Commands.fetchMessages url ]
+        FetchMessages ->
+            model ! [ Commands.fetchMessages model.resource.messages_url ]
 
         UpdateMessages messages ->
             { model | messages = messages } ! []
