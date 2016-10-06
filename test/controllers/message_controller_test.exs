@@ -26,8 +26,8 @@ defmodule Herework.MessageControllerTest do
     assert json_response(conn, 200) == [
       %{"id" => message.id,
         "title" => message.title,
-        "url" => "messages",
-        "comments_url" => "messages/#{message.id}/comments",
+        "url" => "/api/messages",
+        "comments_url" => "/api/messages/#{message.id}/comments",
         "created_at" => TestHelper.formatted_time(message.creator.inserted_at),
         "creator" => %{
           "id" => message.creator.id,
@@ -48,8 +48,8 @@ defmodule Herework.MessageControllerTest do
     assert json_response(conn, 200) ==
       %{"id" => message.id,
         "title" => message.title,
-        "url" => "messages",
-        "comments_url" => "messages/#{message.id}/comments",
+        "url" => "/api/messages",
+        "comments_url" => "/api/messages/#{message.id}/comments",
         "created_at" => TestHelper.formatted_time(message.creator.inserted_at),
         "creator" => %{
           "id" => message.creator.id,
