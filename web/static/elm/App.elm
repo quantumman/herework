@@ -10,6 +10,7 @@ import FontAwesome.Web as Icon exposing (edit)
 import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Message exposing (..)
 import Models as App exposing (Model)
 import Models exposing (..)
@@ -72,7 +73,7 @@ view model =
             [ item [ menuWidth ]
                 [ header [ loggedInUser model.user ]
                 , V.menu [ menuWidth ]
-                    [ menuItem [] Icon.comments_o "Messages"
+                    [ menuItem [ onClick FetchMessages ] Icon.comments_o "Messages"
                     , menuItem [] Icon.tasks "Tasks"
                     , menuItem [] Icon.bar_chart "Activity"
                     ]
