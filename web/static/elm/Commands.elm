@@ -10,6 +10,9 @@ import Models exposing (..)
 import Task exposing (Task)
 
 
+-- Generic RESTful API commands
+
+
 performRequest : (a -> App.Msg) -> Task Http.Error a -> Cmd App.Msg
 performRequest msg task =
     task
@@ -48,3 +51,22 @@ delete : Url -> (() -> App.Msg) -> Cmd App.Msg
 delete resource msg =
     Jwt.send "DELETE" "1238a" (Decode.null ()) resource Http.empty
         |> performRequest msg
+
+
+
+-- APIs
+
+
+initApp : Url -> Cmd App.Msg
+initApp url =
+    get decodeResource url InitResource
+
+
+fetchMessages : Url -> Cmd App.Msg
+fetchMessages url =
+    get decodeMessages url App.UpdateMessages
+
+
+fetchComments : Url -> Cmd App.Msg
+fetchComments url =
+    get decodeComments url App.UpdateComments

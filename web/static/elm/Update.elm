@@ -17,14 +17,17 @@ update message model =
         Open url ->
             model ! []
 
-        FetchMessages url ->
-            model ! [ Commands.get decodeMessages url UpdateMessages ]
+        InitResource resource ->
+            { model | resource = resource } ! [ Commands.fetchMessages resource.messages_url ]
+
+        FetchMessages ->
+            model ! [ Commands.fetchMessages model.resource.messages_url ]
 
         UpdateMessages messages ->
             { model | messages = messages } ! []
 
         FetchComments message ->
-            { model | selectedMessage = message } ! [ Commands.get decodeComments message.comments_url UpdateComments ]
+            { model | selectedMessage = message } ! [ Commands.fetchComments message.comments_url ]
 
         UpdateComments comments ->
             { model | comments = comments } ! []

@@ -1,6 +1,7 @@
 module App exposing (..)
 
 import Aui.Avatars exposing (..)
+import Commands as Commands exposing (..)
 import Component.Error.View as Error exposing (..)
 import Component.Layout exposing (..)
 import Component.SubMenu as SubMenu exposing (..)
@@ -9,6 +10,7 @@ import FontAwesome.Web as Icon exposing (edit)
 import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Message exposing (..)
 import Models as App exposing (Model)
 import Models exposing (..)
@@ -21,7 +23,7 @@ import Router as Router exposing (..)
 
 init : Router.Model -> ( App.Model, Cmd Msg )
 init router =
-    (initialModel router) ! [ Cmd.none ]
+    (initialModel router) ! [ Commands.initApp "/api/app" ]
 
 
 
@@ -71,7 +73,7 @@ view model =
             [ item [ menuWidth ]
                 [ header [ loggedInUser model.user ]
                 , V.menu [ menuWidth ]
-                    [ menuItem [] Icon.comments_o "Messages"
+                    [ menuItem [ onClick FetchMessages ] Icon.comments_o "Messages"
                     , menuItem [] Icon.tasks "Tasks"
                     , menuItem [] Icon.bar_chart "Activity"
                     ]

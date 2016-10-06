@@ -13,6 +13,7 @@ import Router as Router exposing (..)
 
 type alias Model =
     { router : Router.Model
+    , resource : Resource
     , user : User
     , messages : List Message
     , selectedMessage : Message
@@ -24,6 +25,7 @@ type alias Model =
 initialModel : Router.Model -> Model
 initialModel router =
     { router = router
+    , resource = initialModelResource
     , user = initialModelUser
     , messages =
         [ initialModelMessage
@@ -35,6 +37,32 @@ initialModel router =
     , comments = []
     , error = Nothing
     }
+
+
+
+-- Resoruce
+
+
+type alias Resource =
+    { messages_url : Url
+    , tasks_url : Url
+    , activity_url : Url
+    }
+
+
+initialModelResource =
+    { messages_url = ""
+    , tasks_url = ""
+    , activity_url = ""
+    }
+
+
+decodeResource : Decoder Resource
+decodeResource =
+    Decode.object3 Resource
+        ("messages_url" := Decode.string)
+        ("tasks_url" := Decode.string)
+        ("activity_url" := Decode.string)
 
 
 
