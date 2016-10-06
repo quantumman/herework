@@ -12,3 +12,12 @@ type alias Model m =
     { m
         | comments : List Comment
     }
+
+
+
+-- VIEW
+
+
+view : Model m -> Html Msg
+view model =
+    div [] []
