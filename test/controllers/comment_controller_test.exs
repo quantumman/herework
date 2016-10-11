@@ -70,12 +70,14 @@ defmodule Herework.CommentControllerTest do
   test "renders page not found when message_id and id are nonexistent", %{conn: conn} do
     assert_error_sent 404, fn ->
       get conn, message_comment_path(conn, :show, -1, -1)
+      json_response(conn, 404)["errors"]["message"] == "Not Found"
     end
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn, comment: comment} do
     assert_error_sent 404, fn ->
       get conn, message_comment_path(conn, :show, comment.message_id, -1)
+      json_response(conn, 404)["errors"]["message"] == "Not Found"
     end
   end
 
