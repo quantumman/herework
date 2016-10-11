@@ -18,6 +18,6 @@ defmodule Herework.Comment do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:body])
-    |> validate_required([:body])
+    |> validate_required([:body, :message_id])
   end
 end
