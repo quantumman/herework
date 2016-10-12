@@ -47,6 +47,12 @@ paneHeaderStyle =
     ]
 
 
+menuStyle : List Style
+menuStyle =
+    [ Style.width (px 50)
+    ]
+
+
 menuWidth : List Style
 menuWidth =
     [ Style.width (px 50)
