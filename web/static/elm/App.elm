@@ -41,6 +41,11 @@ subscriptions model =
 -- STYLE
 
 
+paneHeaderHeight : String
+paneHeaderHeight =
+    px 80
+
+
 paneHeaderStyle : List Style
 paneHeaderStyle =
     [ Style.height (px 80)
