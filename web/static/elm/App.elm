@@ -80,9 +80,9 @@ view model =
     div []
         [ Html.map HandleError <| Error.view model
         , group
-            [ item [ style menuWidth ]
+            [ item [ style menuStyle ]
                 [ header [ loggedInUser model.user ]
-                , V.menu [ style menuWidth ]
+                , V.menu [ style menuStyle ]
                     [ menuItem [ onClick FetchMessages ] Icon.comments_o "Messages"
                     , menuItem [] Icon.tasks "Tasks"
                     , menuItem [] Icon.bar_chart "Activity"
@@ -113,6 +113,6 @@ loggedInUser user =
             , marginTop (px 15)
             ]
     in
-        div [ style (menuWidth ++ align) ]
+        div [ style (menuStyle ++ align) ]
             [ avatar config user.avatar
             ]
