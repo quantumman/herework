@@ -11,4 +11,13 @@ defmodule TestHelper do
     |> Timex.to_datetime("Etc/UTC")
     |> Timex.format!("%FT%T", :strftime)
   end
+
+  def assert_error_sent([action | actions], status, callback) do
+    assert_error_sent status, fn ->
+      callback.(action)
+    end
+    TestHelper.assert_error_sent(actions, status, callback)
+  end
+  def assert_error_sent([], _status, _callback) do
+  end
 end

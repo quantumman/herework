@@ -67,26 +67,6 @@ defmodule Herework.CommentControllerTest do
        }
   end
 
-  test "renders page not found when message_id and id are nonexistent", %{conn: conn} do
-    assert_error_sent 404, fn ->
-      get conn, message_comment_path(conn, :show, -1, -1)
-      json_response(conn, 404)["errors"]["message"] == "Not Found"
-    end
-  end
-
-  test "renders page not found when id is nonexistent", %{conn: conn, comment: comment} do
-    assert_error_sent 404, fn ->
-      get conn, message_comment_path(conn, :show, comment.message_id, -1)
-      json_response(conn, 404)["errors"]["message"] == "Not Found"
-    end
-  end
-
-  test "renders page not found when message_id are nonexistent", %{conn: conn, comment: comment } do
-    assert_error_sent 404, fn ->
-      get conn, message_comment_path(conn, :show, 1, comment)
-    end
-  end
-
   test "creates and renders resource when data is valid", %{conn: conn, message: message} do
     conn = post conn, message_comment_path(conn, :create, message.id), comment: @valid_attrs
     assert json_response(conn, 201)["id"]
@@ -122,5 +102,31 @@ defmodule Herework.CommentControllerTest do
     conn = delete conn, message_comment_path(conn, :delete, message.id, comment)
     assert response(conn, 204)
     refute Repo.get(Comment, comment.id)
+  end
+
+  test "renders page not found  when message_id and id are nonexistent", %{conn: conn} do
+    TestHelper.assert_error_sent [:show, :update, :delete], 404, fn action ->
+      get conn, message_comment_path(conn, action, -1, -1)
+      json_response(conn, 404)["errors"]["message"] == "Not Found"
+    end
+  end
+
+  test "renders page not found when id are nonexistent", %{conn: conn, comment: comment} do
+    TestHelper.assert_error_sent [:show, :update, :delete], 404, fn action ->
+      get conn, message_comment_path(conn, action, comment.message_id, -1)
+      json_response(conn, 404)["errors"]["message"] == "Not Found"
+    end
+  end
+
+  test "renders page not found when message_id are nonexistent", %{conn: conn, comment: comment} do
+    TestHelper.assert_error_sent [:show, :update, :delete], 404, fn action ->
+      get conn, message_comment_path(conn, action, -1, comment)
+      json_response(conn, 404)["errors"]["message"] == "Not Found"
+    end
+
+    TestHelper.assert_error_sent [:index, :create], 404, fn action ->
+      get conn, message_comment_path(conn, action, -1)
+      json_response(conn, 404)["errors"]["message"] == "Not Found"
+    end
   end
 end
