@@ -48,7 +48,7 @@ paneHeaderHeight =
 
 paneHeaderStyle : List Style
 paneHeaderStyle =
-    [ Style.height (px 80)
+    [ Style.height paneHeaderHeight
     ]
 
 
