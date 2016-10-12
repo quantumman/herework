@@ -2,6 +2,7 @@ module App exposing (..)
 
 import Aui.Avatars exposing (..)
 import Commands as Commands exposing (..)
+import Component.CommentList as CL exposing (..)
 import Component.Error.View as Error exposing (..)
 import Component.Layout exposing (..)
 import Component.SubMenu as SubMenu exposing (..)
@@ -84,7 +85,7 @@ view model =
                 ]
             , item [ mainContentWitdh ]
                 [ header []
-                , text "C"
+                , CL.view model
                 ]
             ]
         ]

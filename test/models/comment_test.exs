@@ -7,7 +7,7 @@ defmodule Herework.CommentTest do
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
-    changeset = Comment.changeset(%Comment{}, @valid_attrs)
+    changeset = Comment.changeset(%Comment{message_id: 1234}, @valid_attrs)
     assert changeset.valid?
   end
 

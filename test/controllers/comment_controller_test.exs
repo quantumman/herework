@@ -7,13 +7,19 @@ defmodule Herework.CommentControllerTest do
   @valid_attrs %{body: "some content"}
   @invalid_attrs %{}
 
-  setup %{conn: conn} do
+  defp build_models() do
     {:ok, message} = Forge.saved_message
     {:ok, creator} = Forge.saved_user
     {:ok, comment} =
       Ecto.build_assoc(creator, :comments, Forge.comment)
       |> (&Ecto.build_assoc(message, :comments, &1)).()
       |> Herework.Repo.insert
+    { message, comment }
+  end
+
+  setup %{conn: conn} do
+    build_models
+    { message, comment } = build_models
 
     {:ok,
      conn: put_req_header(conn, "accept", "application/json"),
@@ -22,13 +28,14 @@ defmodule Herework.CommentControllerTest do
     }
   end
 
-  test "lists all entries on index", %{conn: conn, comment: comment} do
-    conn = get conn, message_comment_path(conn, :index, comment.message_id)
+  test "lists all entries on index", %{conn: conn, message: message, comment: comment} do
+    conn = get conn, message_comment_path(conn, :index, message.id)
     comment = Comment
       |> Herework.Repo.get_by(id: comment.id)
       |> Herework.Repo.preload(:creator)
-    assert json_response(conn, 200)["data"] == [
+    assert json_response(conn, 200) == [
       %{"id" => comment.id,
+        "message_id" => comment.message_id,
         "body" => comment.body,
         "creator" => %{
           "id" => comment.creator.id,
@@ -46,8 +53,9 @@ defmodule Herework.CommentControllerTest do
     comment = Comment
       |> Herework.Repo.get_by(id: comment.id)
       |> Herework.Repo.preload(:creator)
-    assert json_response(conn, 200)["data"] ==
+    assert json_response(conn, 200) ==
       %{"id" => comment.id,
+        "message_id" => comment.message_id,
         "body" => comment.body,
         "creator" => %{
           "id" => comment.creator.id,
@@ -59,26 +67,15 @@ defmodule Herework.CommentControllerTest do
        }
   end
 
-  test "renders page not found when message_id and id are nonexistent", %{conn: conn} do
-    assert_error_sent 404, fn ->
-      get conn, message_comment_path(conn, :show, -1, -1)
-    end
-  end
-
-  test "renders page not found when id is nonexistent", %{conn: conn, comment: comment} do
-    assert_error_sent 404, fn ->
-      get conn, message_comment_path(conn, :show, comment.message_id, -1)
-    end
-  end
-
   test "creates and renders resource when data is valid", %{conn: conn, message: message} do
     conn = post conn, message_comment_path(conn, :create, message.id), comment: @valid_attrs
     assert json_response(conn, 201)["id"]
+    assert json_response(conn, 201)["message_id"] == message.id
     assert Repo.get_by(Comment, @valid_attrs)
   end
 
-  test "does not create resource and renders errors when data is invalid", %{conn: conn} do
-    conn = post conn, message_comment_path(conn, :create, -1), comment: @invalid_attrs
+  test "does not create resource and renders errors when data is invalid", %{conn: conn, message: message} do
+    conn = post conn, message_comment_path(conn, :create, message.id), comment: @invalid_attrs
     assert json_response(conn, 422)["errors"] != %{}
   end
 
@@ -88,16 +85,48 @@ defmodule Herework.CommentControllerTest do
     assert Repo.get_by(Comment, @valid_attrs)
   end
 
-  test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    comment = Repo.insert! %Comment{}
-    conn = put conn, message_comment_path(conn, :update, -1, comment), comment: @invalid_attrs
+  test "does not update chosen resource and renders errors when data is invalid", %{conn: conn, message: message} do
+    comment =
+      message
+      |> Ecto.build_assoc(:comments, %Comment{})
+      |> Repo.insert!
+    conn = put conn, message_comment_path(conn, :update, message.id, comment), comment: @invalid_attrs
     assert json_response(conn, 422)["errors"] != %{}
   end
 
-  test "deletes chosen resource", %{conn: conn} do
-    comment = Repo.insert! %Comment{}
-    conn = delete conn, message_comment_path(conn, :delete, 1, comment)
+  test "deletes chosen resource", %{conn: conn, message: message} do
+    comment =
+      message
+      |> Ecto.build_assoc(:comments, %Comment{})
+      |> Repo.insert!
+    conn = delete conn, message_comment_path(conn, :delete, message.id, comment)
     assert response(conn, 204)
     refute Repo.get(Comment, comment.id)
+  end
+
+  test "renders page not found  when message_id and id are nonexistent", %{conn: conn} do
+    TestHelper.assert_error_sent [:show, :update, :delete], 404, fn action ->
+      get conn, message_comment_path(conn, action, -1, -1)
+      json_response(conn, 404)["errors"]["message"] == "Not Found"
+    end
+  end
+
+  test "renders page not found when id are nonexistent", %{conn: conn, comment: comment} do
+    TestHelper.assert_error_sent [:show, :update, :delete], 404, fn action ->
+      get conn, message_comment_path(conn, action, comment.message_id, -1)
+      json_response(conn, 404)["errors"]["message"] == "Not Found"
+    end
+  end
+
+  test "renders page not found when message_id are nonexistent", %{conn: conn, comment: comment} do
+    TestHelper.assert_error_sent [:show, :update, :delete], 404, fn action ->
+      get conn, message_comment_path(conn, action, -1, comment)
+      json_response(conn, 404)["errors"]["message"] == "Not Found"
+    end
+
+    TestHelper.assert_error_sent [:index, :create], 404, fn action ->
+      get conn, message_comment_path(conn, action, -1)
+      json_response(conn, 404)["errors"]["message"] == "Not Found"
+    end
   end
 end

@@ -152,7 +152,7 @@ decodeMessages =
 type alias Comment =
     { id : Int
     , body : String
-    , user : User
+    , creator : User
     }
 
 
@@ -161,7 +161,7 @@ encodeComment model =
     Encode.object
         [ ( "id", Encode.int model.id )
         , ( "body", Encode.string model.body )
-        , ( "user", encodeUser model.user )
+        , ( "creator", encodeUser model.creator )
         ]
 
 
@@ -170,7 +170,7 @@ decodeComment =
     Decode.object3 Comment
         ("id" := Decode.int)
         ("body" := Decode.string)
-        ("user" := decodeUser)
+        ("creator" := decodeUser)
 
 
 decodeComments : Decoder (List Comment)
