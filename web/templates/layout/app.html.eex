@@ -8,6 +8,15 @@
     <meta name="author" content="">
 
     <title>Hello Herework!</title>
+
+    <style type="text/css">
+      html, body {
+        height: 100%;
+      }
+      body {
+        overflow: hidden;
+      }
+    </style>
   </head>
 
   <body>
