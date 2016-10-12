@@ -17,6 +17,7 @@ import Models as App exposing (Model)
 import Models exposing (..)
 import Navigation
 import Router as Router exposing (..)
+import Style exposing (..)
 
 
 -- MODEL
@@ -40,26 +41,28 @@ subscriptions model =
 -- STYLE
 
 
-paneHeaderStyle : Attribute Msg
+paneHeaderStyle : List Style
 paneHeaderStyle =
-    style
-        [ ( "height", "80px" )
-        ]
+    [ Style.height (px 80)
+    ]
 
 
-menuWidth : Attribute msg
+menuWidth : List Style
 menuWidth =
-    style [ ( "width", "50px" ) ]
+    [ Style.width (px 50)
+    ]
 
 
-subMenuWidth : Attribute Msg
+subMenuWidth : List Style
 subMenuWidth =
-    style [ ( "width", "370px" ) ]
+    [ Style.width (px 370)
+    ]
 
 
-mainContentWitdh : Attribute Msg
+mainContentWitdh : List Style
 mainContentWitdh =
-    style [ ( "width", "600px" ) ]
+    [ Style.width (px 600)
+    ]
 
 
 
@@ -71,19 +74,19 @@ view model =
     div []
         [ Html.map HandleError <| Error.view model
         , group
-            [ item [ menuWidth ]
+            [ item [ style menuWidth ]
                 [ header [ loggedInUser model.user ]
-                , V.menu [ menuWidth ]
+                , V.menu [ style menuWidth ]
                     [ menuItem [ onClick FetchMessages ] Icon.comments_o "Messages"
                     , menuItem [] Icon.tasks "Tasks"
                     , menuItem [] Icon.bar_chart "Activity"
                     ]
                 ]
-            , item [ subMenuWidth ]
+            , item [ style subMenuWidth ]
                 [ header []
                 , SubMenu.view model
                 ]
-            , item [ mainContentWitdh ]
+            , item [ style mainContentWitdh ]
                 [ header []
                 , CL.view model
                 ]
@@ -93,18 +96,17 @@ view model =
 
 header : List (Html Msg) -> Html Msg
 header =
-    div [ paneHeaderStyle ]
+    div [ style paneHeaderStyle ]
 
 
 loggedInUser : User -> Html Msg
 loggedInUser user =
     let
         align =
-            style
-                [ ( "margin-left", "9px" )
-                , ( "margin-top", "15px" )
-                ]
+            [ marginLeft (px 9)
+            , marginTop (px 15)
+            ]
     in
-        div [ menuWidth, align ]
+        div [ style (menuWidth ++ align) ]
             [ avatar config user.avatar
             ]
