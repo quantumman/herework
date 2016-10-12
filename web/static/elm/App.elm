@@ -46,6 +46,11 @@ paneHeaderHeight =
     px 80
 
 
+menuWidth : String
+menuWidth =
+    px 50
+
+
 paneHeaderStyle : List Style
 paneHeaderStyle =
     [ Style.height paneHeaderHeight
