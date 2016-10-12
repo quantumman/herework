@@ -56,6 +56,11 @@ subMenuWidth =
     px 370
 
 
+mainContentWidth : String
+mainContentWidth =
+    px 600
+
+
 paneHeaderStyle : List Style
 paneHeaderStyle =
     [ Style.height paneHeaderHeight
