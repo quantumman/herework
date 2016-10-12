@@ -70,7 +70,7 @@ menuStyle =
 
 subMenuStyle : List Style
 subMenuStyle =
-    [ Style.width (px 370)
+    [ Style.width subMenuWidth
     ]
 
 
