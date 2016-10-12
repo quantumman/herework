@@ -53,12 +53,6 @@ menuStyle =
     ]
 
 
-menuWidth : List Style
-menuWidth =
-    [ Style.width (px 50)
-    ]
-
-
 subMenuWidth : List Style
 subMenuWidth =
     [ Style.width (px 370)
