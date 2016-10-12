@@ -59,6 +59,12 @@ subMenuStyle =
     ]
 
 
+mainContentStyle : List Style
+mainContentStyle =
+    [ Style.width (px 600)
+    ]
+
+
 mainContentWitdh : List Style
 mainContentWitdh =
     [ Style.width (px 600)
