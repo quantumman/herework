@@ -65,12 +65,6 @@ mainContentStyle =
     ]
 
 
-mainContentWitdh : List Style
-mainContentWitdh =
-    [ Style.width (px 600)
-    ]
-
-
 
 -- VIEW
 
