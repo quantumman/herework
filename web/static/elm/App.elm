@@ -92,7 +92,7 @@ view model =
                 [ header []
                 , SubMenu.view model
                 ]
-            , item [ style mainContentWitdh ]
+            , item [ style mainContentStyle ]
                 [ header []
                 , CL.view model
                 ]
