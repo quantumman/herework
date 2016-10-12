@@ -88,7 +88,7 @@ view model =
                     , menuItem [] Icon.bar_chart "Activity"
                     ]
                 ]
-            , item [ style subMenuWidth ]
+            , item [ style subMenuStyle ]
                 [ header []
                 , SubMenu.view model
                 ]
