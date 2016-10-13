@@ -15,6 +15,7 @@ type Msg
     | FetchMessages
     | UpdateMessages (List Message)
     | AddMessage Message
+    | ClickAddMessage
     | FetchComments Message
     | UpdateComments (List Comment)
     | HandleError Error.Msg

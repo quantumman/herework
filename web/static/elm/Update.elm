@@ -30,6 +30,9 @@ update message model =
         AddMessage message ->
             model ! []
 
+        ClickAddMessage ->
+            model ! []
+
         FetchComments message ->
             { model | selectedMessage = message } ! [ Commands.fetchComments message.comments_url ]
 
