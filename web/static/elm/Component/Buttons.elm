@@ -36,3 +36,8 @@ subtle config =
 light : ButtonType
 light config =
     config |> withStyle lightStyle
+
+
+link : ButtonType
+link config =
+    config |> withStyle linkStyle
