@@ -109,7 +109,8 @@ view model =
                 ]
             , item [ style mainContentStyle ]
                 [ header []
-                , CL.view model
+                , scrollable mainContentWidth
+                    [ CL.view model ]
                 ]
             ]
         ]
