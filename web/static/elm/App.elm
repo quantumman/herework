@@ -17,6 +17,7 @@ import Models as App exposing (Model)
 import Models exposing (..)
 import Navigation
 import Router as Router exposing (..)
+import Style exposing (..)
 
 
 -- MODEL
@@ -40,26 +41,48 @@ subscriptions model =
 -- STYLE
 
 
-paneHeaderStyle : Attribute Msg
-paneHeaderStyle =
-    style
-        [ ( "height", "80px" )
-        ]
+paneHeaderHeight : String
+paneHeaderHeight =
+    px 80
 
 
-menuWidth : Attribute msg
+menuWidth : String
 menuWidth =
-    style [ ( "width", "50px" ) ]
+    px 60
 
 
-subMenuWidth : Attribute Msg
+subMenuWidth : String
 subMenuWidth =
-    style [ ( "width", "370px" ) ]
+    px 370
 
 
-mainContentWitdh : Attribute Msg
-mainContentWitdh =
-    style [ ( "width", "600px" ) ]
+mainContentWidth : String
+mainContentWidth =
+    px 600
+
+
+paneHeaderStyle : List Style
+paneHeaderStyle =
+    [ Style.height paneHeaderHeight
+    ]
+
+
+menuStyle : List Style
+menuStyle =
+    [ Style.width menuWidth
+    ]
+
+
+subMenuStyle : List Style
+subMenuStyle =
+    [ Style.width subMenuWidth
+    ]
+
+
+mainContentStyle : List Style
+mainContentStyle =
+    [ Style.width mainContentWidth
+    ]
 
 
 
@@ -71,21 +94,23 @@ view model =
     div []
         [ Html.map HandleError <| Error.view model
         , group
-            [ item [ menuWidth ]
+            [ item [ style menuStyle ]
                 [ header [ loggedInUser model.user ]
-                , V.menu [ menuWidth ]
+                , V.menu [ style menuStyle ]
                     [ menuItem [ onClick FetchMessages ] Icon.comments_o "Messages"
                     , menuItem [] Icon.tasks "Tasks"
                     , menuItem [] Icon.bar_chart "Activity"
                     ]
                 ]
-            , item [ subMenuWidth ]
+            , item [ style subMenuStyle ]
                 [ header []
-                , SubMenu.view model
+                , scrollable subMenuWidth
+                    [ SubMenu.view model ]
                 ]
-            , item [ mainContentWitdh ]
+            , item [ style mainContentStyle ]
                 [ header []
-                , CL.view model
+                , scrollable mainContentWidth
+                    [ CL.view model ]
                 ]
             ]
         ]
@@ -93,18 +118,31 @@ view model =
 
 header : List (Html Msg) -> Html Msg
 header =
-    div [ paneHeaderStyle ]
+    div [ style paneHeaderStyle ]
 
 
 loggedInUser : User -> Html Msg
 loggedInUser user =
     let
         align =
-            style
-                [ ( "margin-left", "9px" )
-                , ( "margin-top", "15px" )
-                ]
+            [ marginLeft (px 9)
+            , marginTop (px 15)
+            ]
     in
-        div [ menuWidth, align ]
+        div [ style (menuStyle ++ align) ]
             [ avatar config user.avatar
             ]
+
+
+scrollable : String -> List (Html Msg) -> Html Msg
+scrollable w html =
+    let
+        scroll =
+            [ position absolute
+            , top paneHeaderHeight
+            , bottom "0"
+            , Style.width w
+            , overflow "auto"
+            ]
+    in
+        div [ style scroll ] html
