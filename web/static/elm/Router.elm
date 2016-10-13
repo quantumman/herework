@@ -111,6 +111,13 @@ navigateTo route =
         |> Navigation.modifyUrl
 
 
+newUrl : Route -> Cmd msg
+newUrl route =
+    reverse route
+        |> makeUrl routerConfig
+        |> Navigation.newUrl
+
+
 
 -- APP
 
