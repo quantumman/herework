@@ -14,6 +14,7 @@ type Msg
     | InitResource Resource
     | FetchMessages
     | UpdateMessages (List Message)
+    | AddMessage Message
     | FetchComments Message
     | UpdateComments (List Comment)
     | HandleError Error.Msg
