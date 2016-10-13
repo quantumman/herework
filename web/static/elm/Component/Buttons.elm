@@ -21,3 +21,8 @@ button config message content =
 primary : ButtonType
 primary config =
     config |> withStyle primaryStyle
+
+
+normal : ButtonType
+normal config =
+    config |> withStyle normalStyle
