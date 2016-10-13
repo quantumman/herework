@@ -104,7 +104,8 @@ view model =
                 ]
             , item [ style subMenuStyle ]
                 [ header []
-                , SubMenu.view model
+                , scrollable subMenuWidth
+                    [ SubMenu.view model ]
                 ]
             , item [ style mainContentStyle ]
                 [ header []
