@@ -16,3 +16,8 @@ button : ButtonType -> Msg -> List (Html Msg) -> Html Msg
 button config message content =
     Aui.button (baseConfig |> config |> withAction message)
         content
+
+
+primary : ButtonType
+primary config =
+    config |> withStyle primaryStyle
