@@ -26,3 +26,8 @@ primary config =
 normal : ButtonType
 normal config =
     config |> withStyle normalStyle
+
+
+subtle : ButtonType
+subtle config =
+    config |> withStyle subtleStyle
