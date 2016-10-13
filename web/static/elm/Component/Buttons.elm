@@ -31,3 +31,8 @@ normal config =
 subtle : ButtonType
 subtle config =
     config |> withStyle subtleStyle
+
+
+light : ButtonType
+light config =
+    config |> withStyle lightStyle
