@@ -48,7 +48,7 @@ paneHeaderHeight =
 
 menuWidth : String
 menuWidth =
-    px 50
+    px 60
 
 
 subMenuWidth : String
