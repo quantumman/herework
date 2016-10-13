@@ -130,3 +130,17 @@ loggedInUser user =
         div [ style (menuStyle ++ align) ]
             [ avatar config user.avatar
             ]
+
+
+scrollable : String -> List (Html Msg) -> Html Msg
+scrollable w html =
+    let
+        scroll =
+            [ position absolute
+            , top paneHeaderHeight
+            , bottom "0"
+            , Style.width w
+            , overflow "auto"
+            ]
+    in
+        div [ style scroll ] html
