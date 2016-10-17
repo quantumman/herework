@@ -33,14 +33,10 @@ view model =
         items =
             case model.router.route of
                 Messages ->
-                    div []
-                        [ B.button subtle
-                            ClickAddMessage
-                            [ Icon.plus_circle
-                            , text "Add a new message"
-                            ]
-                        , Nav.vnav <| messages model.messages model.selectedMessage
-                        ]
+                    messagesView model
+
+                NewMessage ->
+                    messagesView model
 
                 other ->
                     div [] []
