@@ -7,6 +7,7 @@ import Html.App as Html
 import Html.Attributes exposing (..)
 import Message exposing (..)
 import Models exposing (..)
+import Router exposing (Route(..), navigateTo, newUrl)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -31,7 +32,7 @@ update message model =
             model ! []
 
         ClickAddMessage ->
-            model ! []
+            model ! [ newUrl NewMessage ]
 
         FetchComments message ->
             { model | selectedMessage = message } ! [ Commands.fetchComments message.comments_url ]
