@@ -48,6 +48,18 @@ view model =
         items
 
 
+messagesView : Model m -> Html Msg
+messagesView model =
+    div []
+        [ B.button subtle
+            ClickAddMessage
+            [ Icon.plus_circle
+            , text "Add a new message"
+            ]
+        , Nav.vnav <| messages model.messages model.selectedMessage
+        ]
+
+
 messages : List Message -> Message -> List ( Nav.Header, List Nav.Item )
 messages ms selected =
     let
