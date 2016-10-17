@@ -24,22 +24,22 @@ rootMatcher =
 
 messagesMatcher : PathMatcher Route
 messagesMatcher =
-    match1 Messages "messages"
+    match1 Messages "/messages"
 
 
 messageDetailMatcher : PathMatcher Route
 messageDetailMatcher =
-    match2 MessageDetail "messages" int
+    match2 MessageDetail "/messages" int
 
 
 tasksMatcher : PathMatcher Route
 tasksMatcher =
-    match1 Tasks "tasks"
+    match1 Tasks "/tasks"
 
 
 activityMatcher : PathMatcher Route
 activityMatcher =
-    match1 Activity "activity"
+    match1 Activity "/activity"
 
 
 matchers : List (PathMatcher Route)
