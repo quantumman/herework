@@ -110,7 +110,16 @@ view model =
             , item [ style mainContentStyle ]
                 [ header []
                 , scrollable mainContentWidth
-                    [ CL.view model ]
+                    [ case model.router.route of
+                        Router.Messages ->
+                            CL.view model
+
+                        Router.NewMessage ->
+                            text "test"
+
+                        other ->
+                            div [] []
+                    ]
                 ]
             ]
         ]
