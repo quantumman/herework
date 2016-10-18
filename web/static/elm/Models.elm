@@ -16,6 +16,7 @@ type alias Model =
     , resource : Resource
     , user : User
     , messages : List Message
+    , newMessage : Message
     , selectedMessage : Message
     , comments : List Comment
     , error : Maybe String
@@ -33,6 +34,7 @@ initialModel router =
         , { id = 2, title = "REQUEST: Working with BOT", body = "", url = "messages/2", comments_url = "foobar", creator = initialModelUser }
         , { id = 3, title = "QUESTION: How can we make issue ?", body = "", url = "messages/3", comments_url = "foboar", creator = initialModelUser }
         ]
+    , newMessage = initialModelMessage
     , selectedMessage = initialModelMessage
     , comments = []
     , error = Nothing
