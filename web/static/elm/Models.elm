@@ -29,9 +29,9 @@ initialModel router =
     , user = initialModelUser
     , messages =
         [ initialModelMessage
-        , { id = 1, title = "foobar", url = "messages/1", comments_url = "foobar", creator = initialModelUser }
-        , { id = 2, title = "REQUEST: Working with BOT", url = "messages/2", comments_url = "foobar", creator = initialModelUser }
-        , { id = 3, title = "QUESTION: How can we make issue ?", url = "messages/3", comments_url = "foboar", creator = initialModelUser }
+        , { id = 1, title = "foobar", body = "", url = "messages/1", comments_url = "foobar", creator = initialModelUser }
+        , { id = 2, title = "REQUEST: Working with BOT", body = "", url = "messages/2", comments_url = "foobar", creator = initialModelUser }
+        , { id = 3, title = "QUESTION: How can we make issue ?", body = "", url = "messages/3", comments_url = "foboar", creator = initialModelUser }
         ]
     , selectedMessage = initialModelMessage
     , comments = []
@@ -104,6 +104,7 @@ decodeUsers =
 type alias Message =
     { id : Int
     , title : String
+    , body : String
     , url : String
     , comments_url : String
     , creator : User
@@ -113,6 +114,7 @@ type alias Message =
 initialModelMessage =
     { id = 0
     , title = "test"
+    , body = ""
     , url = "issues/1"
     , comments_url = "/api/messages/0/comments"
     , creator = initialModelUser
@@ -124,6 +126,7 @@ encodeMessage model =
     Encode.object
         [ ( "id", Encode.int model.id )
         , ( "title", Encode.string model.title )
+        , ( "body", Encode.string model.body )
         , ( "url", Encode.string model.url )
         , ( "comments_url", Encode.string model.comments_url )
         , ( "creator", encodeUser model.creator )
@@ -132,9 +135,10 @@ encodeMessage model =
 
 decodeMessage : Decoder Message
 decodeMessage =
-    Decode.object5 Message
+    Decode.object6 Message
         ("id" := Decode.int)
         ("title" := Decode.string)
+        ("body" := Decode.string)
         ("url" := Decode.string)
         ("comments_url" := Decode.string)
         ("creator" := decodeUser)
