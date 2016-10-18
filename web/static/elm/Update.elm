@@ -29,7 +29,7 @@ update message model =
             { model | messages = messages } ! []
 
         AddMessage message ->
-            model ! []
+            model ! [ Commands.addMessage model.resource.messages_url message ]
 
         UpdateMessage message ->
             model ! []
