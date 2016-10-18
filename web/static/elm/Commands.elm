@@ -67,6 +67,12 @@ fetchMessages url =
     get decodeMessages url App.UpdateMessages
 
 
+addMessage : Url -> Message -> Cmd App.Msg
+addMessage url message =
+    encodeMessage message
+        |> \payload -> post decodeMessage url payload App.UpdateMessage
+
+
 fetchComments : Url -> Cmd App.Msg
 fetchComments url =
     get decodeComments url App.UpdateComments
