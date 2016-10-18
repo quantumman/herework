@@ -11,6 +11,12 @@ defmodule Herework.MessageTest do
     assert changeset.valid?
   end
 
+  test "changeset with invalid length body" do
+    invalid_body = Stream.cycle(['a', 'b', 'c']) |> Enum.take(1001)
+    changeset = Message.changeset(%Message{}, %{title: "some content", body: invalid_body})
+    refute changeset.valid?
+  end
+
   test "changeset with invalid attributes" do
     changeset = Message.changeset(%Message{}, @invalid_attrs)
     refute changeset.valid?

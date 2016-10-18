@@ -17,6 +17,7 @@ defmodule Herework.Message do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:title, :body])
-    |> validate_required([:title])
+    |> validate_length(:body, max: 1000)
+    |> validate_required([:title, :body])
   end
 end
