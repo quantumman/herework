@@ -5,39 +5,38 @@ import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Message exposing (..)
 
 
-type alias ButtonType =
-    Config Msg -> Config Msg
+type alias ButtonType msg =
+    Config msg -> Config msg
 
 
-button : ButtonType -> Msg -> List (Html Msg) -> Html Msg
+button : ButtonType msg -> msg -> List (Html msg) -> Html msg
 button config message content =
     Aui.button (baseConfig |> config |> withAction message)
         content
 
 
-primary : ButtonType
+primary : ButtonType msg
 primary config =
     config |> withStyle primaryStyle
 
 
-normal : ButtonType
+normal : ButtonType msg
 normal config =
     config |> withStyle normalStyle
 
 
-subtle : ButtonType
+subtle : ButtonType msg
 subtle config =
     config |> withStyle subtleStyle
 
 
-light : ButtonType
+light : ButtonType msg
 light config =
     config |> withStyle lightStyle
 
 
-link : ButtonType
+link : ButtonType msg
 link config =
     config |> withStyle linkStyle
