@@ -15,6 +15,7 @@ type Msg
     | FetchMessages
     | UpdateMessages (List Message)
     | AddMessage Message
+    | UpdateMessage Message
     | ClickAddMessage
     | FetchComments Message
     | UpdateComments (List Comment)

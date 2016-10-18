@@ -31,6 +31,9 @@ update message model =
         AddMessage message ->
             model ! []
 
+        UpdateMessage message ->
+            model ! []
+
         ClickAddMessage ->
             model ! [ newUrl NewMessage ]
 
