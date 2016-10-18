@@ -3,7 +3,7 @@ defmodule Herework.MessageTest do
 
   alias Herework.Message
 
-  @valid_attrs %{title: "some content"}
+  @valid_attrs %{title: "some content", body: "some content"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
