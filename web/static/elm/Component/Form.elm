@@ -18,3 +18,10 @@ unwrap (Binder binder) =
 
 type Msg model
     = Bind (Binder model) String
+
+
+update : Msg model -> model -> ( model, Cmd (Msg model) )
+update message model =
+    case message of
+        Bind binder value ->
+            (unwrap binder model value) ! []
