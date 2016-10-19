@@ -21,13 +21,8 @@ bind binder f =
 -- UPDATE
 
 
-type Binder model
-    = Binder (model -> String -> model)
-
-
-unwrap : Binder model -> model -> String -> model
-unwrap (Binder binder) =
-    binder
+type alias Binder model =
+    model -> String -> model
 
 
 type Msg model
@@ -38,4 +33,4 @@ update : Msg model -> model -> ( model, Cmd (Msg model) )
 update message model =
     case message of
         Bind binder value ->
-            (unwrap binder model value) ! []
+            (binder model value) ! []
