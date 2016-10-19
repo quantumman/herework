@@ -14,3 +14,7 @@ type Binder model
 unwrap : Binder model -> model -> String -> model
 unwrap (Binder binder) =
     binder
+
+
+type Msg model
+    = Bind (Binder model) String
