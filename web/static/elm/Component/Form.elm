@@ -27,10 +27,14 @@ type alias Binder model value =
 
 type Msg model
     = Bind (Binder model String) String
+    | BindCheck (Binder model Bool) Bool
 
 
 update : Msg model -> model -> ( model, Cmd (Msg model) )
 update message model =
     case message of
         Bind binder value ->
+            (binder model value) ! []
+
+        BindCheck binder value ->
             (binder model value) ! []
