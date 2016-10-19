@@ -9,3 +9,8 @@ import Html.Events exposing (..)
 
 type Binder model
     = Binder (model -> String -> model)
+
+
+unwrap : Binder model -> model -> String -> model
+unwrap (Binder binder) =
+    binder
