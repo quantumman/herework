@@ -17,6 +17,13 @@ bind binder f =
         |> on "input"
 
 
+bindCheck : Binder model Bool -> (Msg model -> msg) -> Attribute msg
+bindCheck binder f =
+    Json.map (BindCheck binder) targetChecked
+        |> Json.map f
+        |> on "change"
+
+
 
 -- UPDATE
 
