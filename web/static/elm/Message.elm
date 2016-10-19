@@ -1,5 +1,6 @@
 module Message exposing (..)
 
+import Component.Form as Form exposing (..)
 import Component.Error.Message as Error exposing (..)
 import Html exposing (..)
 import Html.App as Html
@@ -16,3 +17,4 @@ type Msg
     | FetchComments Message
     | UpdateComments (List Comment)
     | HandleError Error.Msg
+    | Bind (Form.Msg Model)
