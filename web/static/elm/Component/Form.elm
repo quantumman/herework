@@ -10,7 +10,7 @@ import Json.Decode as Json exposing (..)
 -- Data binding helper
 
 
-bind : Binder model -> (Msg model -> msg) -> Attribute msg
+bind : Binder model String -> (Msg model -> msg) -> Attribute msg
 bind binder f =
     Json.map (Bind binder) targetValue
         |> Json.map f
@@ -21,12 +21,12 @@ bind binder f =
 -- UPDATE
 
 
-type alias Binder model =
-    model -> String -> model
+type alias Binder model value =
+    model -> value -> model
 
 
 type Msg model
-    = Bind (Binder model) String
+    = Bind (Binder model String) String
 
 
 update : Msg model -> model -> ( model, Cmd (Msg model) )
