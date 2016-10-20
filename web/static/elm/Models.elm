@@ -124,12 +124,13 @@ initialModelMessage =
 encodeMessage : Message -> Encode.Value
 encodeMessage model =
     Encode.object
-        [ ( "id", Encode.int model.id )
-        , ( "title", Encode.string model.title )
-        , ( "body", Encode.string model.body )
-        , ( "url", Encode.string model.url )
-        , ( "comments_url", Encode.string model.comments_url )
-        , ( "creator", encodeUser model.creator )
+        [ ( "message"
+          , (Encode.object
+                [ ( "title", Encode.string model.title )
+                , ( "body", Encode.string model.body )
+                ]
+            )
+          )
         ]
 
 
