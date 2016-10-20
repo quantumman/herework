@@ -29,6 +29,11 @@ title model value =
     (\m -> { m | title = value }) `on` model
 
 
+body : Model m -> String -> Model m
+body model value =
+    (\m -> { m | body = value }) `on` model
+
+
 
 -- VIEW
 
