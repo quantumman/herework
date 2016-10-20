@@ -19,6 +19,11 @@ type alias Model m =
     }
 
 
+on : (Message -> Message) -> Model m -> Model m
+on updater model =
+    { model | newMessage = updater model.newMessage }
+
+
 
 -- VIEW
 
