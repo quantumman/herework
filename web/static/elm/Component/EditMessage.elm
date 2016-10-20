@@ -24,6 +24,11 @@ on updater model =
     { model | newMessage = updater model.newMessage }
 
 
+title : Model m -> String -> Model m
+title model value =
+    (\m -> { m | title = value }) `on` model
+
+
 
 -- VIEW
 
