@@ -1,11 +1,11 @@
 module Component.EditMessage exposing (..)
 
-import Component.Form exposing (bind, bindCheck)
 import Component.Buttons as Buttons exposing (..)
 import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import HtmlHelpers exposing (..)
 import Message exposing (..)
 import Models exposing (..)
 
@@ -43,10 +43,10 @@ view model =
     div []
         [ Html.form []
             [ div []
-                [ textarea [ rows 1 ] []
+                [ textarea [ rows 1, bind title ] []
                 ]
             , div []
-                [ textarea [] []
+                [ textarea [ bind body ] []
                 ]
             ]
         , Buttons.button primary
