@@ -5,7 +5,8 @@ defmodule Forge do
   @save_all_function &Blacksmith.Config.save_all/1
 
   register :message, %Herework.Message{
-    title: Faker.Lorem.word
+    title: Faker.Lorem.word,
+    body: Faker.Lorem.paragraph
   }
 
   register :comment, %Herework.Comment{

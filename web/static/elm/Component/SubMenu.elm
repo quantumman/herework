@@ -1,6 +1,8 @@
 module Component.SubMenu exposing (..)
 
+import Component.Buttons as B exposing (..)
 import Component.Nav as Nav exposing (..)
+import FontAwesome.Web as Icon exposing (..)
 import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
@@ -31,12 +33,27 @@ view model =
         items =
             case model.router.route of
                 Messages ->
-                    messages model.messages model.selectedMessage
+                    messagesView model
+
+                NewMessage ->
+                    messagesView model
 
                 other ->
-                    []
+                    div [] []
     in
-        Nav.vnav items
+        items
+
+
+messagesView : Model m -> Html Msg
+messagesView model =
+    div []
+        [ B.button subtle
+            ClickAddMessage
+            [ Icon.plus_circle
+            , text "Add a new message"
+            ]
+        , Nav.vnav <| messages model.messages model.selectedMessage
+        ]
 
 
 messages : List Message -> Message -> List ( Nav.Header, List Nav.Item )

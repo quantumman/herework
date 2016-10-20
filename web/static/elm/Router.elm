@@ -12,6 +12,7 @@ import Navigation
 type Route
     = Messages
     | MessageDetail Int
+    | NewMessage
     | Tasks
     | Activity
     | NotFound
@@ -24,22 +25,27 @@ rootMatcher =
 
 messagesMatcher : PathMatcher Route
 messagesMatcher =
-    match1 Messages "messages"
+    match1 Messages "/messages"
 
 
 messageDetailMatcher : PathMatcher Route
 messageDetailMatcher =
-    match2 MessageDetail "messages" int
+    match2 MessageDetail "/messages" int
+
+
+newMessageMatcher : PathMatcher Route
+newMessageMatcher =
+    match1 NewMessage "/messages/new"
 
 
 tasksMatcher : PathMatcher Route
 tasksMatcher =
-    match1 Tasks "tasks"
+    match1 Tasks "/tasks"
 
 
 activityMatcher : PathMatcher Route
 activityMatcher =
-    match1 Activity "activity"
+    match1 Activity "/activity"
 
 
 matchers : List (PathMatcher Route)
@@ -47,6 +53,7 @@ matchers =
     [ rootMatcher
     , messagesMatcher
     , messageDetailMatcher
+    , newMessageMatcher
     , tasksMatcher
     , activityMatcher
     ]
@@ -60,6 +67,9 @@ reverse route =
 
         MessageDetail id ->
             matcherToPath messageDetailMatcher [ toString id ]
+
+        NewMessage ->
+            matcherToPath newMessageMatcher []
 
         Tasks ->
             matcherToPath tasksMatcher []
@@ -109,6 +119,13 @@ navigateTo route =
     reverse route
         |> makeUrl routerConfig
         |> Navigation.modifyUrl
+
+
+newUrl : Route -> Cmd msg
+newUrl route =
+    reverse route
+        |> makeUrl routerConfig
+        |> Navigation.newUrl
 
 
 

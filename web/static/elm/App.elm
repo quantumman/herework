@@ -5,6 +5,7 @@ import Commands as Commands exposing (..)
 import Component.CommentList as CL exposing (..)
 import Component.Error.View as Error exposing (..)
 import Component.Layout exposing (..)
+import Component.EditMessage as EditMessage exposing (..)
 import Component.SubMenu as SubMenu exposing (..)
 import Component.VerticalMenu as V exposing (..)
 import FontAwesome.Web as Icon exposing (edit)
@@ -110,7 +111,16 @@ view model =
             , item [ style mainContentStyle ]
                 [ header []
                 , scrollable mainContentWidth
-                    [ CL.view model ]
+                    [ case model.router.route of
+                        Router.Messages ->
+                            CL.view model
+
+                        Router.NewMessage ->
+                            EditMessage.view model
+
+                        other ->
+                            div [] []
+                    ]
                 ]
             ]
         ]

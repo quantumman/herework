@@ -3,6 +3,7 @@ defmodule Herework.Message do
 
   schema "messages" do
     field :title, :string
+    field :body, :string
 
     has_many :comments, Herework.Comment
     belongs_to :creator, Herework.User, foreign_key: :creator_id, references: :id
@@ -15,7 +16,8 @@ defmodule Herework.Message do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:title])
-    |> validate_required([:title])
+    |> cast(params, [:title, :body])
+    |> validate_length(:body, max: 1000)
+    |> validate_required([:title, :body])
   end
 end

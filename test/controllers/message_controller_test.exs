@@ -3,7 +3,7 @@ defmodule Herework.MessageControllerTest do
   require Forge
 
   alias Herework.Message
-  @valid_attrs %{title: "some content"}
+  @valid_attrs %{title: "some content", body: "some content"}
   @invalid_attrs %{}
 
   setup %{conn: conn} do
@@ -26,6 +26,7 @@ defmodule Herework.MessageControllerTest do
     assert json_response(conn, 200) == [
       %{"id" => message.id,
         "title" => message.title,
+        "body" => message.body,
         "url" => "/api/messages",
         "comments_url" => "/api/messages/#{message.id}/comments",
         "created_at" => TestHelper.formatted_time(message.creator.inserted_at),
@@ -49,6 +50,7 @@ defmodule Herework.MessageControllerTest do
       %{"id" => message.id,
         "title" => message.title,
         "url" => "/api/messages",
+        "body" => message.body,
         "comments_url" => "/api/messages/#{message.id}/comments",
         "created_at" => TestHelper.formatted_time(message.creator.inserted_at),
         "creator" => %{

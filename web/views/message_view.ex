@@ -20,6 +20,7 @@ defmodule Herework.MessageView do
     conn = message.conn
     %{id: message.id,
       title: message.title,
+      body: message.body,
       url: message_path(conn, :index),
       comments_url:  message_comment_path(conn, :index, message.id),
       created_at: message.inserted_at,
@@ -31,6 +32,7 @@ defmodule Herework.MessageView do
     conn = message.conn
     %{id: message.id,
       title: message.title,
+      body: message.body,
       url: message_path(conn, :index),
       comments_url: message_comment_path(conn, :index, message.id),
       created_at: message.inserted_at
