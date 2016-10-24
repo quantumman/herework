@@ -49,7 +49,8 @@ defmodule Herework.Mixfile do
      {:blacksmith, "~> 0.2"},
      {:faker, "~> 0.7"},
      {:timex, "~> 3.0"},
-     {:guardian, "~> 0.13.0"}
+     {:guardian, "~> 0.13.0"},
+     {:guardian_db, "~> 0.7.0"}
     ]
   end
 
