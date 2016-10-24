@@ -7,6 +7,8 @@ defmodule Herework.User do
     field :avatar, :string
     field :name, :string
     field :email, :string
+    field :hashed_password, :string
+    field :password, :string, virtual: true
 
     has_many :messages, Herework.Message, foreign_key: :creator_id
     has_many :comments, Herework.Comment, foreign_key: :creator_id
