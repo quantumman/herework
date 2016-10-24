@@ -22,7 +22,7 @@ defmodule Herework.User do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:avatar, :name, :email])
-    |> validate_required([:avatar, :name, :email])
+    |> cast(params, [:email, :password])
+    |> validate_required([:email, :password])
   end
 end
