@@ -24,6 +24,7 @@ config :logger, :console,
 
 # Configure Guardian
 config :guardian, Guardian,
+  hooks: GuardianDb,
   allowed_algos: ["HS512"], # optional
   verify_module: Guardian.JWT,  # optional
   issuer: "Herework",
@@ -31,6 +32,10 @@ config :guardian, Guardian,
   verify_issuer: true, # optional
   secret_key: to_string(Mix.env),
   serializer: Herework.GuardianSerializer
+
+config :guardian_db, GuardianDb,
+  repo: Herework.Repo,
+  schema_name: "tokens"
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
