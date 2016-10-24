@@ -27,7 +27,8 @@ defmodule Herework.Mixfile do
                     :phoenix_ecto,
                     :postgrex,
                     :blacksmith,
-                    :timex]]
+                    :timex,
+                    :comeonin]]
   end
 
   # Specifies which paths to compile per environment.
@@ -50,7 +51,8 @@ defmodule Herework.Mixfile do
      {:faker, "~> 0.7"},
      {:timex, "~> 3.0"},
      {:guardian, "~> 0.13.0"},
-     {:guardian_db, "~> 0.7.0"}
+     {:guardian_db, "~> 0.7.0"},
+     {:comeonin, "~> 2.6"}
     ]
   end
 
