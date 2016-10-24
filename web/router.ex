@@ -28,6 +28,6 @@ defmodule Herework.Router do
     resources "/messages", MessageController, except: [:new, :edit] do
       resources "/comments", CommentController, except: [:new, :edit]
     end
-    resources "/users", UserController, except: [:new, :edit]
+    resources "/users", UserController, except: [:new, :edit, :create, :update]
   end
 end
