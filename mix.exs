@@ -48,7 +48,9 @@ defmodule Herework.Mixfile do
      {:cowboy, "~> 1.0"},
      {:blacksmith, "~> 0.2"},
      {:faker, "~> 0.7"},
-     {:timex, "~> 3.0"}]
+     {:timex, "~> 3.0"},
+     {:guardian, "~> 0.13.0"}
+    ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
