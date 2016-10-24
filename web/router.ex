@@ -19,6 +19,8 @@ defmodule Herework.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/join", JoinController, :index
+    post "/join", JoinController, :create
   end
 
   scope "/api", Herework do
