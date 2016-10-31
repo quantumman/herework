@@ -23,6 +23,8 @@ defmodule Herework.User do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:email, :password])
+    |> unique_constraint(:email, name: :users_email_index)
+    |> validate_format(:email, ~r/@/)
     |> validate_required([:email, :password])
   end
 end
