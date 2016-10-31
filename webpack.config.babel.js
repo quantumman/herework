@@ -9,7 +9,7 @@ export default {
   },
   output: {
     path: "./priv/static/js",
-    filename: "app.js"
+    filename: "[name].js"
   },
 
   devtool: "#source-map",
