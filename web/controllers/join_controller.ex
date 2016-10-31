@@ -18,7 +18,7 @@ defmodule Herework.JoinController  do
 
         conn
         |> put_status(:created)
-        |> render(Herework.SessionView, "show.json", jwt: jwt, user: user)
+        |> redirect(to: page_path(conn, :index))
 
       {:error, changeset} ->
         conn
