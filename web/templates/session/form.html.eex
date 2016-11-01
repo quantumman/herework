@@ -1,0 +1,36 @@
+<%= form_for @changeset, @action, [class: "aui"], fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="field-group">
+    <%= label :email, "Email" do %>
+      Email
+      <span class="aui-icon icon-required">(required)</span>
+    <% end %>
+    <%= email_input f, :email, class: "text medium-field", placeholder: "you@example.com" %>
+
+    <%= if message = f.errors[:email] do %>
+      <div class="error"><%= translate_error(message) %></div>
+    <% end %>
+  </div>
+
+  <div class="field-group">
+    <%= label :password, "Password" do %>
+      Password
+      <span class="aui-icon icon-required">(required)</span>
+    <% end %>
+    <%= password_input f, :password, class: "text medium-field" %>
+
+    <%= if message = f.errors[:password] do %>
+      <div class="error"><%= translate_error(message) %></div>
+    <% end %>
+  </div>
+
+
+  <div class="buttons-container">
+    <%= submit "LOGIN", class: "button submit" %>
+  </div>
+<% end %>
