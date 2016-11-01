@@ -1,5 +1,12 @@
 defmodule Herework.PageControllerTest do
   use Herework.ConnCase
+  require Forge
+
+  setup %{conn: conn} do
+    {:ok, creator} = Forge.saved_user
+    conn = Guardian.Plug.api_sign_in(conn, creator)
+    {:ok, conn: conn}
+  end
 
   test "GET /", %{conn: conn} do
     conn = get conn, "/"
