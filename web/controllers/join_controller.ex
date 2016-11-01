@@ -17,7 +17,6 @@ defmodule Herework.JoinController  do
         {:ok, jwt, _full_claims} = Guardian.encode_and_sign(user, :token)
 
         conn
-        |> put_status(:created)
         |> redirect(to: page_path(conn, :index))
 
       {:error, changeset} ->
