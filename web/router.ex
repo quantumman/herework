@@ -30,6 +30,10 @@ defmodule Herework.Router do
     get "/", PageController, :index
     get "/join", JoinController, :index
     post "/join", JoinController, :create
+
+    get "/login", SessionController, :index
+    post "/login", SessionController, :create
+    delete "/login", SessionController, :delete
   end
 
   scope "/api", Herework do
