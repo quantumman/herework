@@ -29,15 +29,6 @@ defmodule Herework.JoinController  do
   defp changeset(model, params \\ :invalid) do
     model
     |> User.changeset(params)
-    |> generate_encrypted_password
-  end
-
-  defp generate_encrypted_password(current_changeset) do
-    case current_changeset do
-      %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
-        Ecto.Changeset.put_change(current_changeset, :hashed_password, Comeonin.Bcrypt.hashpwsalt(password))
-      _ ->
-        current_changeset
-    end
+    |> User.generate_encrypted_password
   end
 end
