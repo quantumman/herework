@@ -10,8 +10,12 @@ defmodule Herework.UserControllerTest do
   setup %{conn: conn} do
     {:ok, user} = Forge.saved_user
 
+    conn = conn
+    |> put_req_header("accept", "application/json")
+    |> Guardian.Plug.api_sign_in(user)
+
     {:ok,
-     conn: put_req_header(conn, "accept", "application/json"),
+     conn: conn,
      user: user
     }
   end
