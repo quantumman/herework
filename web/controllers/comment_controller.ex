@@ -1,10 +1,13 @@
 defmodule Herework.CommentController do
   use Herework.Web, :controller
+  use Guardian.Phoenix.Controller
 
   alias Herework.Comment
   alias Herework.Message
 
-  def index(conn, %{"message_id" => message_id}) do
+  plug Guardian.Plug.EnsureAuthenticated, handler: Herework.SessionContr
+
+  def index(conn, %{"message_id" => message_id}, _user, _claims) do
     comments =
       Message
       |> Repo.get!(message_id)
@@ -15,7 +18,7 @@ defmodule Herework.CommentController do
     render(conn, "index.json", comments: comments)
   end
 
-  def create(conn, %{"message_id" => message_id, "comment" => comment_params}) do
+  def create(conn, %{"message_id" => message_id, "comment" => comment_params}, _user, _claims) do
     changeset =
       Message
       |> Repo.get!(message_id)
@@ -35,14 +38,14 @@ defmodule Herework.CommentController do
     end
   end
 
-  def show(conn, %{"id" => id, "message_id" => message_id}) do
+  def show(conn, %{"id" => id, "message_id" => message_id}, _user, _claims) do
     comment = Comment
     |> Repo.get_by!(id: id, message_id: message_id)
     |> Repo.preload(:creator)
     render(conn, "show.json", comment: comment)
   end
 
-  def update(conn, %{"id" => id, "message_id" => message_id,  "comment" => comment_params}) do
+  def update(conn, %{"id" => id, "message_id" => message_id,  "comment" => comment_params}, _user, _claims) do
     changeset =
       Comment
       |> Repo.get_by!(id: id, message_id: message_id)
@@ -58,7 +61,7 @@ defmodule Herework.CommentController do
     end
   end
 
-  def delete(conn, %{"message_id" => message_id, "id" => id}) do
+  def delete(conn, %{"message_id" => message_id, "id" => id}, _user, _claims) do
     comment =
       Comment
       |> Repo.get_by!(id: id, message_id: message_id)
