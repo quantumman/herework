@@ -1,6 +1,8 @@
 defmodule Herework.User do
   use Herework.Web, :model
 
+  alias Herework.Repo
+
   @derive {Poison.Encoder, except: [:__meta__, :messages, :comments, :team]}
 
   schema "users" do
@@ -26,5 +28,34 @@ defmodule Herework.User do
     |> unique_constraint(:email, name: :users_email_index)
     |> validate_format(:email, ~r/@/)
     |> validate_required([:email, :password])
+  end
+
+  def find_and_confirm_password(params = %{"email" => email, "password" => password}) do
+    changeset = changeset(%Herework.User{}, params)
+    user = Repo.one(
+      from u in Herework.User,
+      where: u.email == ^email
+    )
+
+    if user do
+      valid = password
+      |> Comeonin.Bcrypt.checkpw(user.hashed_password)
+      if valid do
+        {:ok, user}
+      else
+        {:error, changeset}
+      end
+    else
+      {:error, changeset}
+    end
+  end
+
+  def generate_encrypted_password(current_changeset) do
+    case current_changeset do
+      %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
+        Ecto.Changeset.put_change(current_changeset, :hashed_password, Comeonin.Bcrypt.hashpwsalt(password))
+      _ ->
+        current_changeset
+    end
   end
 end

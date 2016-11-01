@@ -12,8 +12,12 @@ defmodule Herework.MessageControllerTest do
       Ecto.build_assoc(creator, :messages, Forge.message)
       |> Repo.insert
 
+    conn = conn
+    |> put_req_header("accept", "application/json")
+    |> Guardian.Plug.api_sign_in(creator)
+
     {:ok,
-     conn: put_req_header(conn, "accept", "application/json"),
+     conn: conn,
      message: message
     }
   end

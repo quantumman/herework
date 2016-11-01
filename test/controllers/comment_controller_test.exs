@@ -14,15 +14,19 @@ defmodule Herework.CommentControllerTest do
       Ecto.build_assoc(creator, :comments, Forge.comment)
       |> (&Ecto.build_assoc(message, :comments, &1)).()
       |> Herework.Repo.insert
-    { message, comment }
+    { message, comment, creator }
   end
 
   setup %{conn: conn} do
     build_models
-    { message, comment } = build_models
+    { message, comment, creator } = build_models
+
+    conn = conn
+    |> put_req_header("accept", "application/json")
+    |> Guardian.Plug.api_sign_in(creator)
 
     {:ok,
-     conn: put_req_header(conn, "accept", "application/json"),
+     conn: conn,
      comment: comment,
      message: message
     }

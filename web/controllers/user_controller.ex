@@ -1,19 +1,21 @@
 defmodule Herework.UserController do
   use Herework.Web, :controller
+  use Guardian.Phoenix.Controller
 
   alias Herework.User
 
-  def index(conn, _params) do
+  plug Guardian.Plug.EnsureAuthenticated, handler: Herework.SessionContr
+  def index(conn, _params, _user, _claims) do
     users = Repo.all(User)
     render(conn, "index.json", users: users)
   end
 
-  def show(conn, %{"id" => id}) do
+  def show(conn, %{"id" => id}, _user, _claims) do
     user = Repo.get!(User, id)
     render(conn, "show.json", user: user)
   end
 
-  def delete(conn, %{"id" => id}) do
+  def delete(conn, %{"id" => id}, _user, _claims) do
     user = Repo.get!(User, id)
 
     # Here we use delete! (with a bang) because we expect
