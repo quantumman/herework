@@ -7,6 +7,8 @@ defmodule Herework.User do
     field :avatar, :string
     field :name, :string
     field :email, :string
+    field :hashed_password, :string
+    field :password, :string, virtual: true
 
     has_many :messages, Herework.Message, foreign_key: :creator_id
     has_many :comments, Herework.Comment, foreign_key: :creator_id
@@ -20,7 +22,9 @@ defmodule Herework.User do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:avatar, :name, :email])
-    |> validate_required([:avatar, :name, :email])
+    |> cast(params, [:email, :password])
+    |> unique_constraint(:email, name: :users_email_index)
+    |> validate_format(:email, ~r/@/)
+    |> validate_required([:email, :password])
   end
 end

@@ -6,10 +6,13 @@ export default {
       "./web/static/js/app.js",
       "./web/static/elm/Main.elm"
     ],
+    login: [
+      "./web/static/js/login.js"
+    ]
   },
   output: {
     path: "./priv/static/js",
-    filename: "app.js"
+    filename: "[name].js"
   },
 
   devtool: "#source-map",
