@@ -16,7 +16,11 @@ defmodule Herework.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug Guardian.Plug.VerifyHeader, realm: "Bearer"
+  end
+
+  pipeline :api_session do
+    plug :fetch_session
+    plug Guardian.Plug.VerifySession
     plug Guardian.Plug.LoadResource
   end
 
@@ -29,7 +33,7 @@ defmodule Herework.Router do
   end
 
   scope "/api", Herework do
-    pipe_through :api
+    pipe_through [:api, :api_session]
 
     resources "/app", AppController, except: [:new, :edit]
     resources "/messages", MessageController, except: [:new, :edit] do
