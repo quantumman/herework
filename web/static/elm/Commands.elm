@@ -5,12 +5,30 @@ import Http exposing (Error)
 import Json.Decode as Decode exposing (..)
 import Json.Encode as Encode exposing (..)
 import Jwt exposing (..)
+import Http as Http exposing (..)
 import Message as App exposing (..)
 import Models exposing (..)
 import Task exposing (Task)
 
 
 -- Generic RESTful API commands
+
+
+send : String -> Decode.Decoder a -> String -> Http.Body -> Task Http.Error a
+send verb dec url body =
+    let
+        sendtask =
+            Http.send Http.defaultSettings
+                { verb = verb
+                , headers =
+                    [ ( "Content-type", "application/json" )
+                    ]
+                , url = url
+                , body = body
+                }
+                |> Http.fromJson dec
+    in
+        sendtask
 
 
 performRequest : (a -> App.Msg) -> Task Http.Error a -> Cmd App.Msg
