@@ -3,7 +3,7 @@ defmodule Herework.UserTest do
 
   alias Herework.User
 
-  @valid_attrs %{email: "some content", password: "some content"}
+  @valid_attrs %{email: "email@example.com", password: "some content"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
