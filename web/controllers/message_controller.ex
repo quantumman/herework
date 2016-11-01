@@ -1,14 +1,17 @@
 defmodule Herework.MessageController do
   use Herework.Web, :controller
+  use Guardian.Phoenix.Controller
+
+  plug Guardian.Plug.EnsureAuthenticated, handler: Herework.SessionController
 
   alias Herework.Message
 
-  def index(conn, _params) do
+  def index(conn, _params, _user, _claims) do
     messages = Repo.all(Message) |> Repo.preload(:creator)
     render(conn, "index.json", messages: messages)
   end
 
-  def create(conn, %{"message" => message_params}) do
+  def create(conn, %{"message" => message_params}, _user, _claims) do
     changeset = Message.changeset(%Message{}, message_params)
 
     case Repo.insert(changeset) do
@@ -24,12 +27,12 @@ defmodule Herework.MessageController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
+  def show(conn, %{"id" => id}, _user, _claims) do
     message = Repo.get!(Message, id) |> Repo.preload(:creator)
     render(conn, "show.json", message: message)
   end
 
-  def update(conn, %{"id" => id, "message" => message_params}) do
+  def update(conn, %{"id" => id, "message" => message_params}, _user, _claims) do
     message = Repo.get!(Message, id)
     changeset = Message.changeset(message, message_params)
 
@@ -43,7 +46,7 @@ defmodule Herework.MessageController do
     end
   end
 
-  def delete(conn, %{"id" => id}) do
+  def delete(conn, %{"id" => id}, _user, _claims) do
     message = Repo.get!(Message, id)
 
     # Here we use delete! (with a bang) because we expect
