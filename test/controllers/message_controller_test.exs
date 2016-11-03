@@ -92,10 +92,11 @@ defmodule Herework.MessageControllerTest do
 
   test "updates and renders chosen resource when data is valid", %{conn: conn, message: message, loggedInUser: user} do
     conn = put conn, message_path(conn, :update, message), message: @valid_attrs
-    assert json_response(conn, 200)["id"]
+    id = json_response(conn, 200)["id"]
+    assert id
 
     resource =
-      Repo.get_by(Message, @valid_attrs)
+      Repo.get(Message, id)
       |> Repo.preload(:creator)
     assert resource
     assert resource.creator == user
