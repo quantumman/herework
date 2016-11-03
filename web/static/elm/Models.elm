@@ -91,7 +91,7 @@ encodeUser model =
 decodeUser : Decoder User
 decodeUser =
     Decode.object1 User
-        ("avatar" := Decode.string)
+        ("avatar" := oneOf [Decode.string, Decode.null "https://www.gravatar.com/avatar/00000000000000000000000000000000"])
 
 
 decodeUsers : Decoder (List User)
