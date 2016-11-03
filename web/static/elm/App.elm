@@ -93,7 +93,7 @@ mainContentStyle =
 view : App.Model -> Html Msg
 view model =
     div []
-        [ Html.map HandleError <| Error.view model
+        [ Html.map HandleError <| Error.view model.error
         , group
             [ item [ style menuStyle ]
                 [ header [ loggedInUser model.user ]

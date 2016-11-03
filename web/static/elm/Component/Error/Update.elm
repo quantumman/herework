@@ -1,4 +1,4 @@
-module Error.Update exposing (..)
+module Component.Error.Update exposing (..)
 
 import Component.Error.Message exposing (..)
 import Component.Error.Model exposing (..)

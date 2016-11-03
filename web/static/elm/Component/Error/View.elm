@@ -7,7 +7,7 @@ import Html.App as Html
 import Html.Attributes exposing (..)
 
 
-view : Model m -> Html Msg
+view : Model -> Html Msg
 view model =
     case model.error of
         Just message ->

@@ -1,7 +1,8 @@
 module Update exposing (..)
 
-import Component.Form as Form exposing (update)
 import Commands exposing (..)
+import Component.Error.Update as Error exposing (..)
+import Component.Form as Form exposing (update)
 import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
@@ -44,7 +45,11 @@ update message model =
             { model | comments = comments } ! []
 
         HandleError error ->
-            model ! []
+            let
+                ( model', command ) =
+                    Error.update error model.error
+            in
+                { model | error = model' } ! [ Cmd.map HandleError command ]
 
         Bind msg ->
             let

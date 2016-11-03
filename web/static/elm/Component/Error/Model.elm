@@ -1,5 +1,11 @@
 module Component.Error.Model exposing (..)
 
 
-type alias Model m =
-    { m | error : Maybe String }
+type alias Model =
+    { error : Maybe String }
+
+
+initialModel : Model
+initialModel =
+    { error = Nothing
+    }
