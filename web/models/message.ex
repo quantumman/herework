@@ -20,4 +20,10 @@ defmodule Herework.Message do
     |> validate_length(:body, max: 1000)
     |> validate_required([:title, :body])
   end
+
+  def changeset_with(params \\ %{}, creator) do
+    creator
+    |> build_assoc(:messages)
+    |> changeset(params)
+  end
 end

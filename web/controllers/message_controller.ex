@@ -11,8 +11,8 @@ defmodule Herework.MessageController do
     render(conn, "index.json", messages: messages)
   end
 
-  def create(conn, %{"message" => message_params}, _user, _claims) do
-    changeset = Message.changeset(%Message{}, message_params)
+  def create(conn, %{"message" => message_params}, user, _claims) do
+    changeset = Message.changeset_with(message_params, user)
 
     case Repo.insert(changeset) do
       {:ok, message} ->
