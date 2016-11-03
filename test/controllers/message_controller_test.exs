@@ -18,7 +18,8 @@ defmodule Herework.MessageControllerTest do
 
     {:ok,
      conn: conn,
-     message: message
+     message: message,
+     loggedInUser: creator
     }
   end
 
@@ -73,10 +74,15 @@ defmodule Herework.MessageControllerTest do
     end
   end
 
-  test "creates and renders resource when data is valid", %{conn: conn} do
+  test "creates and renders resource when data is valid", %{conn: conn, loggedInUser: user} do
     conn = post conn, message_path(conn, :create), message: @valid_attrs
     assert json_response(conn, 201)["id"]
-    assert Repo.get_by(Message, @valid_attrs)
+
+    resource =
+      Repo.get_by(Message, @valid_attrs)
+      |> Repo.preload(:creator)
+    assert resource
+    assert resource.creator == user
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
@@ -84,10 +90,15 @@ defmodule Herework.MessageControllerTest do
     assert json_response(conn, 422)["errors"] != %{}
   end
 
-  test "updates and renders chosen resource when data is valid", %{conn: conn, message: message} do
+  test "updates and renders chosen resource when data is valid", %{conn: conn, message: message, loggedInUser: user} do
     conn = put conn, message_path(conn, :update, message), message: @valid_attrs
     assert json_response(conn, 200)["id"]
-    assert Repo.get_by(Message, @valid_attrs)
+
+    resource =
+      Repo.get_by(Message, @valid_attrs)
+      |> Repo.preload(:creator)
+    assert resource
+    assert resource.creator == user
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do

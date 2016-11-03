@@ -19,7 +19,7 @@ defmodule Herework.MessageController do
         conn
         |> put_status(:created)
         |> put_resp_header("location", message_path(conn, :show, message))
-        |> render("_show.json", message: message)
+        |> render("show.json", message: with_assoc(message))
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
@@ -38,7 +38,7 @@ defmodule Herework.MessageController do
 
     case Repo.update(changeset) do
       {:ok, message} ->
-        render(conn, "_show.json", message: message)
+        render(conn, "show.json", message: with_assoc(message))
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
@@ -54,5 +54,9 @@ defmodule Herework.MessageController do
     Repo.delete!(message)
 
     send_resp(conn, :no_content, "")
+  end
+
+  defp with_assoc(message) do
+    message |> Repo.preload(:creator)
   end
 end

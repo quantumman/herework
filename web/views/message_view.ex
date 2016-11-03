@@ -11,11 +11,6 @@ defmodule Herework.MessageView do
     render_one(message, Herework.MessageView, "message.json")
   end
 
-  def render("_show.json", %{message: message, conn: conn}) do
-    message = Map.put(message, :conn, conn)
-    render_one(message, Herework.MessageView, "_message.json")
-  end
-
   def render("message.json", %{message: message}) do
     conn = message.conn
     %{id: message.id,
@@ -25,17 +20,6 @@ defmodule Herework.MessageView do
       comments_url:  message_comment_path(conn, :index, message.id),
       created_at: message.inserted_at,
       creator: Herework.UserView.render("user.json", %{user: message.creator})
-    }
-  end
-
-  def render("_message.json", %{message: message}) do
-    conn = message.conn
-    %{id: message.id,
-      title: message.title,
-      body: message.body,
-      url: message_path(conn, :index),
-      comments_url: message_comment_path(conn, :index, message.id),
-      created_at: message.inserted_at
     }
   end
 end
