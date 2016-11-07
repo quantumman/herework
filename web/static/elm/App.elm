@@ -93,33 +93,43 @@ mainContentStyle =
 view : App.Model -> Html Msg
 view model =
     div []
-        [ Html.map HandleError <| Error.view model
+        [ Html.map HandleError <| Error.view model.error
         , group
             [ item [ style menuStyle ]
                 [ header [ loggedInUser model.user ]
-                , V.menu [ style menuStyle ]
+                ]
+            , item [ style subMenuStyle ]
+                []
+            , item [ style mainContentStyle ]
+                []
+            ]
+        , group
+            [ item [ style menuStyle ]
+                [ V.menu [ style menuStyle ]
                     [ menuItem [ onClick FetchMessages ] Icon.comments_o "Messages"
                     , menuItem [] Icon.tasks "Tasks"
                     , menuItem [] Icon.bar_chart "Activity"
                     ]
                 ]
-            , item [ style subMenuStyle ]
-                [ header []
-                , scrollable subMenuWidth
-                    [ SubMenu.view model ]
-                ]
-            , item [ style mainContentStyle ]
-                [ header []
-                , scrollable mainContentWidth
-                    [ case model.router.route of
-                        Router.Messages ->
-                            CL.view model
+            , item []
+                [ group
+                    [ item [ style subMenuStyle ]
+                        [ scrollable subMenuWidth
+                            [ SubMenu.view model ]
+                        ]
+                    , item [ style mainContentStyle ]
+                        [ scrollable mainContentWidth
+                            [ case model.router.route of
+                                Router.Messages ->
+                                    CL.view model
 
-                        Router.NewMessage ->
-                            EditMessage.view model
+                                Router.NewMessage ->
+                                    EditMessage.view model
 
-                        other ->
-                            div [] []
+                                other ->
+                                    div [] []
+                            ]
+                        ]
                     ]
                 ]
             ]

@@ -1,5 +1,6 @@
 module Models exposing (..)
 
+import Component.Error.Model as Error exposing (..)
 import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
@@ -19,7 +20,7 @@ type alias Model =
     , newMessage : Message
     , selectedMessage : Message
     , comments : List Comment
-    , error : Maybe String
+    , error : Error.Model
     }
 
 
@@ -37,7 +38,7 @@ initialModel router =
     , newMessage = initialModelMessage
     , selectedMessage = initialModelMessage
     , comments = []
-    , error = Nothing
+    , error = Error.initialModel
     }
 
 
@@ -91,7 +92,7 @@ encodeUser model =
 decodeUser : Decoder User
 decodeUser =
     Decode.object1 User
-        ("avatar" := oneOf [Decode.string, Decode.null "https://www.gravatar.com/avatar/00000000000000000000000000000000"])
+        ("avatar" := oneOf [ Decode.string, Decode.null "https://www.gravatar.com/avatar/00000000000000000000000000000000" ])
 
 
 decodeUsers : Decoder (List User)
