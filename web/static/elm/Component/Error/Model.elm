@@ -2,7 +2,8 @@ module Component.Error.Model exposing (..)
 
 
 type alias Model =
-    { error : Maybe String }
+    { error : Maybe String
+    }
 
 
 initialModel : Model

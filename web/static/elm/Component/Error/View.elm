@@ -50,7 +50,8 @@ view model =
         Just msg ->
             div [ style overlay ]
                 [ div [ style modal ]
-                    [ message error
+                    [ closableMessage error
+                        Close
                         [ text "Something Wrong!" ]
                         [ text msg ]
                     ]

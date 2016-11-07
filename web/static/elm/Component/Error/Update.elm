@@ -5,12 +5,15 @@ import Component.Error.Model exposing (..)
 import Http as Http exposing (..)
 
 
-update : Msg -> Model m -> ( Model m, Cmd Msg )
+update : Msg -> Model -> ( Model, Cmd Msg )
 update error model =
     case error of
         Http e ->
             -- handle HTTP error
             { model | error = Just (httpErrorAsString e) } ! []
+
+        Close ->
+            { model | error = Nothing } ! []
 
 
 httpErrorAsString : Http.Error -> String
