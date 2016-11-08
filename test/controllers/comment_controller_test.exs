@@ -47,7 +47,8 @@ defmodule Herework.CommentControllerTest do
           "email" => comment.creator.email,
           "avatar" => comment.creator.avatar,
           "created_at" => TestHelper.formatted_time(comment.creator.inserted_at)
-        }
+        },
+        "created_at" => TestHelper.formatted_time(comment.inserted_at)
        }
     ]
   end
@@ -67,7 +68,8 @@ defmodule Herework.CommentControllerTest do
           "email" => comment.creator.email,
           "avatar" => comment.creator.avatar,
           "created_at" => TestHelper.formatted_time(comment.creator.inserted_at)
-        }
+        },
+        "created_at" => TestHelper.formatted_time(comment.inserted_at)
        }
   end
 

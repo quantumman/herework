@@ -13,7 +13,8 @@ defmodule Herework.CommentView do
     %{id: comment.id,
       message_id: comment.message_id,
       body: comment.body,
-      creator: Herework.UserView.render("user.json", %{user: comment.creator})
+      creator: Herework.UserView.render("user.json", %{user: comment.creator}),
+      created_at: comment.inserted_at
     }
   end
 
@@ -24,7 +25,8 @@ defmodule Herework.CommentView do
   def render("create.json", %{comment: comment}) do
     %{id: comment.id,
       message_id: comment.message_id,
-      body: comment.body
+      body: comment.body,
+      created_at: comment.inserted_at
     }
   end
 end
