@@ -91,6 +91,12 @@ mainContentStyle =
     ]
 
 
+mainContentTitleStyle : List Style
+mainContentTitleStyle =
+    [ marginTop (px 15)
+    ]
+
+
 
 -- VIEW
 
@@ -106,7 +112,12 @@ view model =
             , item [ style subMenuStyle ]
                 []
             , item [ style mainContentStyle ]
-                []
+                [ header
+                    [ h1 [ style mainContentTitleStyle ]
+                        [ text model.selectedMessage.title
+                        ]
+                    ]
+                ]
             ]
         , group
             [ item [ style menuStyle ]
