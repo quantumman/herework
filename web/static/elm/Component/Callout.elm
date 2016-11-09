@@ -39,3 +39,15 @@ triangle color =
             [ div [ outerTriangle ] []
             , div [ innerTriangle ] []
             ]
+
+
+body : String -> List (Html msg) -> Html msg
+body color content =
+    let
+        css =
+            style
+                [ border ("1px solid " ++ color)
+                , borderRadius (px 3)
+                ]
+    in
+        div [ css ] content
