@@ -125,10 +125,10 @@ type alias Message =
 
 initialModelMessage =
     { id = 0
-    , title = "test"
+    , title = ""
     , body = ""
-    , url = "issues/1"
-    , comments_url = "/api/messages/0/comments"
+    , url = ""
+    , comments_url = ""
     , creator = initialModelUser
     }
 
