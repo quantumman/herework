@@ -51,3 +51,30 @@ body color content =
                 ]
     in
         div [ css ] content
+
+
+callout : String -> Html msg -> List (Html msg) -> Html msg
+callout color icon content =
+    let
+        layout =
+            style
+                [ Style.width "100%"
+                ]
+
+        floatLeft =
+            style [ float left' ]
+
+        clearLeft =
+            style [ Style.clear left' ]
+
+        wrappedBody =
+            div [ style [ paddingLeft (px 43) ] ]
+                [ body color content
+                ]
+    in
+        div []
+            [ div [ floatLeft ] [ icon ]
+            , div [ floatLeft ] [ triangle color ]
+            , div [ layout ] [ wrappedBody ]
+            , div [ clearLeft ] []
+            ]
