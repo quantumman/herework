@@ -8,13 +8,14 @@ import Html.App as Html
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Message exposing (..)
-import Models exposing (Comment)
+import Models exposing (Comment, Message)
 import Style exposing (..)
 
 
 type alias Model m =
     { m
         | comments : List Comment
+        , selectedMessage : Message
         , dateTime : DateTime.Model
     }
 
@@ -45,7 +46,8 @@ commentStyle =
 view : Model m -> Html Msg
 view model =
     div []
-        [ ul [ style timeline ]
+        [ div [] [ text model.selectedMessage.body ]
+        , ul [ style timeline ]
             (model.comments
                 |> List.map (comment model.dateTime)
                 |> List.map (\c -> li [ style commentStyle ] [ c ])
