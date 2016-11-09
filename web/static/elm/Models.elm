@@ -2,10 +2,12 @@ module Models exposing (..)
 
 import Component.DateTime as DateTime exposing (..)
 import Component.Error.Model as Error exposing (..)
+import Date exposing (..)
 import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
 import Json.Decode as Decode exposing (..)
+import Json.Decode.Extra as Decode exposing (..)
 import Json.Encode as Encode exposing (..)
 import Router as Router exposing (..)
 
@@ -164,6 +166,7 @@ type alias Comment =
     { id : Int
     , body : String
     , creator : User
+    , created_at : Date
     }
 
 
@@ -178,10 +181,11 @@ encodeComment model =
 
 decodeComment : Decoder Comment
 decodeComment =
-    Decode.object3 Comment
+    Decode.object4 Comment
         ("id" := Decode.int)
         ("body" := Decode.string)
         ("creator" := decodeUser)
+        ("created_at" := Decode.date)
 
 
 decodeComments : Decoder (List Comment)
