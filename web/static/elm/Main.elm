@@ -1,6 +1,7 @@
 module Main exposing (..)
 
 import App as App exposing (..)
+import Commands as App exposing (..)
 import Hop exposing (makeUrl, makeUrlFromLocation, matchUrl, setQuery)
 import Hop.Types exposing (Config, Query, Location, PathMatcher, Router)
 import Html exposing (Html)
@@ -35,7 +36,7 @@ type Msg
 
 urlUpdate : ( Route, Hop.Types.Location ) -> Model -> ( Model, Cmd Msg )
 urlUpdate router model =
-    ( { model | router = make router }, Cmd.none )
+    ( { model | router = make router }, Cmd.map App App.now )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )

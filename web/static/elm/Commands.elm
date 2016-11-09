@@ -1,11 +1,12 @@
 module Commands exposing (..)
 
+import Component.DateTime as DateTime exposing (getNow)
 import Component.Error.Message as Error exposing (..)
+import Http as Http exposing (..)
 import Http exposing (Error)
 import Json.Decode as Decode exposing (..)
 import Json.Encode as Encode exposing (..)
 import Jwt exposing (..)
-import Http as Http exposing (..)
 import Message as App exposing (..)
 import Models exposing (..)
 import Task exposing (Task)
@@ -94,3 +95,12 @@ addMessage url message =
 fetchComments : Url -> Cmd App.Msg
 fetchComments url =
     get decodeComments url App.UpdateComments
+
+
+
+-- Current Date
+
+
+now : Cmd App.Msg
+now =
+    Cmd.map Now DateTime.getNow
