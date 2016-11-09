@@ -79,11 +79,13 @@ decodeResource =
 
 type alias User =
     { avatar : String
+    , name : String
     }
 
 
 initialModelUser =
     { avatar = "https://www.gravatar.com/avatar/00000000000000000000000000000000"
+    , name = "hoge"
     }
 
 
@@ -91,13 +93,15 @@ encodeUser : User -> Encode.Value
 encodeUser model =
     Encode.object
         [ ( "avatar", Encode.string model.avatar )
+        , ( "name", Encode.string model.name )
         ]
 
 
 decodeUser : Decoder User
 decodeUser =
-    Decode.object1 User
+    Decode.object2 User
         ("avatar" := oneOf [ Decode.string, Decode.null "https://www.gravatar.com/avatar/00000000000000000000000000000000" ])
+        ("name" := optional Decode.string "")
 
 
 decodeUsers : Decoder (List User)
@@ -205,3 +209,15 @@ type alias SelectableItem a =
     { selected : Bool
     , item : a
     }
+
+
+
+-- HELPER
+
+
+optional : Decoder a -> a -> Decoder a
+optional decoder defaultValue =
+    oneOf
+        [ decoder
+        , Decode.null defaultValue
+        ]
