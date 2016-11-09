@@ -1,4 +1,4 @@
-module Component.Callout exposing (..)
+module Component.Callout exposing (callout)
 
 import Html exposing (..)
 import Html.App as Html
