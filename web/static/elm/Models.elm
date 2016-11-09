@@ -1,5 +1,6 @@
 module Models exposing (..)
 
+import Component.DateTime as DateTime exposing (..)
 import Component.Error.Model as Error exposing (..)
 import Html exposing (..)
 import Html.App as Html
@@ -21,6 +22,7 @@ type alias Model =
     , selectedMessage : Message
     , comments : List Comment
     , error : Error.Model
+    , dateTime : DateTime.Model
     }
 
 
@@ -39,6 +41,7 @@ initialModel router =
     , selectedMessage = initialModelMessage
     , comments = []
     , error = Error.initialModel
+    , dateTime = DateTime.initialModel
     }
 
 

@@ -3,9 +3,10 @@ module App exposing (..)
 import Aui.Avatars exposing (..)
 import Commands as Commands exposing (..)
 import Component.CommentList as CL exposing (..)
+import Component.DateTime as DateTime exposing (init)
+import Component.EditMessage as EditMessage exposing (..)
 import Component.Error.View as Error exposing (..)
 import Component.Layout exposing (..)
-import Component.EditMessage as EditMessage exposing (..)
 import Component.SubMenu as SubMenu exposing (..)
 import Component.VerticalMenu as V exposing (..)
 import FontAwesome.Web as Icon exposing (edit)
@@ -26,7 +27,11 @@ import Style exposing (..)
 
 init : Router.Model -> ( App.Model, Cmd Msg )
 init router =
-    (initialModel router) ! [ Commands.initApp "/api/app" ]
+    let
+        ( _, dateTimeCommand ) =
+            DateTime.init
+    in
+        (initialModel router) ! [ Commands.initApp "/api/app", Cmd.map Now dateTimeCommand ]
 
 
 

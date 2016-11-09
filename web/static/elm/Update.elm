@@ -1,6 +1,7 @@
 module Update exposing (..)
 
 import Commands exposing (..)
+import Component.DateTime as DateTime exposing (update)
 import Component.Error.Update as Error exposing (..)
 import Component.Form as Form exposing (update)
 import Html exposing (..)
@@ -57,3 +58,10 @@ update message model =
                     Form.update msg model
             in
                 model' ! [ Cmd.map Bind command ]
+
+        Now msg ->
+            let
+                ( model', command ) =
+                    DateTime.update msg model.dateTime
+            in
+                { model | dateTime = model' } ! [ Cmd.map Now command ]

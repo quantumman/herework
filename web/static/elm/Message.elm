@@ -1,7 +1,8 @@
 module Message exposing (..)
 
-import Component.Form as Form exposing (..)
+import Component.DateTime as DateTime exposing (Msg)
 import Component.Error.Message as Error exposing (..)
+import Component.Form as Form exposing (..)
 import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
@@ -21,3 +22,4 @@ type Msg
     | UpdateComments (List Comment)
     | HandleError Error.Msg
     | Bind (Form.Msg Model)
+    | Now DateTime.Msg
