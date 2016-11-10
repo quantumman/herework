@@ -1,14 +1,16 @@
 module Component.CommentList exposing (..)
 
 import Aui.Avatars exposing (..)
+import Component.Callout as Callout exposing (..)
 import Component.DateTime as DateTime exposing (view, Model)
 import Component.Layout exposing (..)
+import Date exposing (Date)
 import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Message exposing (..)
-import Models exposing (Comment, Message)
+import Models exposing (Comment, Message, User)
 import Style exposing (..)
 
 
@@ -57,21 +59,9 @@ view model =
 
 comment : DateTime.Model -> Comment -> Html Msg
 comment dateTime model =
-    let
-        bodyLayout =
-            style
-                [ Style.width "100%"
-                ]
-
-        wrapper content =
-            div [ style [ paddingLeft "43px" ] ] [ content ]
-    in
-        div []
-            [ div [ style floatLeft ] [ creator model ]
-            , div [ style floatLeft ] [ callout ]
-            , div [ bodyLayout ] [ wrapper <| calloutBody dateTime model ]
-            , clearLeft
-            ]
+    Callout.callout "#ddd"
+        (creator model)
+        [ body dateTime model ]
 
 
 creator : Comment -> Html Msg
@@ -79,46 +69,9 @@ creator model =
     avatar config model.creator.avatar
 
 
-callout : Html Msg
-callout =
+body : DateTime.Model -> { m | body : String, created_at : Date, creator : User } -> Html Msg
+body dateTime model =
     let
-        triangleSize =
-            "6px"
-
-        outer =
-            style
-                [ ( "border-top", triangleSize ++ " solid transparent" )
-                , ( "border-right", triangleSize ++ " solid #ddd" )
-                , ( "border-bottom", triangleSize ++ " solid transparent" )
-                , ( "border-left", triangleSize ++ " solid transparent" )
-                , Style.width "0"
-                , Style.height "0"
-                , marginTop (px 6)
-                ]
-
-        inner =
-            style
-                [ border "4px solid"
-                , borderColor "transparent #f5f5f5 transparent transparent"
-                , marginTop (px -10)
-                , marginLeft (px 1)
-                ]
-    in
-        div []
-            [ div [ outer ] []
-            , div [ inner ] []
-            ]
-
-
-calloutBody : DateTime.Model -> Comment -> Html Msg
-calloutBody dateTime model =
-    let
-        css =
-            style
-                [ border "1px solid #ddd"
-                , borderRadius (px 3)
-                ]
-
         padding =
             style
                 [ paddingLeft (px 5)
@@ -145,7 +98,7 @@ calloutBody dateTime model =
         clearRight =
             style [ clear right' ]
     in
-        div [ css ]
+        div []
             [ div [ padding, bodyStyle ] [ text model.body ]
             , div [ footerStyle ]
                 [ div [ padding, floatRight ]
@@ -156,14 +109,3 @@ calloutBody dateTime model =
                 , div [ clearRight ] []
                 ]
             ]
-
-
-floatLeft : List Style
-floatLeft =
-    [ float left'
-    ]
-
-
-clearLeft : Html Msg
-clearLeft =
-    div [ style [ Style.clear left' ] ] []
