@@ -1,6 +1,7 @@
 module Component.CommentList exposing (..)
 
 import Aui.Avatars exposing (..)
+import Component.Callout as Callout exposing (..)
 import Component.DateTime as DateTime exposing (view, Model)
 import Component.Layout exposing (..)
 import Date exposing (Date)
@@ -58,21 +59,9 @@ view model =
 
 comment : DateTime.Model -> Comment -> Html Msg
 comment dateTime model =
-    let
-        bodyLayout =
-            style
-                [ Style.width "100%"
-                ]
-
-        wrapper content =
-            div [ style [ paddingLeft "43px" ] ] [ content ]
-    in
-        div []
-            [ div [ style floatLeft ] [ creator model ]
-            , div [ style floatLeft ] [ callout ]
-            , div [ bodyLayout ] [ wrapper <| calloutBody dateTime model ]
-            , clearLeft
-            ]
+    Callout.callout "#ddd"
+        (creator model)
+        [ body dateTime model ]
 
 
 creator : Comment -> Html Msg
