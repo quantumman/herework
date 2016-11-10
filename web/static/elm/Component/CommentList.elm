@@ -59,7 +59,8 @@ view' : Model m -> Html Msg
 view' model =
     div []
         [ div []
-            [ (Maybe.withDefault initialModelMessage model.selectedMessage) |> .body |> text
+            [ message model.dateTime
+                (Maybe.withDefault initialModelMessage model.selectedMessage)
             ]
         , ul [ style timeline ]
             (model.comments
@@ -69,6 +70,13 @@ view' model =
         ]
 
 
+message : DateTime.Model -> Message -> Html Msg
+message dateTime model =
+    callout "#ddd"
+        (creator model)
+        [ body dateTime model ]
+
+
 comment : DateTime.Model -> Comment -> Html Msg
 comment dateTime model =
     Callout.callout "#ddd"
@@ -76,7 +84,7 @@ comment dateTime model =
         [ body dateTime model ]
 
 
-creator : Comment -> Html Msg
+creator : { m | creator : User } -> Html Msg
 creator model =
     avatar config model.creator.avatar
 
