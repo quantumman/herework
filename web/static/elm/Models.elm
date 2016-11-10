@@ -3,6 +3,7 @@ module Models exposing (..)
 import Component.DateTime as DateTime exposing (..)
 import Component.Error.Model as Error exposing (..)
 import Date exposing (..)
+import Date.Extra.Core exposing (..)
 import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
@@ -115,6 +116,7 @@ type alias Message =
     , url : String
     , comments_url : String
     , creator : User
+    , created_at : Date
     }
 
 
@@ -125,6 +127,7 @@ initialModelMessage =
     , url = ""
     , comments_url = ""
     , creator = initialModelUser
+    , created_at = Date.Extra.Core.fromTime 0
     }
 
 
@@ -143,13 +146,14 @@ encodeMessage model =
 
 decodeMessage : Decoder Message
 decodeMessage =
-    Decode.object6 Message
+    Decode.object7 Message
         ("id" := Decode.int)
         ("title" := Decode.string)
         ("body" := Decode.string)
         ("url" := Decode.string)
         ("comments_url" := Decode.string)
         ("creator" := decodeUser)
+        ("created_at" := Decode.date)
 
 
 decodeMessages : Decoder (List Message)
