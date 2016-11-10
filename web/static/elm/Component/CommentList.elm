@@ -10,14 +10,14 @@ import Html.App as Html
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Message exposing (..)
-import Models exposing (Comment, Message, User)
+import Models exposing (Comment, Message, User, initialModelMessage)
 import Style exposing (..)
 
 
 type alias Model m =
     { m
         | comments : List Comment
-        , selectedMessage : Message
+        , selectedMessage : Maybe Message
         , dateTime : DateTime.Model
     }
 
@@ -47,8 +47,20 @@ commentStyle =
 
 view : Model m -> Html Msg
 view model =
+    case model.selectedMessage of
+        Just _ ->
+            view' model
+
+        Nothing ->
+            div [] []
+
+
+view' : Model m -> Html Msg
+view' model =
     div []
-        [ div [] [ text model.selectedMessage.body ]
+        [ div []
+            [ (Maybe.withDefault initialModelMessage model.selectedMessage) |> .body |> text
+            ]
         , ul [ style timeline ]
             (model.comments
                 |> List.map (comment model.dateTime)

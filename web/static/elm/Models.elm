@@ -121,7 +121,7 @@ type alias Message =
 
 
 initialModelMessage =
-    { id = 0
+    { id = -1
     , title = ""
     , body = ""
     , url = ""

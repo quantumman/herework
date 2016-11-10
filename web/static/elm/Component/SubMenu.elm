@@ -19,7 +19,7 @@ type alias Model m =
     { m
         | router : Router.Model
         , messages : List Message
-        , selectedMessage : Message
+        , selectedMessage : Maybe Message
     }
 
 
@@ -52,7 +52,9 @@ messagesView model =
             [ Icon.plus_circle
             , text "Add a new message"
             ]
-        , Nav.vnav <| messages model.messages model.selectedMessage
+        , Maybe.withDefault initialModelMessage model.selectedMessage
+            |> messages model.messages
+            |> Nav.vnav
         ]
 
 

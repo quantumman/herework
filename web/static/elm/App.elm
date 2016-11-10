@@ -114,7 +114,7 @@ view model =
             , item [ style mainContentStyle ]
                 [ header
                     [ h1 [ style mainContentTitleStyle ]
-                        [ text model.selectedMessage.title
+                        [ text (model.selectedMessage |> Maybe.map (.title) |> Maybe.withDefault "")
                         ]
                     ]
                 ]

@@ -40,7 +40,7 @@ update message model =
             model ! [ newUrl NewMessage ]
 
         FetchComments message ->
-            { model | selectedMessage = message } ! [ Commands.fetchComments message.comments_url ]
+            { model | selectedMessage = Just message } ! [ Commands.fetchComments message.comments_url ]
 
         UpdateComments comments ->
             { model | comments = comments } ! []
