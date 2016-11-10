@@ -21,7 +21,7 @@ type alias Model =
     , user : User
     , messages : List Message
     , newMessage : Message
-    , selectedMessage : Message
+    , selectedMessage : Maybe Message
     , comments : List Comment
     , error : Error.Model
     , dateTime : DateTime.Model
@@ -35,7 +35,7 @@ initialModel router =
     , user = initialModelUser
     , messages = []
     , newMessage = initialModelMessage
-    , selectedMessage = initialModelMessage
+    , selectedMessage = Nothing
     , comments = []
     , error = Error.initialModel
     , dateTime = DateTime.initialModel
