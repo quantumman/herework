@@ -33,12 +33,7 @@ initialModel router =
     { router = router
     , resource = initialModelResource
     , user = initialModelUser
-    , messages =
-        [ initialModelMessage
-        , { id = 1, title = "foobar", body = "", url = "messages/1", comments_url = "foobar", creator = initialModelUser }
-        , { id = 2, title = "REQUEST: Working with BOT", body = "", url = "messages/2", comments_url = "foobar", creator = initialModelUser }
-        , { id = 3, title = "QUESTION: How can we make issue ?", body = "", url = "messages/3", comments_url = "foboar", creator = initialModelUser }
-        ]
+    , messages = []
     , newMessage = initialModelMessage
     , selectedMessage = initialModelMessage
     , comments = []
