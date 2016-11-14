@@ -1,4 +1,4 @@
-module Component.Nav exposing (..)
+module Component.UI.Nav exposing (..)
 
 import Html exposing (..)
 import Html.App as Html

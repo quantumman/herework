@@ -1,6 +1,6 @@
-module Component.EditMessage exposing (..)
+module Component.Views.EditMessage exposing (..)
 
-import Component.Buttons as Buttons exposing (..)
+import Component.UI.Buttons as Buttons exposing (..)
 import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)

@@ -1,8 +1,8 @@
 module Message exposing (..)
 
-import Component.DateTime as DateTime exposing (Msg)
 import Component.Error.Message as Error exposing (..)
-import Component.Form as Form exposing (..)
+import Component.Infrastructures.DateTime as DateTime exposing (Msg)
+import Component.Infrastructures.Form as Form exposing (..)
 import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)

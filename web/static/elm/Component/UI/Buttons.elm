@@ -1,4 +1,4 @@
-module Component.Buttons exposing (..)
+module Component.UI.Buttons exposing (..)
 
 import Aui.Buttons as Aui exposing (..)
 import Html exposing (..)

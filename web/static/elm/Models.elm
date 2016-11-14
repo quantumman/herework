@@ -1,7 +1,7 @@
 module Models exposing (..)
 
-import Component.DateTime as DateTime exposing (..)
 import Component.Error.Model as Error exposing (..)
+import Component.Infrastructures.DateTime as DateTime exposing (..)
 import Date exposing (..)
 import Date.Extra.Core exposing (..)
 import Html exposing (..)

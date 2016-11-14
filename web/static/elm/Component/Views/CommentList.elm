@@ -1,9 +1,9 @@
-module Component.CommentList exposing (..)
+module Component.Views.CommentList exposing (..)
 
 import Aui.Avatars exposing (..)
-import Component.Callout as Callout exposing (..)
-import Component.DateTime as DateTime exposing (view, Model)
-import Component.Layout exposing (..)
+import Component.Infrastructures.DateTime as DateTime exposing (view, Model)
+import Component.UI.Callout as Callout exposing (..)
+import Component.UI.Layout exposing (..)
 import Date exposing (Date)
 import Html exposing (..)
 import Html.App as Html

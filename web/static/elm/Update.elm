@@ -1,9 +1,9 @@
 module Update exposing (..)
 
 import Commands exposing (..)
-import Component.DateTime as DateTime exposing (update)
 import Component.Error.Update as Error exposing (..)
-import Component.Form as Form exposing (update)
+import Component.Infrastructures.DateTime as DateTime exposing (update)
+import Component.Infrastructures.Form as Form exposing (update)
 import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)

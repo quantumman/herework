@@ -1,7 +1,7 @@
-module Component.SubMenu exposing (..)
+module Component.Views.SubMenu exposing (..)
 
-import Component.Buttons as B exposing (..)
-import Component.Nav as Nav exposing (..)
+import Component.UI.Buttons as B exposing (..)
+import Component.UI.Nav as Nav exposing (..)
 import FontAwesome.Web as Icon exposing (..)
 import Html exposing (..)
 import Html.App as Html

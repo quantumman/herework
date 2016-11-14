@@ -1,4 +1,4 @@
-module Component.Form exposing (..)
+module Component.Infrastructures.Form exposing (..)
 
 import Html exposing (..)
 import Html.App as Html

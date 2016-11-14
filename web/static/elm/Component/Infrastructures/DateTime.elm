@@ -1,4 +1,4 @@
-module Component.DateTime exposing (..)
+module Component.Infrastructures.DateTime exposing (..)
 
 import Date exposing (..)
 import Date.Extra.Config as Date exposing (..)
