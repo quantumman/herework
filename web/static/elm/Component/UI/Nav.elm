@@ -3,25 +3,24 @@ module Component.UI.Nav exposing (..)
 import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
-import Message exposing (Msg)
 
 
-type Header
-    = Header (Html Msg)
+type Header msg
+    = Header (Html msg)
 
 
-header : String -> Header
+header : String -> Header msg
 header label =
     Header
         <| div [ class "aui-nav-heading" ]
             [ strong [] [ text label ] ]
 
 
-type Item
-    = Item (Html Msg)
+type Item msg
+    = Item (Html msg)
 
 
-item : List (Attribute Msg) -> Bool -> String -> Item
+item : List (Attribute msg) -> Bool -> String -> Item msg
 item attributes isSelected label =
     Item
         <| li
@@ -36,7 +35,7 @@ item attributes isSelected label =
             ]
 
 
-vnav : List ( Header, List Item ) -> Html Msg
+vnav : List ( Header msg, List (Item msg) ) -> Html msg
 vnav groups =
     let
         renderMenu ( Header header, items ) =
@@ -49,7 +48,7 @@ vnav groups =
             ]
 
 
-hnav : List Item -> Html Msg
+hnav : List (Item msg) -> Html msg
 hnav items =
     nav [ class "aui-navgroup aui-navgroup-horizontal" ]
         [ div [ class "aui-navgroup-inner" ]
