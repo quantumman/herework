@@ -79,7 +79,7 @@ message dateTime model =
 
 comment : DateTime.Model -> Comment -> Html Msg
 comment dateTime model =
-    Callout.callout "#ddd"
+    callout "#ddd"
         (creator model)
         [ body dateTime model ]
 
