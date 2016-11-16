@@ -16,6 +16,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Message exposing (..)
 import Models as App exposing (Model)
+import Models.User exposing (User)
 import Models exposing (..)
 import Navigation
 import Router as Router exposing (..)

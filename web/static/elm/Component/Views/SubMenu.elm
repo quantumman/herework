@@ -10,6 +10,7 @@ import Html.Events exposing (..)
 import Message exposing (..)
 import Models exposing (..)
 import Router as Router exposing (..)
+import Models.Message as Message exposing (..)
 
 
 -- MODEL
@@ -52,13 +53,13 @@ messagesView model =
             [ Icon.plus_circle
             , text "Add a new message"
             ]
-        , Maybe.withDefault initialModelMessage model.selectedMessage
+        , Maybe.withDefault Message.initialModel model.selectedMessage
             |> messages model.messages
             |> Nav.vnav
         ]
 
 
-messages : List Message -> Message -> List ( Nav.Header, List Nav.Item )
+messages : List Message -> Message -> List ( Nav.Header a, List (Nav.Item Msg) )
 messages ms selected =
     let
         toItem message =

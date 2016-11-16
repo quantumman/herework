@@ -1,7 +1,7 @@
 module Commands exposing (..)
 
-import Component.Infrastructures.DateTime as DateTime exposing (getNow)
 import Component.Error.Message as Error exposing (..)
+import Component.Infrastructures.DateTime as DateTime exposing (getNow)
 import Http as Http exposing (..)
 import Http exposing (Error)
 import Json.Decode as Decode exposing (..)
@@ -9,6 +9,10 @@ import Json.Encode as Encode exposing (..)
 import Jwt exposing (..)
 import Message as App exposing (..)
 import Models exposing (..)
+import Models.Comment as Comment exposing (..)
+import Models.Message as Message exposing (..)
+import Models.User as User exposing (..)
+import Models.Resource as Resource exposing (..)
 import Task exposing (Task)
 
 
@@ -78,23 +82,23 @@ delete resource msg =
 
 initApp : Url -> Cmd App.Msg
 initApp url =
-    get decodeResource url InitResource
+    get Resource.decode url InitResource
 
 
 fetchMessages : Url -> Cmd App.Msg
 fetchMessages url =
-    get decodeMessages url App.UpdateMessages
+    get Message.decodeList url App.UpdateMessages
 
 
 addMessage : Url -> Message -> Cmd App.Msg
 addMessage url message =
-    encodeMessage message
-        |> \payload -> post decodeMessage url payload App.UpdateMessage
+    Message.encode message
+        |> \payload -> post Message.decode url payload App.UpdateMessage
 
 
 fetchComments : Url -> Cmd App.Msg
 fetchComments url =
-    get decodeComments url App.UpdateComments
+    get Comment.decodeList url App.UpdateComments
 
 
 

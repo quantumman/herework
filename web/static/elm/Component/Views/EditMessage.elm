@@ -8,6 +8,7 @@ import Html.Events exposing (..)
 import HtmlHelpers exposing (..)
 import Message exposing (..)
 import Models exposing (..)
+import Models.Message exposing (Message)
 
 
 -- MODEL

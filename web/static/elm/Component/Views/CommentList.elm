@@ -10,7 +10,9 @@ import Html.App as Html
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Message exposing (..)
-import Models exposing (Comment, Message, User, initialModelMessage)
+import Models.Comment exposing (Comment)
+import Models.Message exposing (Message, initialModel)
+import Models.User exposing (User)
 import Style exposing (..)
 
 
@@ -60,7 +62,7 @@ view' model =
     div []
         [ div []
             [ message model.dateTime
-                (Maybe.withDefault initialModelMessage model.selectedMessage)
+                (Maybe.withDefault initialModel model.selectedMessage)
             ]
         , ul [ style timeline ]
             (model.comments

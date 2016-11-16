@@ -7,6 +7,10 @@ import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
 import Models exposing (..)
+import Models.Comment exposing (Comment)
+import Models.Message exposing (Message)
+import Models.User exposing (User)
+import Models.Resource exposing (Resource)
 
 
 type Msg
