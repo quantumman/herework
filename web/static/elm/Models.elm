@@ -30,7 +30,7 @@ type alias Model =
     , selectedMessage : Maybe Message
     , comments : List Comment
     , error : Error.Model
-    , dateTime : DateTime.Model
+    , now : DateTime.Model
     }
 
 
@@ -44,13 +44,17 @@ initialModel router =
     , selectedMessage = Nothing
     , comments = []
     , error = Error.initialModel
-    , dateTime = DateTime.initialModel
+    , now = DateTime.initialModel
     }
 
 
 
 -- RE-EXPORT
 
-type alias Url = Extra.Url
 
-type alias SelectableItem a = Extra.SelectableItem a
+type alias Url =
+    Extra.Url
+
+
+type alias SelectableItem a =
+    Extra.SelectableItem a

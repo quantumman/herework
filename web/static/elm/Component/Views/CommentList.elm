@@ -20,7 +20,7 @@ type alias Model m =
     { m
         | comments : List Comment
         , selectedMessage : Maybe Message
-        , dateTime : DateTime.Model
+        , now : DateTime.Model
     }
 
 
@@ -61,12 +61,12 @@ view' : Model m -> Html Msg
 view' model =
     div []
         [ div []
-            [ message model.dateTime
+            [ message model.now
                 (Maybe.withDefault initialModel model.selectedMessage)
             ]
         , ul [ style timeline ]
             (model.comments
-                |> List.map (comment model.dateTime)
+                |> List.map (comment model.now)
                 |> List.map (\c -> li [ style commentStyle ] [ c ])
             )
         ]

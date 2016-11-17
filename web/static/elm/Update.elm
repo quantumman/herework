@@ -62,6 +62,6 @@ update message model =
         Now msg ->
             let
                 ( model', command ) =
-                    DateTime.update msg model.dateTime
+                    DateTime.update msg model.now
             in
-                { model | dateTime = model' } ! [ Cmd.map Now command ]
+                { model | now = model' } ! [ Cmd.map Now command ]
