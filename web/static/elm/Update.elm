@@ -15,12 +15,6 @@ import Router exposing (Route(..), navigateTo, newUrl)
 update : Msg -> Model -> ( Model, Cmd Msg )
 update message model =
     case message of
-        Fetch resource ->
-            model ! []
-
-        Open url ->
-            model ! []
-
         InitResource resource ->
             { model | resource = resource } ! [ Commands.fetchMessages resource.messages_url ]
 

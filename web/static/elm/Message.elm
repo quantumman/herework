@@ -14,9 +14,7 @@ import Models.Resource exposing (Resource)
 
 
 type Msg
-    = Fetch Url
-    | Open Url
-    | InitResource Resource
+    = InitResource Resource
     | FetchMessages
     | UpdateMessages (List Message)
     | AddMessage Message
