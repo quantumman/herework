@@ -1,5 +1,6 @@
 module Component.UI.Editor exposing (..)
 
+import Component.UI.Buttons as Buttons exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
