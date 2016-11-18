@@ -1,5 +1,6 @@
 module Component.UI.Editor exposing (..)
 
+
 import Component.UI.Buttons as Buttons exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -10,7 +11,17 @@ import Html.Events exposing (..)
 
 
 type alias Model =
-    {}
+    { content : String }
+
+
+init : String -> ( Model, Cmd Msg )
+init content =
+    { initialModel | content = content } ! []
+
+
+initialModel : Model
+initialModel =
+    { content = "" }
 
 
 
@@ -34,4 +45,4 @@ update message model =
 
 view : Model -> Html Msg
 view model =
-    textarea [] []
+    textarea [] [ text model.content ]
