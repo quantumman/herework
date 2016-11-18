@@ -123,7 +123,7 @@ view model =
         , group
             [ item [ style menuStyle ]
                 [ V.menu [ style menuStyle ]
-                    [ menuItem [ onClick FetchMessages ] Icon.comments_o "Messages"
+                    [ menuItem [ onClick ListMessages ] Icon.comments_o "Messages"
                     , menuItem [] Icon.tasks "Tasks"
                     , menuItem [] Icon.bar_chart "Activity"
                     ]

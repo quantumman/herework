@@ -87,18 +87,18 @@ initApp url =
 
 fetchMessages : Url -> Cmd App.Msg
 fetchMessages url =
-    get Message.decodeList url App.UpdateMessages
+    get Message.decodeList url App.RefreshMessages
 
 
 addMessage : Url -> Message -> Cmd App.Msg
 addMessage url message =
     Message.encode message
-        |> \payload -> post Message.decode url payload App.UpdateMessage
+        |> \payload -> post Message.decode url payload App.NewMessage
 
 
 fetchComments : Url -> Cmd App.Msg
 fetchComments url =
-    get Comment.decodeList url App.UpdateComments
+    get Comment.decodeList url App.RefreshComments
 
 
 

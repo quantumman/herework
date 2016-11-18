@@ -36,7 +36,7 @@ view model =
                 Messages ->
                     messagesView model
 
-                NewMessage ->
+                Router.NewMessage ->
                     messagesView model
 
                 other ->
@@ -63,7 +63,7 @@ messages : List Message -> Message -> List ( Nav.Header a, List (Nav.Item Msg) )
 messages ms selected =
     let
         toItem message =
-            Nav.item [ onClick (FetchComments message), href "#" ]
+            Nav.item [ onClick (Message.ListComments message), href "#" ]
                 (selected.id == message.id)
                 message.title
     in

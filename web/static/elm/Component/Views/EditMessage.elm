@@ -51,6 +51,6 @@ view model =
                 ]
             ]
         , Buttons.button primary
-            (AddMessage model.newMessage)
+            (NewMessage model.newMessage)
             [ text "Add" ]
         ]

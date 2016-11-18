@@ -14,14 +14,19 @@ import Models.Resource exposing (Resource)
 
 
 type Msg
-    = InitResource Resource
-    | FetchMessages
-    | UpdateMessages (List Message)
-    | AddMessage Message
-    | UpdateMessage Message
-    | ClickAddMessage
-    | FetchComments Message
-    | UpdateComments (List Comment)
+    = -- UI actions
+      ClickAddMessage
+      -- Resource locations
+    | InitResource Resource
+      -- Resource Message
+    | ListMessages
+    | RefreshMessages (List Message)
+    | NewMessage Message
+    | EditMessage Message
+      -- Resource Comment
+    | ListComments Message
+    | RefreshComments (List Comment)
+      -- Child Components
     | HandleError Error.Msg
     | Bind (Form.Msg Model)
     | Now DateTime.Msg
