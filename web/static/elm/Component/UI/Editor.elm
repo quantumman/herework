@@ -1,6 +1,6 @@
 module Component.UI.Editor exposing (..)
 
-
+import Component.Infrastructures.Form as Form exposing (..)
 import Component.UI.Buttons as Buttons exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -24,12 +24,18 @@ initialModel =
     { content = "" }
 
 
+content : Model -> String -> Model
+content model value =
+    { model | content = value }
+
+
 
 -- UPDATE
 
 
 type Msg
     = NoOp
+    | Bind (Form.Msg Model)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -38,6 +44,13 @@ update message model =
         NoOp ->
             model ! []
 
+        Bind msg ->
+            let
+                ( newModel, command ) =
+                    Form.update msg model
+            in
+                newModel ! [ Cmd.map Bind command ]
+
 
 
 -- VIEW
@@ -45,4 +58,4 @@ update message model =
 
 view : Model -> Html Msg
 view model =
-    textarea [] [ text model.content ]
+    textarea [ bind content Bind ] [ text model.content ]
