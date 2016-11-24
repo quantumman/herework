@@ -29,3 +29,11 @@ selectionRange fmsg =
                 selectionEnd
     in
         map fmsg (target range)
+
+
+type alias TextArea =
+    { selectionStart : Int
+    , selectionEnd : Int
+    , rows : Int
+    , cols : Int
+    }
