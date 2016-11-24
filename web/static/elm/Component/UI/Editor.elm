@@ -1,5 +1,7 @@
 module Component.UI.Editor exposing (..)
 
+import Aui.Tabs as Tabs exposing (..)
+import Markdown as Markdown exposing (..)
 import Component.Infrastructures.DOM as DOM exposing (..)
 import Component.Infrastructures.Form as Form exposing (..)
 import Component.UI.Buttons as Buttons exposing (..)
@@ -15,7 +17,13 @@ type alias Model =
     { content : String
     , selectionStart : Int
     , selectionEnd : Int
+    , tabs : Tabs.Model TabItemId
     }
+
+
+type TabItemId
+    = Edit
+    | Preview
 
 
 init : String -> ( Model, Cmd Msg )
@@ -28,6 +36,7 @@ initialModel =
     { content = ""
     , selectionStart = 0
     , selectionEnd = 0
+    , tabs = Tabs.modelWithActive Edit
     }
 
 
@@ -57,8 +66,10 @@ type Msg
     | Line
     | Indent
     | Deindent
-      --
+      -- Child component
     | Bind (Form.Msg Model)
+    | Tabs (Tabs.Msg TabItemId)
+      -- Others
     | Cursor DOM.SelectionRange
 
 
@@ -110,6 +121,13 @@ update message model =
         Deindent ->
             model ! []
 
+        Tabs msg ->
+            let
+                tabs =
+                    Tabs.update msg model.tabs
+            in
+                { model | tabs = tabs } ! []
+
         Bind msg ->
             let
                 ( newModel, command ) =
@@ -137,6 +155,23 @@ view model =
 
         onClick =
             on "click" (DOM.selectionRange Cursor)
+
+        headers =
+            [ item Edit "Edit"
+            , item Preview "Preview"
+            ]
+
+        editor itemId =
+            case itemId of
+                Edit ->
+                    textarea [ bind content Bind, onBlur, onClick ]
+                        [ text model.content ]
+
+                Preview ->
+                    Markdown.toHtml [] model.content
     in
-        textarea [ bind content Bind, onBlur, onClick ]
-            [ text model.content ]
+        div []
+            [ tabs (baseConfig Tabs |> horizontal |> withItems headers)
+                editor
+                model.tabs
+            ]
