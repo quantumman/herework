@@ -6,6 +6,7 @@ import Aui.Toolbar as Toolbar exposing (..)
 import Component.Infrastructures.DOM as DOM exposing (..)
 import Component.Infrastructures.Form as Form exposing (..)
 import Component.UI.Buttons as Buttons exposing (..)
+import FontAwesome.Web as Icon exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -67,7 +68,7 @@ type Msg
     | List
     | Line
     | Indent
-    | Deindent
+    | Outindent
       -- Child component
     | Bind (Form.Msg Model)
     | Tabs (Tabs.Msg TabItemId)
@@ -120,7 +121,7 @@ update message model =
         Indent ->
             model ! []
 
-        Deindent ->
+        Outindent ->
             model ! []
 
         Tabs msg ->
@@ -190,7 +191,7 @@ view model =
                         ]
 
                 Preview ->
-                    Markdown.toHtml [] model.content
+                    div [ container ] [ Markdown.toHtml [] model.content ]
     in
         div []
             [ tabs (Tabs.baseConfig Tabs |> horizontal |> withItems headers)
@@ -201,22 +202,26 @@ view model =
 
 toolbar : Html Msg
 toolbar =
-    Toolbar.toolbar
-        [ toolbarPrimary
-            [ buttonGroup
-                [ Buttons.button normal Bold [ text "Bold" ]
-                , Buttons.button normal Italic [ text "Italic" ]
-                , Buttons.button normal Quote [ text "Quote" ]
-                , Buttons.button normal Underline [ text "Underline " ]
-                , Buttons.button normal H2 [ text "H2" ]
-                , Buttons.button normal H3 [ text "H3" ]
-                , Buttons.button normal Image [ text "Image" ]
-                , Buttons.button normal Paragraph [ text "Paragraph" ]
-                , Buttons.button normal NumericList [ text "NumericList" ]
-                , Buttons.button normal List [ text "List" ]
-                , Buttons.button normal Line [ text "Line" ]
-                , Buttons.button normal Indent [ text "Indent" ]
-                , Buttons.button normal Deindent [ text "Deindent" ]
+    let
+        icon s =
+            i [ class ("fa fa-" ++ s) ] []
+    in
+        Toolbar.toolbar
+            [ toolbarPrimary
+                [ buttonGroup
+                    [ Buttons.button normal Bold [ icon "bold" ]
+                    , Buttons.button normal Italic [ icon "italic" ]
+                    , Buttons.button normal Quote [ icon "quote-right" ]
+                    , Buttons.button normal Underline [ icon "underline" ]
+                    , Buttons.button normal H2 [ icon "header" ]
+                    , Buttons.button normal H3 [ icon "header" ]
+                    , Buttons.button normal Image [ Icon.image ]
+                    , Buttons.button normal Paragraph [ icon "paragraph" ]
+                    , Buttons.button normal NumericList [ icon "list-ol" ]
+                    , Buttons.button normal List [ icon "list-ul" ]
+                    , Buttons.button normal Line [ icon "ellipsis-h" ]
+                    , Buttons.button normal Indent [ icon "indent" ]
+                    , Buttons.button normal Outindent [ icon "outdent" ]
+                    ]
                 ]
             ]
-        ]
