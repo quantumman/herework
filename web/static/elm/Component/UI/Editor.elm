@@ -163,13 +163,30 @@ view model =
             , item Preview "Preview"
             ]
 
+        container =
+            style
+                [ ( "width", "98%" )
+                , ( "height", "7em" )
+                ]
+
+        textareaStyle =
+            style
+                [ ( "borderRadius", "5px" )
+                , ( "borderColor", "#ddd" )
+                , ( "width", "100%" )
+                , ( "height", "100%" )
+                , ( "resize", "vertical" )
+                ]
+
         editor itemId =
             case itemId of
                 Edit ->
-                    div []
+                    Html.form [ class "aui" ]
                         [ toolbar
-                        , textarea [ bind content Bind, onBlur, onClick ]
-                            [ text model.content ]
+                        , div [ container ]
+                            [ textarea [ textareaStyle, bind content Bind, onBlur, onClick ]
+                                [ text model.content ]
+                            ]
                         ]
 
                 Preview ->
