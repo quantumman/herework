@@ -18,8 +18,7 @@ import Markdown as Markdown exposing (..)
 
 type alias Model =
     { content : String
-    , selectionStart : Int
-    , selectionEnd : Int
+    , textarea : DOM.TextArea
     , tabs : Tabs.Model TabItemId
     }
 
@@ -37,8 +36,12 @@ init content =
 initialModel : Model
 initialModel =
     { content = ""
-    , selectionStart = 0
-    , selectionEnd = 0
+    , textarea =
+        { selectionStart = 0
+        , selectionEnd = 0
+        , rows = 0
+        , cols = 0
+        }
     , tabs = Tabs.modelWithActive Edit
     }
 
@@ -73,7 +76,7 @@ type Msg
     | Bind (Form.Msg Model)
     | Tabs (Tabs.Msg TabItemId)
       -- Others
-    | Cursor DOM.SelectionRange
+    | TextArea DOM.TextArea
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -138,12 +141,8 @@ update message model =
             in
                 newModel ! [ Cmd.map Bind command ]
 
-        Cursor range ->
-            { model
-                | selectionStart = range.start
-                , selectionEnd = range.end
-            }
-                ! []
+        TextArea textarea ->
+            { model | textarea = textarea } ! []
 
 
 
@@ -154,10 +153,10 @@ view : Model -> Html Msg
 view model =
     let
         onBlur =
-            on "blur" (DOM.selectionRange Cursor)
+            on "blur" (DOM.textarea TextArea)
 
         onClick =
-            on "click" (DOM.selectionRange Cursor)
+            on "click" (DOM.textarea TextArea)
 
         headers =
             [ item Edit "Edit"
@@ -185,7 +184,7 @@ view model =
                     Html.form [ class "aui" ]
                         [ toolbar
                         , div [ container ]
-                            [ textarea [ textareaStyle, bind content Bind, onBlur, onClick ]
+                            [ Html.textarea [ textareaStyle, bind content Bind, onBlur, onClick ]
                                 [ text model.content ]
                             ]
                         ]
