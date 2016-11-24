@@ -1,5 +1,6 @@
 module Component.UI.Editor exposing (..)
 
+import Component.Infrastructures.DOM as DOM exposing (..)
 import Component.Infrastructures.Form as Form exposing (..)
 import Component.UI.Buttons as Buttons exposing (..)
 import Html exposing (..)
@@ -11,7 +12,10 @@ import Html.Events exposing (..)
 
 
 type alias Model =
-    { content : String }
+    { content : String
+    , selectionStart : Int
+    , selectionEnd : Int
+    }
 
 
 init : String -> ( Model, Cmd Msg )
@@ -21,7 +25,10 @@ init content =
 
 initialModel : Model
 initialModel =
-    { content = "" }
+    { content = ""
+    , selectionStart = 0
+    , selectionEnd = 0
+    }
 
 
 content : Model -> String -> Model
@@ -36,6 +43,7 @@ content model value =
 type Msg
     = NoOp
     | Bind (Form.Msg Model)
+    | Cursor DOM.SelectionRange
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -51,6 +59,13 @@ update message model =
             in
                 newModel ! [ Cmd.map Bind command ]
 
+        Cursor range ->
+            { model
+                | selectionStart = range.start
+                , selectionEnd = range.end
+            }
+                ! []
+
 
 
 -- VIEW
@@ -58,4 +73,12 @@ update message model =
 
 view : Model -> Html Msg
 view model =
-    textarea [ bind content Bind ] [ text model.content ]
+    let
+        onBlur =
+            on "blur" (DOM.selectionRange Cursor)
+
+        onClick =
+            on "click" (DOM.selectionRange Cursor)
+    in
+        textarea [ bind content Bind, onBlur, onClick ]
+            [ text model.content ]
