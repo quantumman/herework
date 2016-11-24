@@ -42,6 +42,22 @@ content model value =
 
 type Msg
     = NoOp
+      -- Buttons
+    | Bold
+    | Italic
+    | Quote
+    | Underline
+    | H2
+    | H3
+    | Image
+    | Link
+    | Paragraph
+    | NumericList
+    | List
+    | Line
+    | Indent
+    | Deindent
+      --
     | Bind (Form.Msg Model)
     | Cursor DOM.SelectionRange
 
@@ -50,6 +66,48 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update message model =
     case message of
         NoOp ->
+            model ! []
+
+        Bold ->
+            model ! []
+
+        Italic ->
+            model ! []
+
+        Quote ->
+            model ! []
+
+        Underline ->
+            model ! []
+
+        H2 ->
+            model ! []
+
+        H3 ->
+            model ! []
+
+        Image ->
+            model ! []
+
+        Link ->
+            model ! []
+
+        Paragraph ->
+            model ! []
+
+        NumericList ->
+            model ! []
+
+        List ->
+            model ! []
+
+        Line ->
+            model ! []
+
+        Indent ->
+            model ! []
+
+        Deindent ->
             model ! []
 
         Bind msg ->
