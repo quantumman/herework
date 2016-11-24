@@ -20,6 +20,7 @@ type alias Model m =
         | comments : List Comment
         , selectedMessage : Maybe Message
         , now : DateTime.Model
+        , editor : Editor.Model
     }
 
 
@@ -68,6 +69,8 @@ view_ model =
                 |> List.map (comment model.now)
                 |> List.map (\c -> li [ style commentStyle ] [ c ])
             )
+        , div []
+            [ Html.map Editor <| Editor.view model.editor ]
         ]
 
 
