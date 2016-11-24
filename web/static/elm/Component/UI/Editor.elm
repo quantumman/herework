@@ -1,13 +1,15 @@
 module Component.UI.Editor exposing (..)
 
+import Aui.Buttons exposing (buttonGroup)
 import Aui.Tabs as Tabs exposing (..)
-import Markdown as Markdown exposing (..)
+import Aui.Toolbar as Toolbar exposing (..)
 import Component.Infrastructures.DOM as DOM exposing (..)
 import Component.Infrastructures.Form as Form exposing (..)
 import Component.UI.Buttons as Buttons exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Markdown as Markdown exposing (..)
 
 
 -- MODEL
@@ -164,14 +166,40 @@ view model =
         editor itemId =
             case itemId of
                 Edit ->
-                    textarea [ bind content Bind, onBlur, onClick ]
-                        [ text model.content ]
+                    div []
+                        [ toolbar
+                        , textarea [ bind content Bind, onBlur, onClick ]
+                            [ text model.content ]
+                        ]
 
                 Preview ->
                     Markdown.toHtml [] model.content
     in
         div []
-            [ tabs (baseConfig Tabs |> horizontal |> withItems headers)
+            [ tabs (Tabs.baseConfig Tabs |> horizontal |> withItems headers)
                 editor
                 model.tabs
             ]
+
+
+toolbar : Html Msg
+toolbar =
+    Toolbar.toolbar
+        [ toolbarPrimary
+            [ buttonGroup
+                [ Buttons.button normal Bold [ text "Bold" ]
+                , Buttons.button normal Italic [ text "Italic" ]
+                , Buttons.button normal Quote [ text "Quote" ]
+                , Buttons.button normal Underline [ text "Underline " ]
+                , Buttons.button normal H2 [ text "H2" ]
+                , Buttons.button normal H3 [ text "H3" ]
+                , Buttons.button normal Image [ text "Image" ]
+                , Buttons.button normal Paragraph [ text "Paragraph" ]
+                , Buttons.button normal NumericList [ text "NumericList" ]
+                , Buttons.button normal List [ text "List" ]
+                , Buttons.button normal Line [ text "Line" ]
+                , Buttons.button normal Indent [ text "Indent" ]
+                , Buttons.button normal Deindent [ text "Deindent" ]
+                ]
+            ]
+        ]
