@@ -6,74 +6,63 @@ import Http as Http exposing (..)
 import Http exposing (Error)
 import Json.Decode as Decode exposing (..)
 import Json.Encode as Encode exposing (..)
-import Jwt exposing (..)
 import Message as App exposing (..)
 import Models exposing (..)
 import Models.Comment as Comment exposing (..)
 import Models.Message as Message exposing (..)
-import Models.User as User exposing (..)
 import Models.Resource as Resource exposing (..)
+import Models.User as User exposing (..)
 import Task exposing (Task)
 
 
 -- Generic RESTful API commands
 
 
-send : String -> Decode.Decoder a -> String -> Http.Body -> Task Http.Error a
-send verb dec url body =
-    let
-        sendtask =
-            Http.send Http.defaultSettings
-                { verb = verb
-                , headers =
-                    [ ( "Content-type", "application/json" )
-                    ]
-                , url = url
-                , body = body
-                }
-                |> Http.fromJson dec
-    in
-        sendtask
+jsonRequest : String -> Decoder a -> Url -> Encode.Value -> Request a
+jsonRequest verb decoder resource value =
+    request
+        { method = verb
+        , headers = [ header "Content-type" "application/json" ]
+        , url = resource
+        , body = Http.jsonBody value
+        , expect = Http.expectJson decoder
+        , timeout = Nothing
+        , withCredentials = False
+        }
 
 
-performRequest : (a -> App.Msg) -> Task Http.Error a -> Cmd App.Msg
-performRequest msg task =
-    task
-        |> Task.mapError Error.Http
-        |> Task.perform HandleError msg
+type alias HttpMsg a msg =
+    Result Http.Error a -> msg
 
 
-get : Decoder a -> Url -> (a -> App.Msg) -> Cmd App.Msg
+get : Decoder a -> Url -> HttpMsg a msg -> Cmd msg
 get decoder resource msg =
-    send "GET" decoder resource Http.empty
-        |> performRequest msg
+    Http.get resource decoder
+        |> Http.send msg
 
 
-post : Decoder a -> Url -> Encode.Value -> (a -> App.Msg) -> Cmd App.Msg
+post : Decoder a -> Url -> Encode.Value -> HttpMsg a msg -> Cmd msg
 post decoder resource payload msg =
-    Http.string (Encode.encode 0 payload)
-        |> send "POST" decoder resource
-        |> performRequest msg
+    Http.post resource (jsonBody payload) decoder
+        |> Http.send msg
 
 
-put : Decoder a -> Url -> Encode.Value -> (a -> App.Msg) -> Cmd App.Msg
+put : Decoder a -> Url -> Encode.Value -> HttpMsg a msg -> Cmd msg
 put decoder resource payload msg =
-    Http.string (Encode.encode 0 payload)
-        |> send "PUT" decoder resource
-        |> performRequest msg
+    jsonRequest "PUT" decoder resource payload
+        |> Http.send msg
 
 
-patch : Decoder a -> Url -> Encode.Value -> (a -> App.Msg) -> Cmd App.Msg
+patch : Decoder a -> Url -> Encode.Value -> HttpMsg a msg -> Cmd msg
 patch decoder resource payload msg =
-    Http.string (Encode.encode 0 payload)
-        |> send "PATCH" decoder resource
-        |> performRequest msg
+    jsonRequest "PATCH" decoder resource payload
+        |> Http.send msg
 
 
-delete : Url -> (() -> App.Msg) -> Cmd App.Msg
+delete : Url -> HttpMsg () msg -> Cmd msg
 delete resource msg =
-    send "DELETE" (Decode.null ()) resource Http.empty
-        |> performRequest msg
+    jsonRequest "DELETE" (Decode.null ()) resource Encode.null
+        |> Http.send msg
 
 
 

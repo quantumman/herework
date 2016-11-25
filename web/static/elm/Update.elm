@@ -6,6 +6,7 @@ import Component.Infrastructures.DateTime as DateTime exposing (update)
 import Component.Infrastructures.Form as Form exposing (update)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Http as Http exposing (Error)
 import Message exposing (..)
 import Models exposing (..)
 import Router as Router exposing (Route(..), navigateTo, newUrl)
@@ -17,17 +18,26 @@ update message model =
         ClickAddMessage ->
             model ! [ newUrl Router.NewMessage ]
 
-        InitResource resource ->
+        InitResource (Ok resource) ->
             { model | resource = resource } ! [ Commands.fetchMessages resource.messages_url ]
+
+        InitResource (Err error) ->
+            model ! []
 
         ListMessages ->
             model ! [ Commands.fetchMessages model.resource.messages_url ]
 
-        RefreshMessages messages ->
+        RefreshMessages (Ok messages) ->
             { model | messages = messages } ! []
 
-        Message.NewMessage message ->
+        RefreshMessages (Err error) ->
+            model ! []
+
+        Message.NewMessage (Ok message) ->
             model ! [ Commands.addMessage model.resource.messages_url message ]
+
+        Message.NewMessage (Err error) ->
+            model ! []
 
         EditMessage message ->
             model ! []
@@ -35,8 +45,11 @@ update message model =
         ListComments message ->
             { model | selectedMessage = Just message } ! [ Commands.fetchComments message.comments_url ]
 
-        RefreshComments comments ->
+        RefreshComments (Ok comments) ->
             { model | comments = comments } ! []
+
+        RefreshComments (Err error) ->
+            model ! []
 
         HandleError msg ->
             let
