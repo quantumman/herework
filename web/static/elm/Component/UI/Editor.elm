@@ -10,6 +10,7 @@ import FontAwesome.Web as Icon exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Html.Lazy exposing (..)
 import Markdown as Markdown exposing (..)
 
 
@@ -166,7 +167,7 @@ view model =
                     editor model
 
                 Preview ->
-                    preview model
+                    lazy preview model
     in
         div []
             [ tabs (Tabs.baseConfig Tabs |> horizontal |> withItems headers)
