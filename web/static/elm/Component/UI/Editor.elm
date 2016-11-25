@@ -155,51 +155,69 @@ update message model =
 view : Model -> Html Msg
 view model =
     let
-        onBlur =
-            on "blur" (DOM.textarea TextArea)
-
-        onClick =
-            on "click" (DOM.textarea TextArea)
-
         headers =
             [ item Edit "Edit"
             , item Preview "Preview"
             ]
 
-        container =
-            style
-                [ ( "width", "98%" )
-                , ( "height", "7em" )
-                ]
-
-        textareaStyle =
-            style
-                [ ( "borderRadius", "5px" )
-                , ( "borderColor", "#ddd" )
-                , ( "width", "100%" )
-                , ( "height", "100%" )
-                , ( "resize", "vertical" )
-                ]
-
-        editor itemId =
+        tabView itemId =
             case itemId of
                 Edit ->
-                    Html.form [ class "aui" ]
-                        [ toolbar
-                        , div [ container ]
-                            [ Html.textarea [ textareaStyle, bind content Bind, onBlur, onClick ]
-                                [ text model.content ]
-                            ]
-                        ]
+                    editor model
 
                 Preview ->
-                    div [ container ] [ Markdown.toHtml [] model.content ]
+                    preview model
     in
         div []
             [ tabs (Tabs.baseConfig Tabs |> horizontal |> withItems headers)
-                editor
+                tabView
                 model.tabs
             ]
+
+
+textareaStyle : Model -> List ( String, String )
+textareaStyle model =
+    [ ( "borderRadius", "5px" )
+    , ( "borderColor", "#ddd" )
+    , ( "height", model.textarea.style.height )
+    , ( "width", "100%" )
+    , ( "resize", "vertical" )
+    ]
+
+
+container : List ( String, String )
+container =
+    [ ( "width", "98%" )
+    , ( "height", "7em" )
+    ]
+
+
+editor : Model -> Html Msg
+editor model =
+    let
+        onBlur =
+            on "blur" (DOM.textarea TextArea)
+
+        onClick =
+            on "click" (DOM.textarea TextArea)
+    in
+        Html.form [ class "aui" ]
+            [ toolbar
+            , div [ style container ]
+                [ Html.textarea
+                    [ style <| textareaStyle model
+                    , bind content Bind
+                    , onBlur
+                    , onClick
+                    ]
+                    [ text model.content ]
+                ]
+            ]
+
+
+preview : Model -> Html Msg
+preview model =
+    div [ style container ] [ Markdown.toHtml [] model.content ]
 
 
 toolbar : Html Msg
