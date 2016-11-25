@@ -50,14 +50,14 @@ view : Model m -> Html Msg
 view model =
     case model.selectedMessage of
         Just _ ->
-            view' model
+            view_ model
 
         Nothing ->
             div [] []
 
 
-view' : Model m -> Html Msg
-view' model =
+view_ : Model m -> Html Msg
+view_ model =
     div []
         [ div []
             [ message model.now

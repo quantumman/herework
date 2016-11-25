@@ -26,12 +26,12 @@ on updater model =
 
 title : Model m -> String -> Model m
 title model value =
-    (\m -> { m | title = value }) `on` model
+    on (\m -> { m | title = value }) model
 
 
 body : Model m -> String -> Model m
 body model value =
-    (\m -> { m | body = value }) `on` model
+    on (\m -> { m | body = value }) model
 
 
 

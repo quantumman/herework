@@ -60,15 +60,15 @@ getNow =
 view : Date -> Model -> Html Msg
 view date model =
     case model.now of
-        Just now' ->
-            view' date now' model.config
+        Just now_ ->
+            view_ date now_ model.config
 
         Nothing ->
             text ""
 
 
-view' : Date -> Date -> Date.Config -> Html Msg
-view' date now config =
+view_ : Date -> Date -> Date.Config -> Html Msg
+view_ date now config =
     let
         delta =
             Date.diff now date

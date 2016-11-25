@@ -38,23 +38,23 @@ update message model =
         RefreshComments comments ->
             { model | comments = comments } ! []
 
-        HandleError error ->
+        HandleError msg ->
             let
-                ( model', command ) =
-                    Error.update error model.error
+                ( error, command ) =
+                    Error.update msg model.error
             in
-                { model | error = model' } ! [ Cmd.map HandleError command ]
+                { model | error = error } ! [ Cmd.map HandleError command ]
 
         Bind msg ->
             let
-                ( model', command ) =
+                ( newModel, command ) =
                     Form.update msg model
             in
-                model' ! [ Cmd.map Bind command ]
+                newModel ! [ Cmd.map Bind command ]
 
         Now msg ->
             let
-                ( model', command ) =
+                ( now, command ) =
                     DateTime.update msg model.now
             in
-                { model | now = model' } ! [ Cmd.map Now command ]
+                { model | now = now } ! [ Cmd.map Now command ]
