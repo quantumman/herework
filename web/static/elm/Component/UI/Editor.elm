@@ -41,6 +41,9 @@ initialModel =
         , selectionEnd = 0
         , rows = 0
         , cols = 0
+        , style =
+            { height = "8em"
+            }
         }
     , tabs = Tabs.modelWithActive Edit
     }
