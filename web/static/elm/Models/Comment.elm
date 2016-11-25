@@ -27,11 +27,11 @@ encode model =
 
 decode : Decoder Comment
 decode =
-    Decode.object4 Comment
-        ("id" := Decode.int)
-        ("body" := Decode.string)
-        ("creator" := User.decode)
-        ("created_at" := Decode.date)
+    Decode.map4 Comment
+        (field "id" Decode.int)
+        (field "body" Decode.string)
+        (field "creator" User.decode)
+        (field "created_at" Decode.date)
 
 
 decodeList : Decoder (List Comment)

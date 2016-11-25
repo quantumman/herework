@@ -45,14 +45,14 @@ encode model =
 
 decode : Decoder Message
 decode =
-    Decode.object7 Message
-        ("id" := Decode.int)
-        ("title" := Decode.string)
-        ("body" := Decode.string)
-        ("url" := Decode.string)
-        ("comments_url" := Decode.string)
-        ("creator" := User.decode)
-        ("created_at" := Decode.date)
+    Decode.map7 Message
+        (field "id" Decode.int)
+        (field "title" Decode.string)
+        (field "body" Decode.string)
+        (field "url" Decode.string)
+        (field "comments_url" Decode.string)
+        (field "creator" User.decode)
+        (field "created_at" Decode.date)
 
 
 decodeList : Decoder (List Message)

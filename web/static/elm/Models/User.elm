@@ -29,9 +29,9 @@ encode model =
 
 decode : Decoder User
 decode =
-    Decode.object2 User
-        ("avatar" := oneOf [ Decode.string, Decode.null "https://www.gravatar.com/avatar/00000000000000000000000000000000" ])
-        ("name" := optional Decode.string "")
+    Decode.map2 User
+        (field "avatar" <| oneOf [ Decode.string, Decode.null "https://www.gravatar.com/avatar/00000000000000000000000000000000" ])
+        (field "name" <| optional Decode.string "")
 
 
 decodeList : Decoder (List User)
