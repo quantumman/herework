@@ -11,7 +11,6 @@ import Component.Views.EditMessage as EditMessage exposing (..)
 import Component.Views.SubMenu as SubMenu exposing (..)
 import FontAwesome.Web as Icon exposing (edit)
 import Html exposing (..)
-import Html.App as Html
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Message exposing (..)

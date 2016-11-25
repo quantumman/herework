@@ -4,7 +4,6 @@ import Aui.Messages exposing (..)
 import Component.Error.Message exposing (..)
 import Component.Error.Model exposing (..)
 import Html exposing (..)
-import Html.App as Html
 import Html.Attributes exposing (..)
 import Style exposing (..)
 

@@ -2,7 +2,6 @@ module Component.UI.VerticalMenu exposing (menuItem, menu)
 
 import FontAwesome.Web exposing (..)
 import Html exposing (..)
-import Html.App as Html
 import Html.Attributes exposing (..)
 
 

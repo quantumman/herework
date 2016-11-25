@@ -5,7 +5,6 @@ import Component.Infrastructures.DateTime as DateTime exposing (..)
 import Date exposing (..)
 import Date.Extra.Core exposing (..)
 import Html exposing (..)
-import Html.App as Html
 import Html.Attributes exposing (..)
 import Json.Decode as Decode exposing (..)
 import Json.Decode.Extra as Decode exposing (..)

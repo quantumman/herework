@@ -6,7 +6,6 @@ import Component.UI.Callout as Callout exposing (..)
 import Component.UI.Layout exposing (..)
 import Date exposing (Date)
 import Html exposing (..)
-import Html.App as Html
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Message exposing (..)

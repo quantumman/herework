@@ -6,7 +6,6 @@ import Date.Extra.Config.Configs as Date exposing (..)
 import Date.Extra.Format as Date exposing (..)
 import Date.Extra.Period as Date exposing (..)
 import Html exposing (..)
-import Html.App as Html exposing (..)
 import Maybe exposing (..)
 import Task
 

@@ -4,7 +4,6 @@ import Component.Error.Message as Error exposing (..)
 import Component.Infrastructures.DateTime as DateTime exposing (Msg)
 import Component.Infrastructures.Form as Form exposing (..)
 import Html exposing (..)
-import Html.App as Html
 import Html.Attributes exposing (..)
 import Models exposing (..)
 import Models.Comment exposing (Comment)

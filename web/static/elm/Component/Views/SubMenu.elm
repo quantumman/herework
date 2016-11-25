@@ -4,7 +4,6 @@ import Component.UI.Buttons as B exposing (..)
 import Component.UI.Nav as Nav exposing (..)
 import FontAwesome.Web as Icon exposing (..)
 import Html exposing (..)
-import Html.App as Html
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Message exposing (..)
