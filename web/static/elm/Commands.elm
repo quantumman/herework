@@ -1,5 +1,6 @@
 module Commands exposing (..)
 
+import Component.Error.Update as Error exposing (show)
 import Component.Error.Message as Error exposing (..)
 import Component.Infrastructures.DateTime as DateTime exposing (getNow)
 import Http as Http exposing (..)
@@ -97,3 +98,12 @@ fetchComments url =
 now : Cmd App.Msg
 now =
     Cmd.map Now DateTime.getNow
+
+
+
+-- Show http error
+
+
+show : Http.Error -> Cmd App.Msg
+show e =
+    Cmd.map HandleError <| Error.show e

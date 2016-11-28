@@ -22,7 +22,7 @@ update message model =
             { model | resource = resource } ! [ Commands.fetchMessages resource.messages_url ]
 
         InitResource (Err error) ->
-            model ! []
+            handleHttpError error model
 
         ListMessages ->
             model ! [ Commands.fetchMessages model.resource.messages_url ]
@@ -31,13 +31,13 @@ update message model =
             { model | messages = messages } ! []
 
         RefreshMessages (Err error) ->
-            model ! []
+            handleHttpError error model
 
         Message.NewMessage (Ok message) ->
             { model | newMessage = message } ! []
 
         Message.NewMessage (Err error) ->
-            model ! []
+            handleHttpError error model
 
         EditMessage message ->
             { model | newMessage = message } ! [ Commands.addMessage model.resource.messages_url message ]
@@ -49,7 +49,7 @@ update message model =
             { model | comments = comments } ! []
 
         RefreshComments (Err error) ->
-            model ! []
+            handleHttpError error model
 
         HandleError msg ->
             let
@@ -71,3 +71,12 @@ update message model =
                     DateTime.update msg model.now
             in
                 { model | now = now } ! [ Cmd.map Now command ]
+
+
+
+-- HELPERS
+
+
+handleHttpError : Http.Error -> Model -> ( Model, Cmd Msg )
+handleHttpError error model =
+    model ! [ Commands.show error ]
