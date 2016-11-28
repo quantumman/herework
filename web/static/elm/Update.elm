@@ -34,13 +34,13 @@ update message model =
             model ! []
 
         Message.NewMessage (Ok message) ->
-            model ! [ Commands.addMessage model.resource.messages_url message ]
+            { model | newMessage = message } ! []
 
         Message.NewMessage (Err error) ->
             model ! []
 
         EditMessage message ->
-            model ! []
+            { model | newMessage = message } ! [ Commands.addMessage model.resource.messages_url message ]
 
         ListComments message ->
             { model | selectedMessage = Just message } ! [ Commands.fetchComments message.comments_url ]
