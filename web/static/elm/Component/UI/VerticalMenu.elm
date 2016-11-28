@@ -2,7 +2,6 @@ module Component.UI.VerticalMenu exposing (menuItem, menu)
 
 import FontAwesome.Web exposing (..)
 import Html exposing (..)
-import Html.App as Html
 import Html.Attributes exposing (..)
 
 
@@ -19,8 +18,8 @@ menuItem attributes icon label =
     let
         css =
             style
-                [ ( "font-size", "32px" )
-                , ( "text-align", "center" )
+                [ ( "fontSize", "32px" )
+                , ( "textAlign", "center" )
                 ]
 
         iconStyle =
@@ -31,8 +30,8 @@ menuItem attributes icon label =
 
         helpText =
             style
-                [ ( "font-size", "10px" )
-                , ( "text-align", "center" )
+                [ ( "fontSize", "10px" )
+                , ( "textAlign", "center" )
                 ]
     in
         { item =
@@ -50,7 +49,7 @@ menu attributes items =
     let
         css =
             style
-                [ ( "list-style-type", "none" )
+                [ ( "listStyleType", "none" )
                 , ( "margin", "0" )
                 , ( "padding", "0" )
                 ]

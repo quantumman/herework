@@ -1,9 +1,7 @@
 module Router exposing (..)
 
-import Hop exposing (makeUrl, makeUrlFromLocation, matchUrl, matcherToPath, setQuery)
-import Hop.Matchers exposing (..)
-import Hop.Types exposing (Config, Query, Location, PathMatcher, Router)
-import Navigation
+import Navigation exposing (..)
+import UrlParser exposing (Parser, (</>), s, int, string, parseHash, map, oneOf)
 
 
 -- ROUTES
@@ -18,76 +16,38 @@ type Route
     | NotFound
 
 
-rootMatcher : PathMatcher Route
-rootMatcher =
-    match1 Messages ""
-
-
-messagesMatcher : PathMatcher Route
-messagesMatcher =
-    match1 Messages "/messages"
-
-
-messageDetailMatcher : PathMatcher Route
-messageDetailMatcher =
-    match2 MessageDetail "/messages" int
-
-
-newMessageMatcher : PathMatcher Route
-newMessageMatcher =
-    match1 NewMessage "/messages/new"
-
-
-tasksMatcher : PathMatcher Route
-tasksMatcher =
-    match1 Tasks "/tasks"
-
-
-activityMatcher : PathMatcher Route
-activityMatcher =
-    match1 Activity "/activity"
-
-
-matchers : List (PathMatcher Route)
-matchers =
-    [ rootMatcher
-    , messagesMatcher
-    , messageDetailMatcher
-    , newMessageMatcher
-    , tasksMatcher
-    , activityMatcher
-    ]
+route : Parser (Route -> a) a
+route =
+    oneOf
+        [ map Messages (s "")
+        , map MessageDetail (s "messages" </> int)
+        , map NewMessage (s "messages" </> s "new")
+        , map Messages (s "messages")
+        , map Tasks (s "tasks")
+        , map Activity (s "activity")
+        ]
 
 
 reverse : Route -> String
 reverse route =
     case route of
         Messages ->
-            matcherToPath rootMatcher []
+            "#/messages"
 
         MessageDetail id ->
-            matcherToPath messageDetailMatcher [ toString id ]
+            "#/messages/" ++ toString id
 
         NewMessage ->
-            matcherToPath newMessageMatcher []
+            "#/messages/new"
 
         Tasks ->
-            matcherToPath tasksMatcher []
+            "#/tasks"
 
         Activity ->
-            matcherToPath activityMatcher []
+            "#/activity"
 
         NotFound ->
             ""
-
-
-routerConfig : Config Route
-routerConfig =
-    { hash = True
-    , basePath = ""
-    , matchers = matchers
-    , notFound = NotFound
-    }
 
 
 
@@ -95,48 +55,51 @@ routerConfig =
 
 
 type alias Model =
-    { location : Hop.Types.Location
+    { location : Location
     , route : Route
     }
-
-
-make : ( Route, Hop.Types.Location ) -> Model
-make ( route, location ) =
-    Model location route
 
 
 
 -- UPDATE
 
 
-update : Route -> Model -> ( Model, Cmd Route )
+update : Route -> Model -> Model
 update route model =
-    model ! [ navigateTo route ]
+    { model | route = route }
 
 
 navigateTo : Route -> Cmd msg
 navigateTo route =
     reverse route
-        |> makeUrl routerConfig
         |> Navigation.modifyUrl
 
 
 newUrl : Route -> Cmd msg
 newUrl route =
     reverse route
-        |> makeUrl routerConfig
         |> Navigation.newUrl
+
+
+urlParse : Location -> Maybe Route
+urlParse location =
+    parseHash route location
 
 
 
 -- APP
 
 
-urlParser : Navigation.Parser ( Route, Hop.Types.Location )
-urlParser =
-    Navigation.makeParser (.href >> matchUrl routerConfig)
+init : Location -> ( Model, Cmd msg )
+init location =
+    let
+        route =
+            urlParse location
+                |> Maybe.withDefault Messages
 
-
-init : ( Route, Hop.Types.Location ) -> ( Model, Cmd a )
-init ( route, location ) =
-    ( Model location route, Cmd.none )
+        model =
+            { location = location
+            , route = route
+            }
+    in
+        model ! []

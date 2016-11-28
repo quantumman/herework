@@ -2,7 +2,6 @@ module HtmlHelpers exposing (..)
 
 import Component.Infrastructures.Form as Form exposing (bind, bindCheck, Binder)
 import Html exposing (..)
-import Html.App as Html
 import Html.Attributes exposing (..)
 import Message as App exposing (..)
 import Models as App exposing (..)

@@ -1,38 +1,36 @@
 module Component.UI.Callout exposing (callout)
 
 import Html exposing (..)
-import Html.App as Html
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Style exposing (..)
 
 
 triangle : String -> Html msg
 triangle color =
     let
         outerHeight =
-            (px 6)
+            "6px"
 
         innerHeight =
-            (px 4)
+            "4px"
 
         outerTriangle =
             style
-                [ ( "border-top", outerHeight ++ " solid transparent" )
-                , ( "border-right", outerHeight ++ " solid " ++ color )
-                , ( "border-bottom", outerHeight ++ " solid transparent" )
-                , ( "border-left", outerHeight ++ " solid transparent" )
-                , Style.width "0"
-                , Style.height "0"
-                , marginTop (px 6)
+                [ ( "borderTop", outerHeight ++ " solid transparent" )
+                , ( "borderRight", outerHeight ++ " solid " ++ color )
+                , ( "borderBottom", outerHeight ++ " solid transparent" )
+                , ( "borderLeft", outerHeight ++ " solid transparent" )
+                , ( "width", "0" )
+                , ( "height", "0" )
+                , ( "marginTop", "6px" )
                 ]
 
         innerTriangle =
             style
-                [ border (innerHeight ++ " solid")
-                , borderColor "transparent #f5f5f5 transparent transparent"
-                , marginTop (px -10)
-                , marginLeft (px 1)
+                [ ( "border", innerHeight ++ " solid" )
+                , ( "borderColor", "transparent #f5f5f5 transparent transparent" )
+                , ( "marginTop", "-10px" )
+                , ( "marginLeft", "1px" )
                 ]
     in
         div []
@@ -46,8 +44,8 @@ body color content =
     let
         css =
             style
-                [ border ("1px solid " ++ color)
-                , borderRadius (px 3)
+                [ ( "border", "1px solid " ++ color )
+                , ( "borderRadius", "3px" )
                 ]
     in
         div [ css ] content
@@ -58,17 +56,17 @@ callout color icon content =
     let
         layout =
             style
-                [ Style.width "100%"
+                [ ( "width", "100%" )
                 ]
 
         floatLeft =
-            style [ float left' ]
+            style [ ( "float", "left" ) ]
 
         clearLeft =
-            style [ Style.clear left' ]
+            style [ ( "clear", "left" ) ]
 
         wrappedBody =
-            div [ style [ paddingLeft (px 43) ] ]
+            div [ style [ ( "paddingLeft", "43px" ) ] ]
                 [ body color content
                 ]
     in

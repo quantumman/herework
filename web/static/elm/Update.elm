@@ -5,8 +5,8 @@ import Component.Error.Update as Error exposing (..)
 import Component.Infrastructures.DateTime as DateTime exposing (update)
 import Component.Infrastructures.Form as Form exposing (update)
 import Html exposing (..)
-import Html.App as Html
 import Html.Attributes exposing (..)
+import Http as Http exposing (Error)
 import Message exposing (..)
 import Models exposing (..)
 import Router as Router exposing (Route(..), navigateTo, newUrl)
@@ -18,44 +18,65 @@ update message model =
         ClickAddMessage ->
             model ! [ newUrl Router.NewMessage ]
 
-        InitResource resource ->
+        InitResource (Ok resource) ->
             { model | resource = resource } ! [ Commands.fetchMessages resource.messages_url ]
+
+        InitResource (Err error) ->
+            handleHttpError error model
 
         ListMessages ->
             model ! [ Commands.fetchMessages model.resource.messages_url ]
 
-        RefreshMessages messages ->
+        RefreshMessages (Ok messages) ->
             { model | messages = messages } ! []
 
-        Message.NewMessage message ->
-            model ! [ Commands.addMessage model.resource.messages_url message ]
+        RefreshMessages (Err error) ->
+            handleHttpError error model
+
+        Message.NewMessage (Ok message) ->
+            { model | newMessage = message } ! []
+
+        Message.NewMessage (Err error) ->
+            handleHttpError error model
 
         EditMessage message ->
-            model ! []
+            { model | newMessage = message } ! [ Commands.addMessage model.resource.messages_url message ]
 
         ListComments message ->
             { model | selectedMessage = Just message } ! [ Commands.fetchComments message.comments_url ]
 
-        RefreshComments comments ->
+        RefreshComments (Ok comments) ->
             { model | comments = comments } ! []
 
-        HandleError error ->
+        RefreshComments (Err error) ->
+            handleHttpError error model
+
+        HandleError msg ->
             let
-                ( model', command ) =
-                    Error.update error model.error
+                ( error, command ) =
+                    Error.update msg model.error
             in
-                { model | error = model' } ! [ Cmd.map HandleError command ]
+                { model | error = error } ! [ Cmd.map HandleError command ]
 
         Bind msg ->
             let
-                ( model', command ) =
+                ( newModel, command ) =
                     Form.update msg model
             in
-                model' ! [ Cmd.map Bind command ]
+                newModel ! [ Cmd.map Bind command ]
 
         Now msg ->
             let
-                ( model', command ) =
+                ( now, command ) =
                     DateTime.update msg model.now
             in
-                { model | now = model' } ! [ Cmd.map Now command ]
+                { model | now = now } ! [ Cmd.map Now command ]
+
+
+
+-- HELPERS
+
+
+handleHttpError : Http.Error -> Model -> ( Model, Cmd Msg )
+handleHttpError error model =
+    model ! [ Commands.show error ]

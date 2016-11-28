@@ -3,6 +3,7 @@ module Component.Error.Update exposing (..)
 import Component.Error.Message exposing (..)
 import Component.Error.Model exposing (..)
 import Http as Http exposing (..)
+import Task
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -19,14 +20,26 @@ update error model =
 httpErrorAsString : Http.Error -> String
 httpErrorAsString e =
     case e of
+        Http.BadUrl url ->
+            "Bad url " ++ url
+
         Http.Timeout ->
             "Timeout"
 
         Http.NetworkError ->
             "Network has troubles. Try it later"
 
-        Http.UnexpectedPayload msg ->
-            msg
+        Http.BadStatus response ->
+            response.status.message
 
-        Http.BadResponse code msg ->
-            msg
+        Http.BadPayload payload response ->
+            payload
+
+
+
+-- COMMANDS
+
+
+show : Http.Error -> Cmd Msg
+show e =
+    Task.succeed e |> Task.perform Http

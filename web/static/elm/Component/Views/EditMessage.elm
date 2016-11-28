@@ -2,7 +2,6 @@ module Component.Views.EditMessage exposing (..)
 
 import Component.UI.Buttons as Buttons exposing (..)
 import Html exposing (..)
-import Html.App as Html
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import HtmlHelpers exposing (..)
@@ -27,12 +26,12 @@ on updater model =
 
 title : Model m -> String -> Model m
 title model value =
-    (\m -> { m | title = value }) `on` model
+    on (\m -> { m | title = value }) model
 
 
 body : Model m -> String -> Model m
 body model value =
-    (\m -> { m | body = value }) `on` model
+    on (\m -> { m | body = value }) model
 
 
 
@@ -51,6 +50,6 @@ view model =
                 ]
             ]
         , Buttons.button primary
-            (NewMessage model.newMessage)
+            (EditMessage model.newMessage)
             [ text "Add" ]
         ]

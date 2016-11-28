@@ -2,7 +2,6 @@ module Component.UI.Buttons exposing (..)
 
 import Aui.Buttons as Aui exposing (..)
 import Html exposing (..)
-import Html.App as Html
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 

@@ -24,7 +24,7 @@ initialModelResource =
 
 decode : Decoder Resource
 decode =
-    Decode.object3 Resource
-        ("messages_url" := Decode.string)
-        ("tasks_url" := Decode.string)
-        ("activity_url" := Decode.string)
+    Decode.map3 Resource
+        (field "messages_url" Decode.string)
+        (field "tasks_url" Decode.string)
+        (field "activity_url" Decode.string)

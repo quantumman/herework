@@ -1,7 +1,6 @@
 module Component.UI.Nav exposing (..)
 
 import Html exposing (..)
-import Html.App as Html
 import Html.Attributes exposing (..)
 
 

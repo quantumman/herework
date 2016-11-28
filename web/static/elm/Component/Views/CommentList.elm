@@ -6,14 +6,12 @@ import Component.UI.Callout as Callout exposing (..)
 import Component.UI.Layout exposing (..)
 import Date exposing (Date)
 import Html exposing (..)
-import Html.App as Html
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Message exposing (..)
 import Models.Comment exposing (Comment)
 import Models.Message exposing (Message, initialModel)
 import Models.User exposing (User)
-import Style exposing (..)
 
 
 type alias Model m =
@@ -28,18 +26,18 @@ type alias Model m =
 -- STYLE
 
 
-timeline : List Style
+timeline : List ( String, String )
 timeline =
-    [ listStyleType none
-    , padding "0"
+    [ ( "listStyleType", "none" )
+    , ( "padding", "0" )
     ]
 
 
-commentStyle : List Style
+commentStyle : List ( String, String )
 commentStyle =
-    [ position relative
-    , marginTop (px 15)
-    , marginBottom (px 15)
+    [ ( "position", "relative" )
+    , ( "marginTop", "15px" )
+    , ( "marginBottom", "15px" )
     ]
 
 
@@ -51,14 +49,14 @@ view : Model m -> Html Msg
 view model =
     case model.selectedMessage of
         Just _ ->
-            view' model
+            view_ model
 
         Nothing ->
             div [] []
 
 
-view' : Model m -> Html Msg
-view' model =
+view_ : Model m -> Html Msg
+view_ model =
     div []
         [ div []
             [ message model.now
@@ -96,29 +94,29 @@ body dateTime model =
     let
         padding =
             style
-                [ paddingLeft (px 5)
-                , paddingRight (px 5)
-                , paddingTop (px 7)
-                , paddingBottom (px 7)
+                [ ( "paddingLeft", "5px" )
+                , ( "paddingRight", "5px" )
+                , ( "paddingTop", "7px" )
+                , ( "paddingBottom", "7px" )
                 ]
 
         bodyStyle =
             style
-                [ minHeight (Style.em 4)
+                [ ( "minHeight", "4em" )
                 ]
 
         footerStyle =
             style
-                [ ( "border-top", "1px solid #ddd" )
-                , fontSize (Style.em 0.8)
-                , color "#777"
+                [ ( "borderTop", "1px solid #ddd" )
+                , ( "fontSize", "0.8em" )
+                , ( "color", "#777" )
                 ]
 
         floatRight =
-            style [ float right' ]
+            style [ ( "float", "right" ) ]
 
         clearRight =
-            style [ clear right' ]
+            style [ ( "clear", "right" ) ]
     in
         div []
             [ div [ padding, bodyStyle ] [ text model.body ]
