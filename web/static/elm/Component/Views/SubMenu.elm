@@ -8,8 +8,8 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Message exposing (..)
 import Models exposing (..)
-import Router as Router exposing (..)
 import Models.Message as Message exposing (..)
+import Router as Router exposing (..)
 
 
 -- MODEL
@@ -62,7 +62,7 @@ messages : List Message -> Message -> List ( Nav.Header a, List (Nav.Item Msg) )
 messages ms selected =
     let
         toItem message =
-            Nav.item [ onClick (Message.ListComments message), href "#" ]
+            Nav.item [ onClick (Message.ListComments message), href <| Router.reverse Router.Messages ]
                 (selected.id == message.id)
                 message.title
     in

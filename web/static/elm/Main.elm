@@ -26,7 +26,7 @@ init location =
         ( model, appCommand ) =
             App.init router
     in
-        { model | router = router } ! [ routerCommand, Cmd.map App appCommand ]
+        { model | router = router } ! [ Cmd.map App App.now, routerCommand, Cmd.map App appCommand ]
 
 
 type Msg
@@ -60,7 +60,7 @@ update message model =
                 router =
                     Router.update route model.router
             in
-                { model | router = router } ! []
+                { model | router = router } ! [ Cmd.map App App.now ]
 
         NoOp ->
             model ! []
