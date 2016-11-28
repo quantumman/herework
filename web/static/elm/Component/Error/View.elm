@@ -5,37 +5,36 @@ import Component.Error.Message exposing (..)
 import Component.Error.Model exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Style exposing (..)
 
 
 -- Style
 
 
-overlay : List Style
+overlay : List ( String, String )
 overlay =
-    [ position "fixed"
-    , top "0"
-    , bottom "0"
-    , left "0"
-    , right "0"
-    , background "rgba(0,0,0,.1)"
+    [ ( "position", "fixed" )
+    , ( "top", "0" )
+    , ( "bottom", "0" )
+    , ( "left", "0" )
+    , ( "right", "0" )
+    , ( "background", "rgba(0,0,0,.1)" )
     , ( "transition", "opacity 500ms" )
-    , ( "visibility", visible )
+    , ( "visibility", "visible" )
     , ( "opacity", "1" )
-    , ( "z-index", "9999" )
+    , ( "zIndex", "9999" )
     ]
 
 
-modal : List Style
+modal : List ( String, String )
 modal =
-    [ Style.width "80%"
-    , position "absolute"
-    , top "0"
-    , bottom "0"
-    , left "0"
-    , right "0"
-    , Style.height "5em"
-    , margin "auto"
+    [ ( "width", "80%" )
+    , ( "position", "absolute" )
+    , ( "top", "0" )
+    , ( "bottom", "0" )
+    , ( "left", "0" )
+    , ( "right", "0" )
+    , ( "height", "5em" )
+    , ( "margin", "auto" )
     ]
 
 

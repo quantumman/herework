@@ -19,7 +19,6 @@ import Models.User exposing (User)
 import Models exposing (..)
 import Navigation
 import Router as Router exposing (..)
-import Style exposing (..)
 
 
 -- MODEL
@@ -49,51 +48,51 @@ subscriptions model =
 
 paneHeaderHeight : String
 paneHeaderHeight =
-    px 80
+    "80px"
 
 
 menuWidth : String
 menuWidth =
-    px 60
+    "60px"
 
 
 subMenuWidth : String
 subMenuWidth =
-    px 370
+    "370px"
 
 
 mainContentWidth : String
 mainContentWidth =
-    px 600
+    "600px"
 
 
-paneHeaderStyle : List Style
+paneHeaderStyle : List ( String, String )
 paneHeaderStyle =
-    [ Style.height paneHeaderHeight
+    [ ( "height", paneHeaderHeight )
     ]
 
 
-menuStyle : List Style
+menuStyle : List ( String, String )
 menuStyle =
-    [ Style.width menuWidth
+    [ ( "width", menuWidth )
     ]
 
 
-subMenuStyle : List Style
+subMenuStyle : List ( String, String )
 subMenuStyle =
-    [ Style.width subMenuWidth
+    [ ( "width", subMenuWidth )
     ]
 
 
-mainContentStyle : List Style
+mainContentStyle : List ( String, String )
 mainContentStyle =
-    [ Style.width mainContentWidth
+    [ ( "width", mainContentWidth )
     ]
 
 
-mainContentTitleStyle : List Style
+mainContentTitleStyle : List ( String, String )
 mainContentTitleStyle =
-    [ marginTop (px 15)
+    [ ( "marginTop", "15px" )
     ]
 
 
@@ -161,8 +160,8 @@ loggedInUser : User -> Html Msg
 loggedInUser user =
     let
         align =
-            [ marginLeft (px 9)
-            , marginTop (px 15)
+            [ ( "marginLeft", "9px" )
+            , ( "marginTop", "15px" )
             ]
     in
         div [ style (menuStyle ++ align) ]
@@ -174,11 +173,11 @@ scrollable : String -> List (Html Msg) -> Html Msg
 scrollable w html =
     let
         scroll =
-            [ position absolute
-            , top paneHeaderHeight
-            , bottom "0"
-            , Style.width w
-            , overflow "auto"
+            [ ( "position", "absolute" )
+            , ( "top", paneHeaderHeight )
+            , ( "bottom", "0" )
+            , ( "width", w )
+            , ( "overflow", "auto" )
             ]
     in
         div [ style scroll ] html
