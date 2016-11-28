@@ -50,7 +50,7 @@ update message model =
 
 getNow : Cmd Msg
 getNow =
-    Task.perform (\_ -> Fatal) GetNow Date.now
+    Task.perform GetNow Date.now
 
 
 
