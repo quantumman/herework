@@ -3,6 +3,7 @@ module Component.Error.Update exposing (..)
 import Component.Error.Message exposing (..)
 import Component.Error.Model exposing (..)
 import Http as Http exposing (..)
+import Task
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -33,3 +34,12 @@ httpErrorAsString e =
 
         Http.BadPayload payload response ->
             payload
+
+
+
+-- COMMANDS
+
+
+show : Http.Error -> Cmd Msg
+show e =
+    Task.succeed e |> Task.perform Http
