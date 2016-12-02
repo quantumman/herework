@@ -4,6 +4,7 @@ import Commands exposing (..)
 import Component.Error.Update as Error exposing (..)
 import Component.Infrastructures.DateTime as DateTime exposing (update)
 import Component.Infrastructures.Form as Form exposing (update)
+import Component.UI.Editor as Editor exposing (update)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Http as Http exposing (Error)
@@ -71,6 +72,13 @@ update message model =
                     DateTime.update msg model.now
             in
                 { model | now = now } ! [ Cmd.map Now command ]
+
+        Editor msg ->
+            let
+                ( editor, command ) =
+                    Editor.update msg model.editor
+            in
+                { model | editor = editor } ! [ Cmd.map Editor command ]
 
 
 

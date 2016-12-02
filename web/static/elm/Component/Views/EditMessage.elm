@@ -1,6 +1,7 @@
 module Component.Views.EditMessage exposing (..)
 
 import Component.UI.Buttons as Buttons exposing (..)
+import Component.UI.Editor as Editor exposing (Model, view)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -16,6 +17,7 @@ import Models.Message exposing (Message)
 type alias Model m =
     { m
         | newMessage : Message
+        , editor : Editor.Model
     }
 
 
@@ -45,9 +47,7 @@ view model =
             [ div []
                 [ textarea [ rows 1, bind title ] []
                 ]
-            , div []
-                [ textarea [ bind body ] []
-                ]
+            , Html.map Editor <| Editor.view model.editor
             ]
         , Buttons.button primary
             (EditMessage model.newMessage)

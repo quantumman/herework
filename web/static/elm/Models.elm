@@ -2,6 +2,7 @@ module Models exposing (..)
 
 import Component.Error.Model as Error exposing (..)
 import Component.Infrastructures.DateTime as DateTime exposing (..)
+import Component.UI.Editor as Editor exposing (Model, initialModel)
 import Date exposing (..)
 import Date.Extra.Core exposing (..)
 import Html exposing (..)
@@ -30,6 +31,7 @@ type alias Model =
     , comments : List Comment
     , error : Error.Model
     , now : DateTime.Model
+    , editor : Editor.Model
     }
 
 
@@ -44,6 +46,7 @@ initialModel router =
     , comments = []
     , error = Error.initialModel
     , now = DateTime.initialModel
+    , editor = Editor.initialModel
     }
 
 
