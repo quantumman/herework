@@ -4,7 +4,8 @@ import Aui.Avatars exposing (..)
 import Commands as Commands exposing (..)
 import Component.Error.View as Error exposing (..)
 import Component.Infrastructures.DateTime as DateTime exposing (init)
-import Component.UI.Layout exposing (..)
+import Component.UI.Layout as Layout exposing (..)
+import Component.UI.Menu as Menu exposing (..)
 import Component.UI.VerticalMenu as V exposing (..)
 import Component.Views.CommentList as CL exposing (..)
 import Component.Views.EditMessage as EditMessage exposing (..)
@@ -15,8 +16,8 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Message exposing (..)
 import Models as App exposing (Model)
-import Models.User exposing (User)
 import Models exposing (..)
+import Models.User exposing (User)
 import Navigation
 import Router as Router exposing (..)
 
@@ -104,13 +105,25 @@ view : App.Model -> Html Msg
 view model =
     div []
         [ Html.map HandleError <| Error.view model.error
+        , Menu.menu
+            [ Menu.menuItem "box"
+                [ Menu.item [] [ text "All" ]
+                , Menu.item [] [ text "Important" ]
+                , Menu.item [] [ text "Your messages" ]
+                ]
+            , Menu.menuItem "tags"
+                [ Menu.item [] [ text "Bugs" ]
+                , Menu.item [] [ text "Schedule" ]
+                , Menu.item [] [ text "random" ]
+                ]
+            ]
         , group
-            [ item [ style menuStyle ]
+            [ Layout.item [ style menuStyle ]
                 [ header [ loggedInUser model.user ]
                 ]
-            , item [ style subMenuStyle ]
+            , Layout.item [ style subMenuStyle ]
                 []
-            , item [ style mainContentStyle ]
+            , Layout.item [ style mainContentStyle ]
                 [ header
                     [ h1 [ style mainContentTitleStyle ]
                         [ text (model.selectedMessage |> Maybe.map (.title) |> Maybe.withDefault "")
@@ -119,20 +132,20 @@ view model =
                 ]
             ]
         , group
-            [ item [ style menuStyle ]
+            [ Layout.item [ style menuStyle ]
                 [ V.menu [ style menuStyle ]
-                    [ menuItem [ onClick ListMessages ] Icon.comments_o "Messages"
-                    , menuItem [] Icon.tasks "Tasks"
-                    , menuItem [] Icon.bar_chart "Activity"
+                    [ V.menuItem [ onClick ListMessages ] Icon.comments_o "Messages"
+                    , V.menuItem [] Icon.tasks "Tasks"
+                    , V.menuItem [] Icon.bar_chart "Activity"
                     ]
                 ]
-            , item []
+            , Layout.item []
                 [ group
-                    [ item [ style subMenuStyle ]
+                    [ Layout.item [ style subMenuStyle ]
                         [ scrollable subMenuWidth
                             [ SubMenu.view model ]
                         ]
-                    , item [ style mainContentStyle ]
+                    , Layout.item [ style mainContentStyle ]
                         [ scrollable mainContentWidth
                             [ case model.router.route of
                                 Router.Messages ->
