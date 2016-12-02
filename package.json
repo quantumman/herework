@@ -3,6 +3,7 @@
   "license": "MIT",
   "dependencies": {
     "@atlassian/aui": "^6.0.0",
+    "bulma": "^0.2.3",
     "font-awesome": "^4.6.3",
     "phoenix": "file:deps/phoenix",
     "phoenix_html": "file:deps/phoenix_html"
