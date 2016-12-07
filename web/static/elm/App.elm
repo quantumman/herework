@@ -4,8 +4,10 @@ import Aui.Avatars exposing (..)
 import Commands as Commands exposing (..)
 import Component.Error.View as Error exposing (..)
 import Component.Infrastructures.DateTime as DateTime exposing (init)
+import Component.UI.Attribute exposing (..)
 import Component.UI.Layout as Layout exposing (..)
 import Component.UI.Menu as Menu exposing (..)
+import Component.UI.Tabs as Tabs exposing (..)
 import Component.UI.VerticalMenu as V exposing (..)
 import Component.Views.CommentList as CL exposing (..)
 import Component.Views.EditMessage as EditMessage exposing (..)
@@ -105,6 +107,20 @@ view : App.Model -> Html Msg
 view model =
     div []
         [ Html.map HandleError <| Error.view model.error
+        , Tabs.tabs Tabs.boxed
+            [ Tabs.center
+                [ Tabs.item [] [ text "TabA" ]
+                , Tabs.item [ active ] [ text "TabB" ]
+                ]
+            , Tabs.right
+                [ Tabs.item [] [ text "foobar" ]
+                , Tabs.item [] [ text "Hoge" ]
+                ]
+            ]
+        , Tabs.tab (Tabs.default |> Tabs.size Tabs.Small)
+            [ Tabs.item [] [ text "TabA" ]
+            , Tabs.item [] [ text "TabB" ]
+            ]
         , Menu.menu
             [ Menu.menuItem "box"
                 [ Menu.item [] [ text "All" ]
@@ -117,51 +133,48 @@ view model =
                 , Menu.item [] [ text "random" ]
                 ]
             ]
-        -- , group
-        --     [ Layout.item [ style menuStyle ]
-        --         [ header [ loggedInUser model.user ]
-        --         ]
-        --     , Layout.item [ style subMenuStyle ]
-        --         []
-        --     , Layout.item [ style mainContentStyle ]
-        --         [ header
-        --             [ h1 [ style mainContentTitleStyle ]
-        --                 [ text (model.selectedMessage |> Maybe.map (.title) |> Maybe.withDefault "")
-        --                 ]
-        --             ]
-        --         ]
-        --     ]
-        -- , group
-        --     [ Layout.item [ style menuStyle ]
-        --         [ V.menu [ style menuStyle ]
-        --             [ V.menuItem [ onClick ListMessages ] Icon.comments_o "Messages"
-        --             , V.menuItem [] Icon.tasks "Tasks"
-        --             , V.menuItem [] Icon.bar_chart "Activity"
-        --             ]
-        --         ]
-        --     , Layout.item []
-        --         [ group
-        --             [ Layout.item [ style subMenuStyle ]
-        --                 [ scrollable subMenuWidth
-        --                     [ SubMenu.view model ]
-        --                 ]
-        --             , Layout.item [ style mainContentStyle ]
-        --                 [ scrollable mainContentWidth
-        --                     [ case model.router.route of
-        --                         Router.Messages ->
-        --                             CL.view model
-
-        --                         Router.NewMessage ->
-        --                             EditMessage.view model
-
-        --                         other ->
-        --                             div [] []
-        --                     ]
-        --                 ]
-        --             ]
-        --         ]
-        --     ]
-
+          -- , group
+          --     [ Layout.item [ style menuStyle ]
+          --         [ header [ loggedInUser model.user ]
+          --         ]
+          --     , Layout.item [ style subMenuStyle ]
+          --         []
+          --     , Layout.item [ style mainContentStyle ]
+          --         [ header
+          --             [ h1 [ style mainContentTitleStyle ]
+          --                 [ text (model.selectedMessage |> Maybe.map (.title) |> Maybe.withDefault "")
+          --                 ]
+          --             ]
+          --         ]
+          --     ]
+          -- , group
+          --     [ Layout.item [ style menuStyle ]
+          --         [ V.menu [ style menuStyle ]
+          --             [ V.menuItem [ onClick ListMessages ] Icon.comments_o "Messages"
+          --             , V.menuItem [] Icon.tasks "Tasks"
+          --             , V.menuItem [] Icon.bar_chart "Activity"
+          --             ]
+          --         ]
+          --     , Layout.item []
+          --         [ group
+          --             [ Layout.item [ style subMenuStyle ]
+          --                 [ scrollable subMenuWidth
+          --                     [ SubMenu.view model ]
+          --                 ]
+          --             , Layout.item [ style mainContentStyle ]
+          --                 [ scrollable mainContentWidth
+          --                     [ case model.router.route of
+          --                         Router.Messages ->
+          --                             CL.view model
+          --                         Router.NewMessage ->
+          --                             EditMessage.view model
+          --                         other ->
+          --                             div [] []
+          --                     ]
+          --                 ]
+          --             ]
+          --         ]
+          --     ]
         ]
 
 
