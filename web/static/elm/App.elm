@@ -117,50 +117,51 @@ view model =
                 , Menu.item [] [ text "random" ]
                 ]
             ]
-        , group
-            [ Layout.item [ style menuStyle ]
-                [ header [ loggedInUser model.user ]
-                ]
-            , Layout.item [ style subMenuStyle ]
-                []
-            , Layout.item [ style mainContentStyle ]
-                [ header
-                    [ h1 [ style mainContentTitleStyle ]
-                        [ text (model.selectedMessage |> Maybe.map (.title) |> Maybe.withDefault "")
-                        ]
-                    ]
-                ]
-            ]
-        , group
-            [ Layout.item [ style menuStyle ]
-                [ V.menu [ style menuStyle ]
-                    [ V.menuItem [ onClick ListMessages ] Icon.comments_o "Messages"
-                    , V.menuItem [] Icon.tasks "Tasks"
-                    , V.menuItem [] Icon.bar_chart "Activity"
-                    ]
-                ]
-            , Layout.item []
-                [ group
-                    [ Layout.item [ style subMenuStyle ]
-                        [ scrollable subMenuWidth
-                            [ SubMenu.view model ]
-                        ]
-                    , Layout.item [ style mainContentStyle ]
-                        [ scrollable mainContentWidth
-                            [ case model.router.route of
-                                Router.Messages ->
-                                    CL.view model
+        -- , group
+        --     [ Layout.item [ style menuStyle ]
+        --         [ header [ loggedInUser model.user ]
+        --         ]
+        --     , Layout.item [ style subMenuStyle ]
+        --         []
+        --     , Layout.item [ style mainContentStyle ]
+        --         [ header
+        --             [ h1 [ style mainContentTitleStyle ]
+        --                 [ text (model.selectedMessage |> Maybe.map (.title) |> Maybe.withDefault "")
+        --                 ]
+        --             ]
+        --         ]
+        --     ]
+        -- , group
+        --     [ Layout.item [ style menuStyle ]
+        --         [ V.menu [ style menuStyle ]
+        --             [ V.menuItem [ onClick ListMessages ] Icon.comments_o "Messages"
+        --             , V.menuItem [] Icon.tasks "Tasks"
+        --             , V.menuItem [] Icon.bar_chart "Activity"
+        --             ]
+        --         ]
+        --     , Layout.item []
+        --         [ group
+        --             [ Layout.item [ style subMenuStyle ]
+        --                 [ scrollable subMenuWidth
+        --                     [ SubMenu.view model ]
+        --                 ]
+        --             , Layout.item [ style mainContentStyle ]
+        --                 [ scrollable mainContentWidth
+        --                     [ case model.router.route of
+        --                         Router.Messages ->
+        --                             CL.view model
 
-                                Router.NewMessage ->
-                                    EditMessage.view model
+        --                         Router.NewMessage ->
+        --                             EditMessage.view model
 
-                                other ->
-                                    div [] []
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+        --                         other ->
+        --                             div [] []
+        --                     ]
+        --                 ]
+        --             ]
+        --         ]
+        --     ]
+
         ]
 
 
