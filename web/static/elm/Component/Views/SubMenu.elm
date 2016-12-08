@@ -47,7 +47,7 @@ view model =
 messagesView : Model m -> Html Msg
 messagesView model =
     div []
-        [ B.button subtle
+        [ B.button outlined
             ClickAddMessage
             [ Icon.plus_circle
             , text "Add a new message"
