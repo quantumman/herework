@@ -33,3 +33,8 @@ levelItem =
 content : Attribute msg
 content =
     class "content"
+
+
+image : Attribute msg
+image =
+    class "image"
