@@ -9,6 +9,7 @@ import Component.UI.Layout as Layout exposing (..)
 import Component.UI.Menu as Menu exposing (..)
 import Component.UI.Tabs as Tabs exposing (..)
 import Component.UI.VerticalMenu as V exposing (..)
+import Component.UI.Buttons as Buttons exposing (..)
 import Component.Views.CommentList as CL exposing (..)
 import Component.Views.EditMessage as EditMessage exposing (..)
 import Component.Views.SubMenu as SubMenu exposing (..)
@@ -107,6 +108,10 @@ view : App.Model -> Html Msg
 view model =
     div []
         [ Html.map HandleError <| Error.view model.error
+        , div [] [ Buttons.button primary ClickAddMessage [ text "Button" ] ]
+        , div [] [ Buttons.button (\x -> outlined x |> primary) ClickAddMessage [ text "Button!" ] ]
+        , div [] [ Buttons.button (\x -> outlined x |> warning) ClickAddMessage [ text "Button!" ] ]
+        , div [] [ Buttons.button (\x -> primary x |> loading) ClickAddMessage [ text "Button!" ] ]
         , Tabs.tabs Tabs.boxed
             [ Tabs.center
                 [ Tabs.item [] [ text "TabA" ]
