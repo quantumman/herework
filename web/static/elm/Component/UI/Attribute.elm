@@ -28,3 +28,8 @@ levelRight =
 levelItem : Attribute msg
 levelItem =
     class "level-item"
+
+
+content : Attribute msg
+content =
+    class "content"
