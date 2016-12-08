@@ -14,6 +14,22 @@ type alias Model m =
     }
 
 
+
+-- STYLE
+
+
+avatarStyle : List ( String, String )
+avatarStyle =
+    [ ( "border-radius", "50%" )
+    , ( "width", "32px" )
+    , ( "height", "32px" )
+    ]
+
+
+
+-- VIEW
+
+
 view : Model m -> Html msg
 view { messages } =
     let
@@ -21,7 +37,7 @@ view { messages } =
             MediaObject.media
                 [ MediaObject.left
                     [ p [ Attribute.image, class "is-32x32" ]
-                        [ img [ src message.creator.avatar ] [] ]
+                        [ img [ style avatarStyle, src message.creator.avatar ] [] ]
                     ]
                 , MediaObject.content
                     [ div [ Attribute.content ]
