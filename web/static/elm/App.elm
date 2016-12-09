@@ -7,6 +7,7 @@ import Component.Infrastructures.DateTime as DateTime exposing (init)
 import Component.UI.Attribute exposing (..)
 import Component.UI.Columns as Columns exposing (..)
 import Component.UI.Nav as Nav exposing (..)
+import Component.Views.MessageList as MessageList exposing (..)
 import FontAwesome.Web as Icon exposing (edit)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -53,6 +54,24 @@ view model =
             , Nav.tab (activeOnClick Activity model) [ text "Activtiy" ]
             , Nav.tab [] [ text "Setting" ]
             ]
+        , div [ class "container" ]
+            [ columns [ Desktop ]
+                [ column [ Half ]
+                    [ div [ box ]
+                        [ div [ scrollable ]
+                            [ case model.router.route of
+                                Messages ->
+                                    MessageList.view model
+
+                                _ ->
+                                    div [] []
+                            ]
+                        ]
+                    ]
+                , column [ Half ]
+                    []
+                ]
+            ]
         ]
 
 
@@ -68,19 +87,9 @@ activeOnClick route model =
         [ active_, href (reverse route) ]
 
 
-scrollable : List (Html Msg) -> Html Msg
-scrollable html =
-    let
-        wrapper =
-            [ ( "position", "relative" )
-            , ( "height", "auto" )
-            ]
-
-        innerWrapper =
-            [ ( "height", "100%" ) ]
-    in
-        div [ style wrapper ]
-            [ div []
-                [ div [ style innerWrapper ] html
-                ]
-            ]
+scrollable : Attribute Msg
+scrollable =
+    style
+        [ ( "height", "86vh" )
+        , ( "overflow", "auto" )
+        ]
