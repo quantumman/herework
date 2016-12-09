@@ -38,3 +38,8 @@ content =
 image : Attribute msg
 image =
     class "image"
+
+
+box : Attribute msg
+box =
+    class "box"
