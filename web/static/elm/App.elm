@@ -47,7 +47,25 @@ subscriptions model =
 view : App.Model -> Html Msg
 view model =
     div []
-        []
+        [ Nav.tabs
+            [ Nav.tab (activeOnClick Messages model) [ text "Mesasges" ]
+            , Nav.tab (activeOnClick Tasks model) [ text "Tasks" ]
+            , Nav.tab (activeOnClick Activity model) [ text "Activtiy" ]
+            , Nav.tab [] [ text "Setting" ]
+            ]
+        ]
+
+
+activeOnClick : Route -> App.Model -> List (Attribute msg)
+activeOnClick route model =
+    let
+        active_ =
+            if route == model.router.route then
+                active
+            else
+                class ""
+    in
+        [ active_, href (reverse route) ]
 
 
 scrollable : List (Html Msg) -> Html Msg
