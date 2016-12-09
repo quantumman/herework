@@ -1,4 +1,19 @@
-module Component.UI.Tabs exposing (tab, tabs, item, size, Size(..), default, boxed, toggle, center, left, right)
+module Component.UI.Tabs
+    exposing
+        ( tabGroup
+        , tabs
+        , item
+        , size
+        , Size(..)
+        , default
+        , boxed
+        , toggle
+        , center
+        , left
+        , right
+        , align
+        , Align(..)
+        )
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -64,14 +79,14 @@ style config =
             ""
 
 
-align : Config -> String
-align config =
+align_ : Config -> String
+align_ config =
     case config.align of
         Left ->
             "is-left"
 
         Center ->
-            "is-center"
+            "is-centered"
 
         Right ->
             "is-right"
@@ -104,6 +119,11 @@ size s config =
     { config | size = s }
 
 
+align : Align -> Config -> Config
+align a config =
+    { config | align = a }
+
+
 default : Config
 default =
     { style = Normal, size = Default, align = None }
@@ -123,8 +143,8 @@ boxed =
 -- Multiple tabs
 
 
-tabs : Config -> List (Tab msg) -> Html msg
-tabs config tabs =
+tabGroup : Config -> List (Tab msg) -> Html msg
+tabGroup config tabs =
     let
         render (Tab item) =
             item
@@ -135,21 +155,21 @@ tabs config tabs =
 
 center : List (TabItem msg) -> Tab msg
 center items =
-    tabGroup Center items
+    tabGroup_ Center items
 
 
 left : List (TabItem msg) -> Tab msg
 left items =
-    tabGroup Left items
+    tabGroup_ Left items
 
 
 right : List (TabItem msg) -> Tab msg
 right items =
-    tabGroup Right items
+    tabGroup_ Right items
 
 
-tabGroup : Align -> List (TabItem msg) -> Tab msg
-tabGroup a items =
+tabGroup_ : Align -> List (TabItem msg) -> Tab msg
+tabGroup_ a items =
     let
         render (TabItem item) =
             item
@@ -160,7 +180,7 @@ tabGroup a items =
                     "is-left"
 
                 Center ->
-                    "is-center"
+                    "is-centered"
 
                 Right ->
                     "is-right"
@@ -177,13 +197,13 @@ tabGroup a items =
 -- Single tab
 
 
-tab : Config -> List (TabItem msg) -> Html msg
-tab config items =
+tabs : Config -> List (TabItem msg) -> Html msg
+tabs config items =
     let
         render (TabItem item) =
             item
     in
-        div [ class "tabs", class (align config), class (size_ config), class (style config) ]
-            [ ul [ class (align config) ]
+        div [ class "tabs", class (align_ config), class (size_ config), class (style config) ]
+            [ ul []
                 (List.map render items)
             ]

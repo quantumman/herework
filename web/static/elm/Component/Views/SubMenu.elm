@@ -33,10 +33,10 @@ view model =
         items =
             case model.router.route of
                 Messages ->
-                    messagesView model
+                    div [] []
 
                 Router.NewMessage ->
-                    messagesView model
+                    div [] []
 
                 other ->
                     div [] []
@@ -44,26 +44,25 @@ view model =
         items
 
 
-messagesView : Model m -> Html Msg
-messagesView model =
-    div []
-        [ B.button outlined
-            ClickAddMessage
-            [ Icon.plus_circle
-            , text "Add a new message"
-            ]
-        , Maybe.withDefault Message.initialModel model.selectedMessage
-            |> messages model.messages
-            |> Nav.vnav
-        ]
 
-
-messages : List Message -> Message -> List ( Nav.Header a, List (Nav.Item Msg) )
-messages ms selected =
-    let
-        toItem message =
-            Nav.item [ onClick (Message.ListComments message), href <| Router.reverse Router.Messages ]
-                (selected.id == message.id)
-                message.title
-    in
-        [ ( Nav.header "MESSAGES", List.map toItem ms ) ]
+-- messagesView : Model m -> Html Msg
+-- messagesView model =
+--     div []
+--         [ B.button outlined
+--             ClickAddMessage
+--             [ Icon.plus_circle
+--             , text "Add a new message"
+--             ]
+--         , Maybe.withDefault Message.initialModel model.selectedMessage
+--             |> messages model.messages
+--             |> Nav.vnav
+--         ]
+-- messages : List Message -> Message -> List ( Nav.Header a, List (Nav.Item Msg) )
+-- messages ms selected =
+--     let
+--         toItem message =
+--             Nav.item [ onClick (Message.ListComments message), href <| Router.reverse Router.Messages ]
+--                 (selected.id == message.id)
+--                 message.title
+--     in
+--         [ ( Nav.header "MESSAGES", List.map toItem ms ) ]
