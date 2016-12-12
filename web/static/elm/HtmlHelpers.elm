@@ -17,3 +17,8 @@ bind binder =
 bindCheck : Binder App.Model Bool -> Attribute App.Msg
 bindCheck binder =
     Form.bindCheck binder Bind
+
+
+navigateTo : Route -> Attribute App.Msg
+navigateTo route =
+    onClick (NavigateTo route)
