@@ -1,7 +1,7 @@
 module Commands exposing (..)
 
-import Component.Error.Update as Error exposing (show)
 import Component.Error.Message as Error exposing (..)
+import Component.Error.Update as Error exposing (show)
 import Component.Infrastructures.DateTime as DateTime exposing (getNow)
 import Http as Http exposing (..)
 import Http exposing (Error)
@@ -13,6 +13,7 @@ import Models.Comment as Comment exposing (..)
 import Models.Message as Message exposing (..)
 import Models.Resource as Resource exposing (..)
 import Models.User as User exposing (..)
+import Router exposing (Route)
 import Task exposing (Task)
 
 
@@ -107,3 +108,17 @@ now =
 show : Http.Error -> Cmd App.Msg
 show e =
     Cmd.map HandleError <| Error.show e
+
+
+
+-- Misc
+
+
+run : App.Msg -> Cmd App.Msg
+run msg =
+    Task.perform identity <| Task.succeed msg
+
+
+routeUpdate : Route -> Cmd App.Msg
+routeUpdate route =
+    Task.perform RouteUpdate <| Task.succeed route

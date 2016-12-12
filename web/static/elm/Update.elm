@@ -52,6 +52,12 @@ update message model =
         RefreshComments (Err error) ->
             handleHttpError error model
 
+        NavigateTo route ->
+            model ! [ Router.navigateTo route ]
+
+        RouteUpdate route ->
+            updateRoute route model
+
         HandleError msg ->
             let
                 ( error, command ) =
@@ -79,6 +85,28 @@ update message model =
                     Editor.update msg model.editor
             in
                 { model | editor = editor } ! [ Cmd.map Editor command ]
+
+
+updateRoute : Route -> Model -> ( Model, Cmd Msg )
+updateRoute route model =
+    case route of
+        Messages ->
+            model ! [ Commands.run ListMessages ]
+
+        MessageDetail id ->
+            model ! []
+
+        Router.NewMessage ->
+            model ! []
+
+        Tasks ->
+            model ! []
+
+        Activity ->
+            model ! []
+
+        NotFound ->
+            model ! []
 
 
 

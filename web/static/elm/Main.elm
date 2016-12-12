@@ -1,13 +1,13 @@
 module Main exposing (..)
 
 import App as App exposing (..)
-import Commands as App exposing (..)
+import Commands as App exposing (now, routeUpdate)
 import Html exposing (Html)
 import Message as App exposing (..)
 import Models as App exposing (Model)
 import Navigation exposing (..)
 import Router as Router exposing (..)
-import Update as App exposing (..)
+import Update as App exposing (update)
 
 
 type alias Model =
@@ -59,8 +59,14 @@ update message model =
             let
                 router =
                     Router.update route model.router
+
+                commands =
+                    Cmd.batch
+                        [ App.now
+                        , App.routeUpdate route
+                        ]
             in
-                { model | router = router } ! [ Cmd.map App App.now ]
+                { model | router = router } ! [ Cmd.map App commands ]
 
         NoOp ->
             model ! []

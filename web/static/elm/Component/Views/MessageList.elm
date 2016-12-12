@@ -30,7 +30,7 @@ avatarStyle =
 -- VIEW
 
 
-view : Model m -> Html msg
+view : Model m -> Html Msg
 view { messages } =
     let
         render message =
@@ -40,7 +40,7 @@ view { messages } =
                         [ img [ style avatarStyle, src message.creator.avatar ] [] ]
                     ]
                 , MediaObject.content
-                    [ div [ Attribute.content ]
+                    [ div [ Attribute.content, onClick (ListComments message) ]
                         [ p []
                             [ text message.title ]
                         ]

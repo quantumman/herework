@@ -3,8 +3,10 @@ module HtmlHelpers exposing (..)
 import Component.Infrastructures.Form as Form exposing (bind, bindCheck, Binder)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Message as App exposing (..)
 import Models as App exposing (..)
+import Router as Route exposing (..)
 
 
 bind : Binder App.Model String -> Attribute App.Msg
