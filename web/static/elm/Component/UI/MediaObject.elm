@@ -43,8 +43,8 @@ right content =
             content
 
 
-content : List (Html msg) -> Media msg
-content c =
+content : List (Attribute msg) -> List (Html msg) -> Media msg
+content attrs c =
     Content <|
-        div [ class "media-content" ]
+        div ([ class "media-content" ] ++ attrs)
             c

@@ -42,8 +42,8 @@ view { messages } =
                     [ p [ Attribute.image, class "is-32x32" ]
                         [ img [ style avatarStyle, src message.creator.avatar ] [] ]
                     ]
-                , MediaObject.content
-                    [ div [ Attribute.content, navigateTo (MessageDetail message.id) ]
+                , MediaObject.content [ style [ ( "cursor", "pointer" ) ], navigateTo (MessageDetail message.id) ]
+                    [ div [ Attribute.content ]
                         [ p []
                             [ text message.title ]
                         ]
