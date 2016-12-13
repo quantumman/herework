@@ -64,6 +64,9 @@ view model =
                                 Messages ->
                                     MessageList.view model
 
+                                MessageDetail id ->
+                                    MessageList.view model
+
                                 _ ->
                                     div [] []
                             ]
