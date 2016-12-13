@@ -56,7 +56,7 @@ view model =
             , Nav.tab [] [ text "Setting" ]
             ]
         , div [ class "container" ]
-            [ columns [ Desktop ]
+            [ columns [ Desktop, Gapless ]
                 [ column [ Half ]
                     [ div [ box ]
                         [ div [ scrollable ]
