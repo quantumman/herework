@@ -50,9 +50,9 @@ view : App.Model -> Html Msg
 view model =
     div []
         [ Nav.tabs
-            [ Nav.tab [ activeAt [ Messages ] model, navigateTo Messages ] [ text "Mesasges" ]
-            , Nav.tab [ activeAt [ Tasks ] model, navigateTo Tasks ] [ text "Tasks" ]
-            , Nav.tab [ activeAt [ Activity ] model, navigateTo Activity ] [ text "Activtiy" ]
+            [ Nav.tab [ activeAt model (messages model), navigateTo Messages ] [ text "Mesasges" ]
+            , Nav.tab [ activeAt model [ Tasks ], navigateTo Tasks ] [ text "Tasks" ]
+            , Nav.tab [ activeAt model [ Activity ], navigateTo Activity ] [ text "Activtiy" ]
             , Nav.tab [] [ text "Setting" ]
             ]
         , div [ class "container" ]
@@ -76,12 +76,21 @@ view model =
         ]
 
 
-activeAt : List Route -> App.Model -> Attribute msg
-activeAt routes model =
+activeAt : App.Model -> List Route -> Attribute Msg
+activeAt model routes =
     if List.member model.router.route routes then
         active
     else
         class ""
+
+
+messages : App.Model -> List Route
+messages model =
+    model.selectedMessage
+        |> Maybe.map .id
+        |> Maybe.map MessageDetail
+        |> Maybe.map (\r -> [ r, Messages ])
+        |> Maybe.withDefault [ Messages ]
 
 
 scrollable : Attribute Msg
