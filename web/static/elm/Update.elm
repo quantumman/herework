@@ -92,7 +92,15 @@ updateRoute : Route -> Model -> ( Model, Cmd Msg )
 updateRoute route model =
     case route of
         Messages ->
-            model ! [ Commands.run ListMessages ]
+            let
+                navigateDetailOrNone =
+                    model.selectedMessage
+                        |> Maybe.map .id
+                        |> Maybe.map Router.MessageDetail
+                        |> Maybe.map Router.navigateTo
+                        |> Maybe.withDefault Cmd.none
+            in
+                model ! [ Commands.run ListMessages, navigateDetailOrNone ]
 
         MessageDetail id ->
             { model | selectedMessage = List.find (\x -> x.id == id) model.messages } ! []
