@@ -8,6 +8,7 @@ import Component.UI.Editor as Editor exposing (update)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Http as Http exposing (Error)
+import List.Extra as List exposing (..)
 import Message exposing (..)
 import Models exposing (..)
 import Router as Router exposing (Route(..), navigateTo, newUrl)
@@ -94,7 +95,7 @@ updateRoute route model =
             model ! [ Commands.run ListMessages ]
 
         MessageDetail id ->
-            model ! []
+            { model | selectedMessage = List.find (\x -> x.id == id) model.messages } ! []
 
         Router.NewMessage ->
             model ! []
