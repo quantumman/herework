@@ -11,8 +11,8 @@ type Media msg
     | Left (Html msg)
 
 
-media : List (Media msg) -> Html msg
-media content =
+media : List (Attribute msg) -> List (Media msg) -> Html msg
+media attrs content =
     let
         render m =
             case m of
@@ -25,7 +25,7 @@ media content =
                 Left x ->
                     x
     in
-        article [ class "media" ]
+        article ([ class "media" ] ++ attrs)
             (List.map render content)
 
 

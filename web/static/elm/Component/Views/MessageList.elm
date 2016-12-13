@@ -37,7 +37,7 @@ view : Model m -> Html Msg
 view { messages } =
     let
         render message =
-            MediaObject.media
+            MediaObject.media []
                 [ MediaObject.left
                     [ p [ Attribute.image, class "is-32x32" ]
                         [ img [ style avatarStyle, src message.creator.avatar ] [] ]
