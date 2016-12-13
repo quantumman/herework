@@ -5,7 +5,10 @@ import Component.UI.MediaObject as MediaObject exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import HtmlHelpers exposing (..)
+import Message exposing (..)
 import Models.Message exposing (..)
+import Router exposing (Route(..))
 
 
 type alias Model m =
@@ -40,7 +43,7 @@ view { messages } =
                         [ img [ style avatarStyle, src message.creator.avatar ] [] ]
                     ]
                 , MediaObject.content
-                    [ div [ Attribute.content, onClick (ListComments message) ]
+                    [ div [ Attribute.content, navigateTo (MessageDetail message.id) ]
                         [ p []
                             [ text message.title ]
                         ]
