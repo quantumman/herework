@@ -12,12 +12,13 @@ import FontAwesome.Web as Icon exposing (edit)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import HtmlHelpers exposing (..)
 import Message exposing (..)
 import Models as App exposing (Model)
 import Models exposing (..)
 import Models.User exposing (User)
 import Navigation
-import Router as Router exposing (..)
+import Router as Router exposing (Route(..))
 
 
 -- MODEL
@@ -49,9 +50,9 @@ view : App.Model -> Html Msg
 view model =
     div []
         [ Nav.tabs
-            [ Nav.tab (activeOnClick Messages model) [ text "Mesasges" ]
-            , Nav.tab (activeOnClick Tasks model) [ text "Tasks" ]
-            , Nav.tab (activeOnClick Activity model) [ text "Activtiy" ]
+            [ Nav.tab [ activeAt [ Messages ] model, navigateTo Messages ] [ text "Mesasges" ]
+            , Nav.tab [ activeAt [ Tasks ] model, navigateTo Tasks ] [ text "Tasks" ]
+            , Nav.tab [ activeAt [ Activity ] model, navigateTo Activity ] [ text "Activtiy" ]
             , Nav.tab [] [ text "Setting" ]
             ]
         , div [ class "container" ]
@@ -75,16 +76,12 @@ view model =
         ]
 
 
-activeOnClick : Route -> App.Model -> List (Attribute msg)
-activeOnClick route model =
-    let
-        active_ =
-            if route == model.router.route then
-                active
-            else
-                class ""
-    in
-        [ active_, href (reverse route) ]
+activeAt : List Route -> App.Model -> Attribute msg
+activeAt routes model =
+    if List.member model.router.route routes then
+        active
+    else
+        class ""
 
 
 scrollable : Attribute Msg
