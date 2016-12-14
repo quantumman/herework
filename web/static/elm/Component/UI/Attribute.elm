@@ -49,11 +49,11 @@ box =
 -- TITLE
 
 
-title : Attribute msg
-title =
-    class "title"
+title : Int -> Attribute msg
+title n =
+    class <| "title is-" ++ (toString n)
 
 
-subtitle : Attribute msg
-subtitle =
-    class "subtitle"
+subtitle : Int -> Attribute msg
+subtitle n =
+    class <| "subtitle is-" ++ (toString n)
