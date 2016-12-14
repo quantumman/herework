@@ -7,6 +7,7 @@ import Component.Infrastructures.DateTime as DateTime exposing (init)
 import Component.UI.Attribute exposing (..)
 import Component.UI.Columns as Columns exposing (..)
 import Component.UI.Nav as Nav exposing (..)
+import Component.Views.MessageDetail as MessageDetail exposing (..)
 import Component.Views.MessageList as MessageList exposing (..)
 import FontAwesome.Web as Icon exposing (edit)
 import Html exposing (..)
@@ -75,7 +76,13 @@ view model =
                 , column [ Half ]
                     [ div [ box ]
                         [ div [ scrollable ]
-                            []
+                            [ case model.router.route of
+                                MessageDetail id ->
+                                    MessageDetail.view model
+
+                                _ ->
+                                    div [] []
+                            ]
                         ]
                     ]
                 ]
