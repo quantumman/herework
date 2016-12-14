@@ -52,3 +52,8 @@ box =
 title : Attribute msg
 title =
     class "title"
+
+
+subtitle : Attribute msg
+subtitle =
+    class "subtitle"
