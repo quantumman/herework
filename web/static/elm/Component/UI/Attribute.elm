@@ -43,3 +43,12 @@ image =
 box : Attribute msg
 box =
     class "box"
+
+
+
+-- TITLE
+
+
+title : Attribute msg
+title =
+    class "title"
