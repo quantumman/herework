@@ -20,4 +20,10 @@ type alias Model m =
 
 view : Model m -> Html Msg
 view { selectedMessage } =
-    div [] []
+    let
+        render message =
+            div [] []
+    in
+        selectedMessage
+            |> Maybe.map render
+            |> Maybe.withDefault (div [] [])
