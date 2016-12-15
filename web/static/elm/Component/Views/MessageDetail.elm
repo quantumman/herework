@@ -2,18 +2,21 @@ module Component.Views.MessageDetail exposing (..)
 
 import Component.Infrastructures.DateTime as DateTime exposing (view)
 import Component.UI.Attribute as Attribute exposing (..)
+import Component.Views.CommentList as CommentList exposing (..)
 import Date exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import HtmlHelpers exposing (..)
 import Message exposing (..)
+import Models.Comment exposing (..)
 import Models.Message exposing (..)
 
 
 type alias Model m =
     { m
         | selectedMessage : Maybe Message
+        , comments : List Comment
         , now : DateTime.Model
     }
 
@@ -39,7 +42,7 @@ separator =
 
 
 view : Model m -> Html Msg
-view { selectedMessage, now } =
+view model =
     let
         render message =
             div [ Attribute.content ]
@@ -48,16 +51,18 @@ view { selectedMessage, now } =
                     [ p [ level ]
                         [ div [ levelLeft ] []
                         , div [ levelRight ]
-                            [ div [ levelItem ] [ createdAt message.created_at now ]
+                            [ div [ levelItem ] [ createdAt message.created_at model.now ]
                             , div [ levelItem ] [ avatar 24 message ]
                             ]
                         ]
                     ]
                 , hr [ style separator ] []
                 , p [] [ text message.body ]
+                , hr [] []
+                , CommentList.view model
                 ]
     in
-        selectedMessage
+        model.selectedMessage
             |> Maybe.map render
             |> Maybe.withDefault (div [] [])
 
