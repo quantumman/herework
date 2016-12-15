@@ -47,10 +47,23 @@ view model =
                 , MediaObject.content []
                     [ div [ Attribute.content ]
                         [ p []
-                            [ text comment.body ]
+                            [ small []
+                                [ strong []
+                                    [ text comment.creator.name ]
+                                ]
+                            , text " "
+                            , small []
+                                [ createdAt comment.created_at model.now ]
+                            ]
+                        , text comment.body
                         ]
                     ]
                 ]
     in
         div []
             (List.map render model.comments)
+
+
+createdAt : Date -> DateTime.Model -> Html Msg
+createdAt date model =
+    Html.map Now <| DateTime.view date model
