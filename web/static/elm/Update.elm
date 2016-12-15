@@ -103,7 +103,17 @@ updateRoute route model =
                 model ! [ Commands.run ListMessages, navigateDetailOrNone ]
 
         MessageDetail id ->
-            { model | selectedMessage = List.find (\x -> x.id == id) model.messages } ! []
+            let
+                selectedMessage =
+                    List.find (\x -> x.id == id) model.messages
+
+                command =
+                    selectedMessage
+                        |> Maybe.map ListComments
+                        |> Maybe.map Commands.run
+                        |> Maybe.withDefault Cmd.none
+            in
+                { model | selectedMessage = selectedMessage } ! [ command ]
 
         Router.NewMessage ->
             model ! []
