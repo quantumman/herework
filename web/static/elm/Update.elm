@@ -45,7 +45,7 @@ update message model =
             { model | newMessage = message } ! [ Commands.addMessage model.resource.messages_url message ]
 
         ListComments message ->
-            { model | selectedMessage = Just message } ! [ Commands.fetchComments message.comments_url ]
+            model ! [ Commands.fetchComments message.comments_url ]
 
         RefreshComments (Ok comments) ->
             { model | comments = comments } ! []
