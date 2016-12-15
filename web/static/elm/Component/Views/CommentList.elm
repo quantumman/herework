@@ -1,6 +1,8 @@
 module Component.Views.CommentList exposing (..)
 
 import Component.Infrastructures.DateTime as DateTime exposing (view, Model)
+import Component.UI.Attribute as Attribute exposing (..)
+import Component.UI.MediaObject as MediaObject exposing (..)
 import Date exposing (Date)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -18,9 +20,31 @@ type alias Model m =
 
 
 
+-- STYLE
+
+
+avatarStyle : List ( String, String )
+avatarStyle =
+    [ ( "border-radius", "50%" )
+    , ( "width", "32px" )
+    , ( "height", "32px" )
+    ]
+
+
+
 -- VIEW
 
 
 view : Model m -> Html Msg
 view model =
-    div [] []
+    let
+        render comment =
+            MediaObject.media []
+                [ MediaObject.left
+                    [ p [ Attribute.image, class "is-32x32" ]
+                        [ img [ style avatarStyle, src comment.creator.avatar ] [] ]
+                    ]
+                ]
+    in
+        div []
+            (List.map render model.comments)
