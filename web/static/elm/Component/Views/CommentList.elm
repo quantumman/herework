@@ -44,6 +44,12 @@ view model =
                     [ p [ Attribute.image, class "is-32x32" ]
                         [ img [ style avatarStyle, src comment.creator.avatar ] [] ]
                     ]
+                , MediaObject.content []
+                    [ div [ Attribute.content ]
+                        [ p []
+                            [ text comment.body ]
+                        ]
+                    ]
                 ]
     in
         div []
