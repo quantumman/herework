@@ -10,6 +10,7 @@ import Http as Http exposing (Error)
 import List.Extra as List exposing (..)
 import Message exposing (..)
 import Models exposing (..)
+import Models.Message
 import Router as Router exposing (Route(..), navigateTo, newUrl)
 
 
@@ -108,7 +109,7 @@ updateRoute route model =
                 { model | selectedMessage = selectedMessage } ! [ command ]
 
         Router.NewMessage ->
-            model ! []
+            { model | editMessage = Models.Message.initialModel } ! []
 
         Router.EditMessage id ->
             model ! []
