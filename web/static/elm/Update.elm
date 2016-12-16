@@ -40,7 +40,7 @@ update message model =
         Message.NewMessage (Err error) ->
             handleHttpError error model
 
-        EditMessage message ->
+        Message.EditMessage message ->
             { model | newMessage = message } ! [ Commands.addMessage model.resource.messages_url message ]
 
         ListComments message ->
@@ -108,6 +108,9 @@ updateRoute route model =
                 { model | selectedMessage = selectedMessage } ! [ command ]
 
         Router.NewMessage ->
+            model ! []
+
+        Router.EditMessage id ->
             model ! []
 
         Tasks ->

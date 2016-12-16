@@ -11,6 +11,7 @@ type Route
     = Messages
     | MessageDetail Int
     | NewMessage
+    | EditMessage Int
     | Tasks
     | Activity
     | NotFound
@@ -22,6 +23,7 @@ route =
         [ map Messages (s "")
         , map MessageDetail (s "messages" </> int)
         , map NewMessage (s "messages" </> s "new")
+        , map EditMessage (s "messages" </> int </> s "edit")
         , map Messages (s "messages")
         , map Tasks (s "tasks")
         , map Activity (s "activity")
@@ -39,6 +41,9 @@ reverse route =
 
         NewMessage ->
             "#/messages/new"
+
+        EditMessage id ->
+            "#/mesasges/" ++ (toString id) ++ "/edit"
 
         Tasks ->
             "#/tasks"
