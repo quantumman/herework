@@ -1,6 +1,5 @@
 module App exposing (..)
 
-import Aui.Avatars exposing (..)
 import Commands as Commands exposing (..)
 import Component.Error.View as Error exposing (..)
 import Component.Infrastructures.DateTime as DateTime exposing (init)
