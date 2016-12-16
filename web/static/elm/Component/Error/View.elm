@@ -1,6 +1,5 @@
 module Component.Error.View exposing (..)
 
-import Aui.Messages exposing (..)
 import Component.Error.Message exposing (..)
 import Component.Error.Model exposing (..)
 import Html exposing (..)
@@ -46,13 +45,12 @@ view : Model -> Html Msg
 view model =
     case model.error of
         Just msg ->
-            div [ style overlay ]
-                [ div [ style modal ]
-                    [ closableMessage error
-                        Close
-                        [ text "Something Wrong!" ]
-                        [ text msg ]
-                    ]
+            div [ style overlay, class "message is-danger" ]
+                [ div [ class "message-header" ]
+                    [ text "Something Wrong!" ]
+                , div
+                    [ style modal, class "message-body" ]
+                    [ text msg ]
                 ]
 
         Nothing ->
