@@ -4,56 +4,77 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 
 
-type Header msg
-    = Header (Html msg)
-
-
-header : String -> Header msg
-header label =
-    Header
-        <| div [ class "aui-nav-heading" ]
-            [ strong [] [ text label ] ]
-
-
 type Item msg
     = Item (Html msg)
 
 
-item : List (Attribute msg) -> Bool -> String -> Item msg
-item attributes isSelected label =
-    Item
-        <| li
-            [ class
-                (if isSelected then
-                    "aui-nav-selected"
-                 else
-                    ""
-                )
-            ]
-            [ a attributes [ text label ]
-            ]
+type Group msg
+    = Group (Html msg)
 
 
-vnav : List ( Header msg, List (Item msg) ) -> Html msg
-vnav groups =
+nav : List (Group msg) -> Html msg
+nav groups =
     let
-        renderMenu ( Header header, items ) =
-            ul [ class "aui-nav __skate" ]
-                (header :: (List.map (\(Item item) -> item) items))
+        render (Group group) =
+            group
     in
-        nav [ class "aui-navgroup aui-navgroup-vertical" ]
-            [ div [ class "aui-navgroup-inner" ]
-                (List.map (\group -> renderMenu group) groups)
-            ]
+        Html.nav [ class "nav" ]
+            (List.map render groups)
 
 
-hnav : List (Item msg) -> Html msg
-hnav items =
-    nav [ class "aui-navgroup aui-navgroup-horizontal" ]
-        [ div [ class "aui-navgroup-inner" ]
-            [ div [ class "aui-navgroup-primary" ]
-                [ ul [ class "aui-nav" ]
-                    (List.map (\(Item item) -> item) items)
+group : String -> List (Item msg) -> Group msg
+group pos items =
+    let
+        render (Item item) =
+            item
+    in
+        Group <|
+            div [ class pos ]
+                (List.map render items)
+
+
+left : List (Item msg) -> Group msg
+left items =
+    group "nav-left" items
+
+
+center : List (Item msg) -> Group msg
+center items =
+    group "nav-center" items
+
+
+right : List (Item msg) -> Group msg
+right items =
+    group "nav-right" items
+
+
+item : List (Attribute msg) -> List (Html msg) -> Item msg
+item attrs content =
+    Item <|
+        a ([ href "#", class "nav-item" ] ++ attrs)
+            content
+
+
+type Tab msg
+    = Tab (Html msg)
+
+
+tabs : List (Tab msg) -> Html msg
+tabs items =
+    let
+        render (Tab item) =
+            item
+    in
+        Html.nav [ class "nav has-shadow" ]
+            [ div [ class "container" ]
+                [ div [ class "nav-center" ]
+                    (List.map render items)
                 ]
             ]
-        ]
+
+
+tab : List (Attribute msg) -> List (Html msg) -> Tab msg
+tab attrs content =
+    Tab <|
+        a ([ class "nav-item is-tab" ] ++ attrs)
+            content

@@ -8,6 +8,7 @@ import Component.UI.Editor as Editor exposing (update)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Http as Http exposing (Error)
+import List.Extra as List exposing (..)
 import Message exposing (..)
 import Models exposing (..)
 import Router as Router exposing (Route(..), navigateTo, newUrl)
@@ -44,13 +45,19 @@ update message model =
             { model | newMessage = message } ! [ Commands.addMessage model.resource.messages_url message ]
 
         ListComments message ->
-            { model | selectedMessage = Just message } ! [ Commands.fetchComments message.comments_url ]
+            model ! [ Commands.fetchComments message.comments_url ]
 
         RefreshComments (Ok comments) ->
             { model | comments = comments } ! []
 
         RefreshComments (Err error) ->
             handleHttpError error model
+
+        NavigateTo route ->
+            model ! [ Router.navigateTo route ]
+
+        RouteUpdate route ->
+            updateRoute route model
 
         HandleError msg ->
             let
@@ -79,6 +86,46 @@ update message model =
                     Editor.update msg model.editor
             in
                 { model | editor = editor } ! [ Cmd.map Editor command ]
+
+
+updateRoute : Route -> Model -> ( Model, Cmd Msg )
+updateRoute route model =
+    case route of
+        Messages ->
+            let
+                navigateDetailOrNone =
+                    model.selectedMessage
+                        |> Maybe.map .id
+                        |> Maybe.map Router.MessageDetail
+                        |> Maybe.map Router.navigateTo
+                        |> Maybe.withDefault Cmd.none
+            in
+                model ! [ Commands.run ListMessages, navigateDetailOrNone ]
+
+        MessageDetail id ->
+            let
+                selectedMessage =
+                    List.find (\x -> x.id == id) model.messages
+
+                command =
+                    selectedMessage
+                        |> Maybe.map ListComments
+                        |> Maybe.map Commands.run
+                        |> Maybe.withDefault Cmd.none
+            in
+                { model | selectedMessage = selectedMessage } ! [ command ]
+
+        Router.NewMessage ->
+            model ! []
+
+        Tasks ->
+            model ! []
+
+        Activity ->
+            model ! []
+
+        NotFound ->
+            model ! []
 
 
 

@@ -1,24 +1,24 @@
 module App exposing (..)
 
-import Aui.Avatars exposing (..)
 import Commands as Commands exposing (..)
 import Component.Error.View as Error exposing (..)
 import Component.Infrastructures.DateTime as DateTime exposing (init)
-import Component.UI.Layout exposing (..)
-import Component.UI.VerticalMenu as V exposing (..)
-import Component.Views.CommentList as CL exposing (..)
-import Component.Views.EditMessage as EditMessage exposing (..)
-import Component.Views.SubMenu as SubMenu exposing (..)
+import Component.UI.Attribute exposing (..)
+import Component.UI.Columns as Columns exposing (..)
+import Component.UI.Nav as Nav exposing (..)
+import Component.Views.MessageDetail as MessageDetail exposing (..)
+import Component.Views.MessageList as MessageList exposing (..)
 import FontAwesome.Web as Icon exposing (edit)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import HtmlHelpers exposing (..)
 import Message exposing (..)
 import Models as App exposing (Model)
-import Models.User exposing (User)
 import Models exposing (..)
+import Models.User exposing (User)
 import Navigation
-import Router as Router exposing (..)
+import Router as Router exposing (Route(..))
 
 
 -- MODEL
@@ -43,105 +43,43 @@ subscriptions model =
 
 
 
--- STYLE
-
-
-paneHeaderHeight : String
-paneHeaderHeight =
-    "80px"
-
-
-menuWidth : String
-menuWidth =
-    "60px"
-
-
-subMenuWidth : String
-subMenuWidth =
-    "370px"
-
-
-mainContentWidth : String
-mainContentWidth =
-    "600px"
-
-
-paneHeaderStyle : List ( String, String )
-paneHeaderStyle =
-    [ ( "height", paneHeaderHeight )
-    ]
-
-
-menuStyle : List ( String, String )
-menuStyle =
-    [ ( "width", menuWidth )
-    ]
-
-
-subMenuStyle : List ( String, String )
-subMenuStyle =
-    [ ( "width", subMenuWidth )
-    ]
-
-
-mainContentStyle : List ( String, String )
-mainContentStyle =
-    [ ( "width", mainContentWidth )
-    ]
-
-
-mainContentTitleStyle : List ( String, String )
-mainContentTitleStyle =
-    [ ( "marginTop", "15px" )
-    ]
-
-
-
 -- VIEW
 
 
 view : App.Model -> Html Msg
 view model =
     div []
-        [ Html.map HandleError <| Error.view model.error
-        , group
-            [ item [ style menuStyle ]
-                [ header [ loggedInUser model.user ]
-                ]
-            , item [ style subMenuStyle ]
-                []
-            , item [ style mainContentStyle ]
-                [ header
-                    [ h1 [ style mainContentTitleStyle ]
-                        [ text (model.selectedMessage |> Maybe.map (.title) |> Maybe.withDefault "")
-                        ]
-                    ]
-                ]
+        [ Nav.tabs
+            [ Nav.tab [ activeAt model (messages model), navigateTo Messages ] [ text "Mesasges" ]
+            , Nav.tab [ activeAt model [ Tasks ], navigateTo Tasks ] [ text "Tasks" ]
+            , Nav.tab [ activeAt model [ Activity ], navigateTo Activity ] [ text "Activtiy" ]
+            , Nav.tab [] [ text "Setting" ]
             ]
-        , group
-            [ item [ style menuStyle ]
-                [ V.menu [ style menuStyle ]
-                    [ menuItem [ onClick ListMessages ] Icon.comments_o "Messages"
-                    , menuItem [] Icon.tasks "Tasks"
-                    , menuItem [] Icon.bar_chart "Activity"
-                    ]
-                ]
-            , item []
-                [ group
-                    [ item [ style subMenuStyle ]
-                        [ scrollable subMenuWidth
-                            [ SubMenu.view model ]
-                        ]
-                    , item [ style mainContentStyle ]
-                        [ scrollable mainContentWidth
+        , div [ class "container" ]
+            [ columns [ Desktop, Gapless ]
+                [ column [ Half ]
+                    [ div [ box ]
+                        [ div [ scrollable ]
                             [ case model.router.route of
-                                Router.Messages ->
-                                    CL.view model
+                                Messages ->
+                                    MessageList.view model
 
-                                Router.NewMessage ->
-                                    EditMessage.view model
+                                MessageDetail id ->
+                                    MessageList.view model
 
-                                other ->
+                                _ ->
+                                    div [] []
+                            ]
+                        ]
+                    ]
+                , column [ Half ]
+                    [ div [ box ]
+                        [ div [ scrollable ]
+                            [ case model.router.route of
+                                MessageDetail id ->
+                                    MessageDetail.view model
+
+                                _ ->
                                     div [] []
                             ]
                         ]
@@ -151,33 +89,26 @@ view model =
         ]
 
 
-header : List (Html Msg) -> Html Msg
-header =
-    div [ style paneHeaderStyle ]
+activeAt : App.Model -> List Route -> Attribute Msg
+activeAt model routes =
+    if List.member model.router.route routes then
+        active
+    else
+        class ""
 
 
-loggedInUser : User -> Html Msg
-loggedInUser user =
-    let
-        align =
-            [ ( "marginLeft", "9px" )
-            , ( "marginTop", "15px" )
-            ]
-    in
-        div [ style (menuStyle ++ align) ]
-            [ avatar config user.avatar
-            ]
+messages : App.Model -> List Route
+messages model =
+    model.selectedMessage
+        |> Maybe.map .id
+        |> Maybe.map MessageDetail
+        |> Maybe.map (\r -> [ r, Messages ])
+        |> Maybe.withDefault [ Messages ]
 
 
-scrollable : String -> List (Html Msg) -> Html Msg
-scrollable w html =
-    let
-        scroll =
-            [ ( "position", "absolute" )
-            , ( "top", paneHeaderHeight )
-            , ( "bottom", "0" )
-            , ( "width", w )
-            , ( "overflow", "auto" )
-            ]
-    in
-        div [ style scroll ] html
+scrollable : Attribute Msg
+scrollable =
+    style
+        [ ( "height", "86vh" )
+        , ( "overflow", "auto" )
+        ]

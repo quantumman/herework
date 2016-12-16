@@ -1,41 +1,195 @@
-module Component.UI.Buttons exposing (..)
+module Component.UI.Buttons
+    exposing
+        ( button
+        , primary
+        , info
+        , success
+        , warning
+        , danger
+        , normal
+        , default
+        , small
+        , large
+        , medium
+        , outlined
+        , loading
+        , disabled
+        )
 
-import Aui.Buttons as Aui exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 
 
-type alias ButtonType msg =
-    Config msg -> Config msg
+-- button config
 
 
-button : ButtonType msg -> msg -> List (Html msg) -> Html msg
-button config message content =
-    Aui.button (baseConfig |> config |> withAction message)
-        content
+type Size
+    = Large
+    | Medium
+    | Small
 
 
-primary : ButtonType msg
+type Color
+    = Primary
+    | Info
+    | Success
+    | Warning
+    | Danger
+    | Default
+
+
+type Style
+    = Outlined
+    | Loading
+    | Disabled
+    | Normal
+
+
+type alias Config =
+    { size : Maybe Size
+    , color : Color
+    , style : Style
+    }
+
+
+default : Config
+default =
+    { size = Nothing
+    , color = Default
+    , style = Normal
+    }
+
+
+small : Config -> Config
+small config =
+    { config | size = Just Small }
+
+
+medium : Config -> Config
+medium config =
+    { config | size = Just Medium }
+
+
+large : Config -> Config
+large config =
+    { config | size = Just Large }
+
+
+outlined : Config -> Config
+outlined config =
+    { config | style = Outlined }
+
+
+loading : Config -> Config
+loading config =
+    { config | style = Loading }
+
+
+disabled : Config -> Config
+disabled config =
+    { config | style = Disabled }
+
+
+primary : Config -> Config
 primary config =
-    config |> withStyle primaryStyle
+    { config | color = Primary }
 
 
-normal : ButtonType msg
-normal config =
-    config |> withStyle normalStyle
+info : Config -> Config
+info config =
+    { config | color = Info }
 
 
-subtle : ButtonType msg
-subtle config =
-    config |> withStyle subtleStyle
+success : Config -> Config
+success config =
+    { config | color = Success }
 
 
-light : ButtonType msg
-light config =
-    config |> withStyle lightStyle
+warning : Config -> Config
+warning config =
+    { config | color = Warning }
 
 
-link : ButtonType msg
-link config =
-    config |> withStyle linkStyle
+danger : Config -> Config
+danger config =
+    { config | color = Danger }
+
+
+normal : Config -> Config
+normal _ =
+    default
+
+
+
+--
+
+
+type alias ButtonType =
+    Config -> Config
+
+
+button : ButtonType -> msg -> List (Html msg) -> Html msg
+button buttonType message content =
+    let
+        config =
+            default |> buttonType
+
+        size_ s =
+            case s of
+                Large ->
+                    "is-large"
+
+                Small ->
+                    "is-small"
+
+                Medium ->
+                    "is-medium"
+
+        size =
+            config.size
+                |> Maybe.map size_
+                |> Maybe.withDefault ""
+
+        color =
+            case config.color of
+                Primary ->
+                    "is-primary"
+
+                Info ->
+                    "is-info"
+
+                Success ->
+                    "is-success"
+
+                Warning ->
+                    "is-warning"
+
+                Danger ->
+                    "is-danger"
+
+                Default ->
+                    ""
+
+        style =
+            case config.style of
+                Outlined ->
+                    "is-outlined"
+
+                Loading ->
+                    "is-loading"
+
+                Disabled ->
+                    "is-disabled"
+
+                Normal ->
+                    ""
+    in
+        a
+            [ class "button"
+            , class style
+            , class size
+            , class color
+            , onClick message
+            ]
+            content

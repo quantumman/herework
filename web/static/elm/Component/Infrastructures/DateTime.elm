@@ -75,7 +75,7 @@ view_ date now config =
 
         prettyDate =
             if delta.week >= 5 then
-                Date.format config "Ymd HMS" date
+                Date.format config config.format.longDate date
             else if delta.week > 0 then
                 (toString delta.week) ++ " WEEKS AGO"
             else if delta.day > 0 then
@@ -89,6 +89,6 @@ view_ date now config =
             else if delta.millisecond > 0 then
                 "NOW"
             else
-                Date.format config "Ymd HMS" date
+                Date.format config config.format.longDate date
     in
         text prettyDate
