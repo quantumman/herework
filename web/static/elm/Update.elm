@@ -35,13 +35,13 @@ update message model =
             handleHttpError error model
 
         Message.NewMessage (Ok message) ->
-            { model | newMessage = message } ! []
+            { model | editMessage = message } ! []
 
         Message.NewMessage (Err error) ->
             handleHttpError error model
 
         Message.EditMessage message ->
-            { model | newMessage = message } ! [ Commands.addMessage model.resource.messages_url message ]
+            { model | editMessage = message } ! [ Commands.addMessage model.resource.messages_url message ]
 
         ListComments message ->
             model ! [ Commands.fetchComments message.comments_url ]
