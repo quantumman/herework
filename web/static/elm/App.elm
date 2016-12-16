@@ -99,11 +99,15 @@ activeAt model routes =
 
 messages : App.Model -> List Route
 messages model =
-    model.selectedMessage
-        |> Maybe.map .id
-        |> Maybe.map MessageDetail
-        |> Maybe.map (\r -> [ r, Messages ])
-        |> Maybe.withDefault [ Messages ]
+    let
+        messageRoutes =
+            [ Messages, Router.NewMessage ]
+    in
+        model.selectedMessage
+            |> Maybe.map .id
+            |> Maybe.map MessageDetail
+            |> Maybe.map (\r -> r :: messageRoutes)
+            |> Maybe.withDefault messageRoutes
 
 
 scrollable : Attribute Msg
