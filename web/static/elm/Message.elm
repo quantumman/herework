@@ -3,7 +3,6 @@ module Message exposing (..)
 import Component.Error.Message as Error exposing (..)
 import Component.Infrastructures.DateTime as DateTime exposing (Msg)
 import Component.Infrastructures.Form as Form exposing (..)
-import Component.UI.Editor as Editor exposing (Msg)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Http as Http exposing (Error)
@@ -35,4 +34,3 @@ type Msg
     | HandleError Error.Msg
     | Bind (Form.Msg Model)
     | Now DateTime.Msg
-    | Editor Editor.Msg
