@@ -12,13 +12,13 @@ type Group msg
     = Group (Html msg)
 
 
-nav : List (Group msg) -> Html msg
-nav groups =
+nav : List (Attribute msg) -> List (Group msg) -> Html msg
+nav attrs groups =
     let
         render (Group group) =
             group
     in
-        Html.nav [ class "nav" ]
+        Html.nav (class "nav" :: attrs)
             (List.map render groups)
 
 
