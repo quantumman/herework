@@ -1,5 +1,6 @@
 module Component.Views.Toolbar exposing (..)
 
+import Component.UI.Buttons as Buttons exposing (..)
 import Component.UI.Nav as Nav exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -60,3 +61,15 @@ toolbar toolItems =
         Nav.nav [ style toolbarStyle ]
             [ Nav.center (List.map render toolItems)
             ]
+
+
+message : Html Msg
+message =
+    toolbar
+        [ Buttons.button primary
+            NoOp
+            [ span [ class "icon is-small" ]
+                [ i [ class "fa fa-plus" ] [] ]
+            , span [] [ text "POST MESSAGE" ]
+            ]
+        ]
