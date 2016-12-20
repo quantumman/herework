@@ -23,16 +23,16 @@ view : Model m -> Html Msg
 view model =
     case model.router.route of
         Messages ->
-            empty
+            message
 
         MessageDetail id ->
-            empty
+            message
 
         Router.NewMessage ->
-            empty
+            message
 
         Router.EditMessage id ->
-            empty
+            message
 
         Tasks ->
             empty
