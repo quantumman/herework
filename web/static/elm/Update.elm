@@ -112,7 +112,7 @@ updateRoute route model =
                 { model | messageDetail = messageDetail } ! [ command ]
 
         Router.NewMessage ->
-            { model | editMessage = Models.Message.initialModel } ! []
+            { model | messageDetail = Just Models.Message.initialModel } ! []
 
         Router.EditMessage id ->
             model ! []
