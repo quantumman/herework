@@ -23,6 +23,14 @@ type alias Model m =
     }
 
 
+type alias ViewModel =
+    { title : Html Msg
+    , body : Html Msg
+    , createdAt : Html Msg
+    , avatar : Html Msg
+    }
+
+
 
 -- STYLE
 
