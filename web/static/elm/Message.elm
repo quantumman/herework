@@ -16,7 +16,8 @@ import Router exposing (Route)
 
 type Msg
     = -- UI actions
-      ClickAddMessage
+      NoOp
+    | ClickAddMessage
       -- Resource locations
     | InitResource (Result Http.Error Resource)
       -- Resource Message

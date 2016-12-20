@@ -17,6 +17,9 @@ import Router as Router exposing (Route(..), navigateTo, newUrl)
 update : Msg -> Model -> ( Model, Cmd Msg )
 update message model =
     case message of
+        NoOp ->
+            model ! []
+
         ClickAddMessage ->
             model ! [ newUrl Router.NewMessage ]
 
