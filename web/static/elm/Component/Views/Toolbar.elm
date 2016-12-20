@@ -1,5 +1,6 @@
 module Component.Views.Toolbar exposing (..)
 
+import Component.UI.Nav as Nav exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -45,3 +46,17 @@ view model =
 empty : Html Msg
 empty =
     div [] []
+
+
+toolbar : List (Html Msg) -> Html Msg
+toolbar toolItems =
+    let
+        toolbarStyle =
+            [ ( "background-color", "whitesmoke" ) ]
+
+        render item =
+            Nav.item [] [ item ]
+    in
+        Nav.nav [ style toolbarStyle ]
+            [ Nav.center (List.map render toolItems)
+            ]
