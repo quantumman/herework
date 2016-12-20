@@ -77,6 +77,24 @@ view model =
             |> Maybe.withDefault (div [] [])
 
 
+render : ViewModel -> Html Msg
+render { title, body, createdAt, avatar } =
+    div [ Attribute.content ]
+        [ h1 [ Attribute.title 2 ] [ title ]
+        , div [ subtitle 6, style removeSpace ]
+            [ p [ level ]
+                [ div [ levelLeft ] []
+                , div [ levelRight ]
+                    [ div [ levelItem ] [ createdAt ]
+                    , div [ levelItem ] [ avatar ]
+                    ]
+                ]
+            ]
+        , hr [ style separator ] []
+        , p [] [ body ]
+        ]
+
+
 avatar : Int -> User -> Html Msg
 avatar size creator =
     let
