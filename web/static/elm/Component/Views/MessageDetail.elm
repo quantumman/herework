@@ -54,26 +54,23 @@ separator =
 view : Model m -> Html Msg
 view model =
     let
-        render message =
-            div [ Attribute.content ]
-                [ h1 [ Attribute.title 2 ] [ text message.title ]
-                , div [ subtitle 6, style removeSpace ]
-                    [ p [ level ]
-                        [ div [ levelLeft ] []
-                        , div [ levelRight ]
-                            [ div [ levelItem ] [ createdAt message.created_at model.now ]
-                            , div [ levelItem ] [ avatar 24 message.user ]
-                            ]
-                        ]
-                    ]
-                , hr [ style separator ] []
-                , p [] [ text message.body ]
+        viewModel message =
+            { title = text message.title
+            , body = text message.body
+            , createdAt = createdAt message.created_at model.now
+            , avatar = avatar 24 message.creator
+            }
+
+        view_ message =
+            div []
+                [ render message
                 , hr [] []
                 , CommentList.view model
                 ]
     in
         model.messageDetail
-            |> Maybe.map render
+            |> Maybe.map viewModel
+            |> Maybe.map view_
             |> Maybe.withDefault (div [] [])
 
 
