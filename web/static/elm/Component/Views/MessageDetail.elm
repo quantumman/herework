@@ -11,12 +11,14 @@ import HtmlHelpers exposing (..)
 import Message exposing (..)
 import Models.Comment exposing (..)
 import Models.Message exposing (..)
+import Models.User exposing (..)
 
 
 type alias Model m =
     { m
         | messageDetail : Maybe Message
         , comments : List Comment
+        , user : User
         , now : DateTime.Model
     }
 
