@@ -67,7 +67,7 @@ message : Html Msg
 message =
     toolbar
         [ Buttons.button primary
-            NoOp
+            (NavigateTo Router.NewMessage)
             [ span [ class "icon is-small" ]
                 [ i [ class "fa fa-plus" ] [] ]
             , span [] [ text "POST MESSAGE" ]
