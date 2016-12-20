@@ -7,7 +7,7 @@ import Date exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import HtmlHelpers exposing (..)
+import HtmlHelpers as Helper exposing (bind)
 import Message exposing (..)
 import Models.Comment exposing (..)
 import Models.Message exposing (..)
@@ -114,3 +114,24 @@ avatar size creator =
 createdAt : Date -> DateTime.Model -> Html Msg
 createdAt date model =
     Html.map Now <| DateTime.view date model
+
+
+
+-- HELPER
+
+
+title : Maybe Message -> String -> Maybe Message
+title message value =
+    message
+        |> Maybe.map (\m -> { m | title = value })
+
+
+body : Maybe Message -> String -> Maybe Message
+body message value =
+    message
+        |> Maybe.map (\m -> { m | body = value })
+
+
+bind : (Maybe Message -> String -> Maybe Message) -> Attribute Msg
+bind set =
+    Helper.bind (\model value -> { model | messageDetail = set model.messageDetail value })
