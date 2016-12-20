@@ -67,6 +67,9 @@ view model =
                                 MessageDetail id ->
                                     MessageList.view model
 
+                                Router.NewMessage ->
+                                    MessageList.view model
+
                                 _ ->
                                     div [] []
                             ]
