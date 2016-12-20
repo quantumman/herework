@@ -19,4 +19,29 @@ type alias Model m =
 
 view : Model m -> Html Msg
 view model =
+    case model.router.route of
+        Messages ->
+            empty
+
+        MessageDetail id ->
+            empty
+
+        Router.NewMessage ->
+            empty
+
+        Router.EditMessage id ->
+            empty
+
+        Tasks ->
+            empty
+
+        Activity ->
+            empty
+
+        NotFound ->
+            empty
+
+
+empty : Html Msg
+empty =
     div [] []
