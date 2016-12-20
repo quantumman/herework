@@ -8,6 +8,7 @@ import Component.UI.Columns as Columns exposing (..)
 import Component.UI.Nav as Nav exposing (..)
 import Component.Views.MessageDetail as MessageDetail exposing (..)
 import Component.Views.MessageList as MessageList exposing (..)
+import Component.Views.Toolbar as Toolbar exposing (..)
 import FontAwesome.Web as Icon exposing (edit)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -55,6 +56,7 @@ view model =
             , Nav.tab [ activeAt model [ Activity ], navigateTo Activity ] [ text "Activtiy" ]
             , Nav.tab [] [ text "Setting" ]
             ]
+        , Toolbar.view model
         , div [ class "container" ]
             [ columns [ Desktop, Gapless ]
                 [ column [ Half ]
