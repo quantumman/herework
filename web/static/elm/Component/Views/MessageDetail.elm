@@ -52,7 +52,7 @@ view model =
                         [ div [ levelLeft ] []
                         , div [ levelRight ]
                             [ div [ levelItem ] [ createdAt message.created_at model.now ]
-                            , div [ levelItem ] [ avatar 24 message ]
+                            , div [ levelItem ] [ avatar 24 message.user ]
                             ]
                         ]
                     ]
@@ -67,8 +67,8 @@ view model =
             |> Maybe.withDefault (div [] [])
 
 
-avatar : Int -> Message -> Html Msg
-avatar size { creator } =
+avatar : Int -> User -> Html Msg
+avatar size creator =
     let
         size_ =
             toString size
