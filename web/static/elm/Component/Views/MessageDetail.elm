@@ -74,6 +74,32 @@ view model =
             |> Maybe.withDefault (div [] [])
 
 
+edit : Model m -> Html Msg
+edit model =
+    let
+        viewModel message =
+            { title =
+                div
+                    [ contenteditable True
+                    , bind title
+                    ]
+                    [ text message.title ]
+            , body =
+                div
+                    [ contenteditable True
+                    , bind body
+                    ]
+                    [ text message.body ]
+            , createdAt = div [] []
+            , avatar = avatar 24 model.user
+            }
+    in
+        model.messageDetail
+            |> Maybe.map viewModel
+            |> Maybe.map render
+            |> Maybe.withDefault (div [] [])
+
+
 render : ViewModel -> Html Msg
 render { title, body, createdAt, avatar } =
     div [ Attribute.content ]
