@@ -15,7 +15,7 @@ import Router exposing (Route(..))
 type alias Model m =
     { m
         | messages : List Message
-        , selectedMessage : Maybe Message
+        , messageDetail : Maybe Message
     }
 
 
@@ -32,7 +32,7 @@ avatarStyle =
 
 
 selected : Message -> Model m -> List ( String, String )
-selected message { selectedMessage } =
+selected message { messageDetail } =
     let
         makeStyle m =
             if m.id == message.id then
@@ -42,7 +42,7 @@ selected message { selectedMessage } =
             else
                 []
     in
-        selectedMessage
+        messageDetail
             |> Maybe.map makeStyle
             |> Maybe.withDefault []
 
@@ -116,7 +116,7 @@ hover_ :
     -> List (Attribute Msg)
     -> List (Media Msg)
     -> Html Msg
-hover_ message { selectedMessage } tag attrs children =
+hover_ message { messageDetail } tag attrs children =
     let
         hoverOrNot m =
             if message.id == m.id then
@@ -124,6 +124,6 @@ hover_ message { selectedMessage } tag attrs children =
             else
                 hover hoverStyle (\a _ -> tag a children) attrs []
     in
-        selectedMessage
+        messageDetail
             |> Maybe.map hoverOrNot
             |> Maybe.withDefault (tag attrs children)

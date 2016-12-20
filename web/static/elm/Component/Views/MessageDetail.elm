@@ -15,7 +15,7 @@ import Models.Message exposing (..)
 
 type alias Model m =
     { m
-        | selectedMessage : Maybe Message
+        | messageDetail : Maybe Message
         , comments : List Comment
         , now : DateTime.Model
     }
@@ -62,7 +62,7 @@ view model =
                 , CommentList.view model
                 ]
     in
-        model.selectedMessage
+        model.messageDetail
             |> Maybe.map render
             |> Maybe.withDefault (div [] [])
 

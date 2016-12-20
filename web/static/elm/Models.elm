@@ -26,7 +26,7 @@ type alias Model =
     , user : User
     , messages : List Message
     , editMessage : Message
-    , selectedMessage : Maybe Message
+    , messageDetail : Maybe Message
     , comments : List Comment
     , error : Error.Model
     , now : DateTime.Model
@@ -40,7 +40,7 @@ initialModel router =
     , user = User.initialModel
     , messages = []
     , editMessage = Message.initialModel
-    , selectedMessage = Nothing
+    , messageDetail = Nothing
     , comments = []
     , error = Error.initialModel
     , now = DateTime.initialModel

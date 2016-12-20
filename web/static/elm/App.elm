@@ -108,7 +108,7 @@ messages model =
         messageRoutes =
             [ Messages, Router.NewMessage ]
     in
-        model.selectedMessage
+        model.messageDetail
             |> Maybe.map .id
             |> Maybe.map MessageDetail
             |> Maybe.map (\r -> r :: messageRoutes)

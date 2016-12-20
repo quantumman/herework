@@ -90,7 +90,7 @@ updateRoute route model =
         Messages ->
             let
                 navigateDetailOrNone =
-                    model.selectedMessage
+                    model.messageDetail
                         |> Maybe.map .id
                         |> Maybe.map Router.MessageDetail
                         |> Maybe.map Router.navigateTo
@@ -100,16 +100,16 @@ updateRoute route model =
 
         MessageDetail id ->
             let
-                selectedMessage =
+                messageDetail =
                     List.find (\x -> x.id == id) model.messages
 
                 command =
-                    selectedMessage
+                    messageDetail
                         |> Maybe.map ListComments
                         |> Maybe.map Commands.run
                         |> Maybe.withDefault Cmd.none
             in
-                { model | selectedMessage = selectedMessage } ! [ command ]
+                { model | messageDetail = messageDetail } ! [ command ]
 
         Router.NewMessage ->
             { model | editMessage = Models.Message.initialModel } ! []
