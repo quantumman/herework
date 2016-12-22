@@ -88,15 +88,7 @@ updateRoute : Route -> Model -> ( Model, Cmd Msg )
 updateRoute route model =
     case route of
         Messages ->
-            let
-                navigateDetailOrNone =
-                    model.messageDetail
-                        |> Maybe.map .id
-                        |> Maybe.map Router.MessageDetail
-                        |> Maybe.map Router.navigateTo
-                        |> Maybe.withDefault Cmd.none
-            in
-                model ! [ Commands.run ListMessages, navigateDetailOrNone ]
+            model ! [ Commands.run ListMessages ]
 
         MessageDetail id ->
             let
