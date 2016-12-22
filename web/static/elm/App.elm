@@ -56,31 +56,16 @@ view model =
             , Nav.tab [ activeAt model [ Activity ], navigateTo Activity ] [ text "Activtiy" ]
             , Nav.tab [] [ text "Setting" ]
             ]
-        , Toolbar.view model
         , div [ class "container" ]
-            [ columns [ Desktop, Gapless ]
-                [ column [ Half ]
+            [ Toolbar.view model
+            , columns []
+                [ column [ Eight, Offset Two ]
                     [ div [ box ]
                         [ div [ scrollable ]
                             [ case model.router.route of
                                 Messages ->
                                     MessageList.view model
 
-                                MessageDetail id ->
-                                    MessageList.view model
-
-                                Router.NewMessage ->
-                                    MessageList.view model
-
-                                _ ->
-                                    div [] []
-                            ]
-                        ]
-                    ]
-                , column [ Half ]
-                    [ div [ box ]
-                        [ div [ scrollable ]
-                            [ case model.router.route of
                                 MessageDetail id ->
                                     MessageDetail.view model
 
@@ -121,6 +106,6 @@ messages model =
 scrollable : Attribute Msg
 scrollable =
     style
-        [ ( "height", "86vh" )
+        [ ( "height", "75vh" )
         , ( "overflow", "auto" )
         ]
