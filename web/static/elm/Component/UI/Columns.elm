@@ -102,7 +102,7 @@ size s =
                     "11"
 
                 Offset s ->
-                    "offiset-" ++ (suffix s)
+                    "offset-" ++ (suffix s)
     in
         class <| "is-" ++ (suffix s)
 
