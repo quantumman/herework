@@ -10,7 +10,7 @@ import Http as Http exposing (Error)
 import List.Extra as List exposing (..)
 import Message exposing (..)
 import Models exposing (..)
-import Models.Message
+import Models.Message exposing (Message)
 import Router as Router exposing (Route(..), navigateTo, newUrl)
 
 
@@ -126,3 +126,8 @@ updateRoute route model =
 handleHttpError : Http.Error -> Model -> ( Model, Cmd Msg )
 handleHttpError error model =
     model ! [ Commands.show error ]
+
+
+findMessage : Int -> List Message -> Maybe Message
+findMessage id messages =
+    List.find (\x -> x.id == id) messages
