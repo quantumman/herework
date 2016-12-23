@@ -2,6 +2,7 @@ module Component.Views.MessageDetail exposing (..)
 
 import Component.Infrastructures.DateTime as DateTime exposing (view)
 import Component.UI.Attribute as Attribute exposing (..)
+import Component.UI.Buttons as Buttons exposing (..)
 import Component.Views.CommentList as CommentList exposing (..)
 import Date exposing (..)
 import Html exposing (..)
@@ -12,6 +13,7 @@ import Message exposing (..)
 import Models.Comment exposing (..)
 import Models.Message exposing (..)
 import Models.User exposing (..)
+import Router as Router exposing (..)
 
 
 type alias Model m =
@@ -60,7 +62,15 @@ view model =
             , body = text message.body
             , createdAt = createdAt message.created_at model.now
             , avatar = avatar 24 message.creator
-            , actions = div [] []
+            , actions =
+                div []
+                    [ Buttons.button (\c -> Buttons.small c |> outlined |> primary)
+                        (NavigateTo (Router.EditMessage message.id))
+                        [ span [ class "icon is-small" ]
+                            [ i [ class "fa fa-pencil" ] [] ]
+                        , span [] [ text "EDIT" ]
+                        ]
+                    ]
             }
 
         view_ message =
@@ -109,11 +119,11 @@ render { title, body, createdAt, avatar, actions } =
         [ h1 [ Attribute.title 2 ] [ title ]
         , div [ subtitle 6, style removeSpace ]
             [ p [ level ]
-                [ div [ levelLeft ]
-                    [ actions ]
+                [ div [ levelLeft ] []
                 , div [ levelRight ]
                     [ div [ levelItem ] [ createdAt ]
                     , div [ levelItem ] [ avatar ]
+                    , div [ levelItem ] [ actions ]
                     ]
                 ]
             ]
