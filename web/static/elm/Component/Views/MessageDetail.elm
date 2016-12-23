@@ -28,6 +28,7 @@ type alias ViewModel =
     , body : Html Msg
     , createdAt : Html Msg
     , avatar : Html Msg
+    , actions : Html Msg
     }
 
 
@@ -59,6 +60,7 @@ view model =
             , body = text message.body
             , createdAt = createdAt message.created_at model.now
             , avatar = avatar 24 message.creator
+            , actions = div [] []
             }
 
         view_ message =
@@ -92,6 +94,7 @@ edit model =
                     [ text message.body ]
             , createdAt = div [] []
             , avatar = avatar 24 model.user
+            , actions = div [] []
             }
     in
         model.messageDetail
@@ -101,12 +104,13 @@ edit model =
 
 
 render : ViewModel -> Html Msg
-render { title, body, createdAt, avatar } =
+render { title, body, createdAt, avatar, actions } =
     div [ Attribute.content ]
         [ h1 [ Attribute.title 2 ] [ title ]
         , div [ subtitle 6, style removeSpace ]
             [ p [ level ]
-                [ div [ levelLeft ] []
+                [ div [ levelLeft ]
+                    [ actions ]
                 , div [ levelRight ]
                     [ div [ levelItem ] [ createdAt ]
                     , div [ levelItem ] [ avatar ]
