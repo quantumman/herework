@@ -110,7 +110,7 @@ updateRoute route model =
             { model | messageDetail = Just Models.Message.initialModel } ! []
 
         Router.EditMessage id ->
-            model ! []
+            model ! [ Commands.run (FindMessage id) ]
 
         Tasks ->
             model ! []
