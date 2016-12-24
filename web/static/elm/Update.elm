@@ -79,7 +79,7 @@ update message model =
             model ! [ Router.navigateTo route ]
 
         RouteUpdate route ->
-            updateRoute route model
+            model ! [ updateRoute route ]
 
         HandleError msg ->
             let
@@ -103,29 +103,30 @@ update message model =
                 { model | now = now } ! [ Cmd.map Now command ]
 
 
-updateRoute : Route -> Model -> ( Model, Cmd Msg )
-updateRoute route model =
-    case route of
-        Messages ->
-            model ! [ Commands.run ListMessages ]
+updateRoute : Route -> Cmd Msg
+updateRoute route =
+    Cmd.batch <|
+        case route of
+            Messages ->
+                [ Commands.run ListMessages ]
 
-        MessageDetail id ->
-            model ! [ Commands.run (FindMessageWithComments id) ]
+            MessageDetail id ->
+                [ Commands.run (FindMessageWithComments id) ]
 
-        Router.NewMessage ->
-            model ! [ Commands.run InitMessage ]
+            Router.NewMessage ->
+                [ Commands.run InitMessage ]
 
-        Router.EditMessage id ->
-            model ! [ Commands.run (FindMessage id) ]
+            Router.EditMessage id ->
+                [ Commands.run (FindMessage id) ]
 
-        Tasks ->
-            model ! []
+            Tasks ->
+                []
 
-        Activity ->
-            model ! []
+            Activity ->
+                []
 
-        NotFound ->
-            model ! []
+            NotFound ->
+                []
 
 
 
