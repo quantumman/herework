@@ -1,5 +1,6 @@
 module Component.Views.Messages.Layout exposing (..)
 
+import Component.Infrastructures.DateTime as DateTime exposing (view)
 import Component.UI.Attribute as Attribute exposing (..)
 import Date exposing (Date)
 import Html exposing (..)
@@ -85,3 +86,8 @@ avatar size creator =
     in
         figure [ levelItem, image, class figureSize ]
             [ img [ src creator.avatar, style imgStyle ] [] ]
+
+
+createdAt : Date -> DateTime.Model -> Html Msg
+createdAt date model =
+    Html.map Now <| DateTime.view date model
