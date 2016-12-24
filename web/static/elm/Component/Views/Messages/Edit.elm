@@ -2,6 +2,7 @@ module Component.Views.Messages.Edit exposing (..)
 
 import Component.Infrastructures.DateTime as DateTime exposing (view)
 import Component.UI.Buttons as Buttons exposing (..)
+import Component.Views.Messages.Editor as Editor exposing (view)
 import Component.Views.Messages.Layout as Layout exposing (..)
 import Date exposing (..)
 import Html exposing (..)
@@ -36,17 +37,7 @@ view : Model m -> Html Msg
 view model =
     let
         render message =
-            layout
-                [ div [ contenteditable True, bind title ]
-                    [ text message.title ]
-                ]
-                [ div [ contenteditable True, bind body ]
-                    [ text message.body ]
-                ]
-                []
-                [ avatar 24 model.user ]
-                []
-                []
+            Editor.view model.user message []
     in
         model.messageDetail
             |> Maybe.map render
