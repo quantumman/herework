@@ -19,6 +19,9 @@ view route model =
         MessageDetail id ->
             Detail.view model
 
+        Router.NewMessage ->
+            Edit.view model
+
         Router.EditMessage id ->
             Edit.view model
 
