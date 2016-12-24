@@ -29,6 +29,9 @@ update message model =
         InitResource (Err error) ->
             handleHttpError error model
 
+        FindMessage id ->
+            { model | messageDetail = findMessage id model.messages } ! []
+
         ListMessages ->
             model ! [ Commands.fetchMessages model.resource.messages_url ]
 
