@@ -36,7 +36,7 @@ view : Model m -> Html Msg
 view model =
     let
         render message =
-            Editor.view model.user message []
+            Editor.view message.creator message []
     in
         model.messageDetail
             |> Maybe.map render
