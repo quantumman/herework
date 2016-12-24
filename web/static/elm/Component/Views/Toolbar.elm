@@ -57,7 +57,7 @@ toolbar toolItems =
 message : Html Msg
 message =
     toolbar
-        [ Buttons.button primary
+        [ Buttons.button (Buttons.default |> primary)
             (NavigateTo (Messages New))
             [ span [ class "icon is-small" ]
                 [ i [ class "fa fa-plus" ] [] ]

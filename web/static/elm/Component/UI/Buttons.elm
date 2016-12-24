@@ -125,16 +125,9 @@ normal _ =
 --
 
 
-type alias ButtonType =
-    Config -> Config
-
-
-button : ButtonType -> msg -> List (Html msg) -> Html msg
-button buttonType message content =
+button : Config -> msg -> List (Html msg) -> Html msg
+button config message content =
     let
-        config =
-            default |> buttonType
-
         size_ s =
             case s of
                 Large ->
