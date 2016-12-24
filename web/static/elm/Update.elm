@@ -113,7 +113,7 @@ updateRoute route model =
             model ! [ Commands.run (FindMessageWithComments id) ]
 
         Router.NewMessage ->
-            { model | messageDetail = Just Models.Message.initialModel } ! []
+            model ! [ Commands.run InitMessage ]
 
         Router.EditMessage id ->
             model ! [ Commands.run (FindMessage id) ]
