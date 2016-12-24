@@ -7,11 +7,15 @@ import UrlParser exposing (Parser, (</>), s, int, string, parseHash, map, oneOf)
 -- ROUTES
 
 
+type SubRoute id
+    = List
+    | New
+    | Edit id
+    | Show id
+
+
 type Route
-    = Messages
-    | MessageDetail Int
-    | NewMessage
-    | EditMessage Int
+    = Messages (SubRoute Int)
     | Tasks
     | Activity
     | NotFound
@@ -20,30 +24,37 @@ type Route
 route : Parser (Route -> a) a
 route =
     oneOf
-        [ map Messages (s "")
-        , map MessageDetail (s "messages" </> int)
-        , map NewMessage (s "messages" </> s "new")
-        , map EditMessage (s "messages" </> int </> s "edit")
-        , map Messages (s "messages")
+        [ map (Messages List) (s "")
+        , map (\id -> Messages <| Show id) (s "messages" </> int)
+        , map (Messages New) (s "messages" </> s "new")
+        , map (\id -> Messages <| Edit id) (s "messages" </> int </> s "edit")
+        , map (Messages List) (s "messages")
         , map Tasks (s "tasks")
         , map Activity (s "activity")
         ]
 
 
+reverseSub : SubRoute id -> String
+reverseSub subRoute =
+    case subRoute of
+        List ->
+            ""
+
+        New ->
+            "/new"
+
+        Edit id ->
+            "/" ++ (toString id) ++ "/edit"
+
+        Show id ->
+            "/" ++ (toString id) ++ "/"
+
+
 reverse : Route -> String
 reverse route =
     case route of
-        Messages ->
-            "#/messages"
-
-        MessageDetail id ->
-            "#/messages/" ++ toString id
-
-        NewMessage ->
-            "#/messages/new"
-
-        EditMessage id ->
-            "#/messages/" ++ (toString id) ++ "/edit"
+        Messages subRoute ->
+            "#/messages" ++ reverseSub subRoute
 
         Tasks ->
             "#/tasks"
@@ -100,7 +111,7 @@ init location =
     let
         route =
             urlParse location
-                |> Maybe.withDefault Messages
+                |> Maybe.withDefault NotFound
 
         model =
             { location = location

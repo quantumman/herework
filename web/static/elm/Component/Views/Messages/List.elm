@@ -87,7 +87,7 @@ view model =
             hover_ message
                 model
                 MediaObject.media
-                [ navigateTo (MessageDetail message.id)
+                [ navigateTo (Messages <| Router.Show message.id)
                 , style clickable
                 , style tweakSpace
                 , style mediaStyle
