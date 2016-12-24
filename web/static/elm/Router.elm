@@ -43,7 +43,7 @@ reverse route =
             "#/messages/new"
 
         EditMessage id ->
-            "#/mesasges/" ++ (toString id) ++ "/edit"
+            "#/messages/" ++ (toString id) ++ "/edit"
 
         Tasks ->
             "#/tasks"
