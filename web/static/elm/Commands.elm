@@ -84,7 +84,7 @@ fetchMessages url =
 addMessage : Url -> Message -> Cmd App.Msg
 addMessage url message =
     Message.encode message
-        |> \payload -> post Message.decode url payload App.NewMessage
+        |> \payload -> post Message.decode url payload App.SaveMessage
 
 
 fetchComments : Url -> Cmd App.Msg

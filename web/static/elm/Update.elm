@@ -20,9 +20,6 @@ update message model =
         NoOp ->
             model ! []
 
-        ClickAddMessage ->
-            model ! [ newUrl (Messages New) ]
-
         InitResource (Ok resource) ->
             { model | resource = resource } ! [ Commands.fetchMessages resource.messages_url ]
 
@@ -57,14 +54,8 @@ update message model =
         RefreshMessages (Err error) ->
             handleHttpError error model
 
-        Message.NewMessage (Ok message) ->
-            { model | editMessage = message } ! []
-
-        Message.NewMessage (Err error) ->
-            handleHttpError error model
-
-        Message.EditMessage message ->
-            { model | editMessage = message } ! [ Commands.addMessage model.resource.messages_url message ]
+        SaveMessage message ->
+            model ! []
 
         ListComments message ->
             model ! [ Commands.fetchComments message.comments_url ]

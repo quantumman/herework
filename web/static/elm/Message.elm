@@ -17,7 +17,6 @@ import Router exposing (Route)
 type Msg
     = -- UI actions
       NoOp
-    | ClickAddMessage
       -- Resource locations
     | InitResource (Result Http.Error Resource)
       -- Resource Message
@@ -26,8 +25,7 @@ type Msg
     | FindMessageWithComments Int
     | ListMessages
     | RefreshMessages (Result Http.Error (List Message))
-    | NewMessage (Result Http.Error Message)
-    | EditMessage Message
+    | SaveMessage (Result Http.Error Message)
       -- Resource Comment
     | ListComments Message
     | RefreshComments (Result Http.Error (List Comment))
