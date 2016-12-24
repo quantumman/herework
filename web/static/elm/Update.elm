@@ -29,6 +29,9 @@ update message model =
         InitResource (Err error) ->
             handleHttpError error model
 
+        InitMessage ->
+            { model | messageDetail = Just Models.Message.initialModel } ! []
+
         FindMessage id ->
             { model | messageDetail = findMessage id model.messages } ! []
 

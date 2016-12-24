@@ -21,6 +21,7 @@ type Msg
       -- Resource locations
     | InitResource (Result Http.Error Resource)
       -- Resource Message
+    | InitMessage
     | FindMessage Int
     | FindMessageWithComments Int
     | ListMessages
