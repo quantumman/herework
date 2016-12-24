@@ -3,6 +3,7 @@ module Component.Views.Messages exposing (..)
 import Component.Views.Messages.Detail as Detail exposing (view)
 import Component.Views.Messages.Edit as Edit exposing (view)
 import Component.Views.Messages.List as List exposing (view)
+import Component.Views.Messages.New as New exposing (view)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -24,7 +25,7 @@ view route model =
             Detail.view model
 
         New ->
-            Edit.view model
+            New.view model
 
         Edit id ->
             Edit.view model
