@@ -57,6 +57,9 @@ update message model =
         SaveMessage message ->
             model ! []
 
+        UpdateMessage message ->
+            model ! [ Commands.updateMessage message.url message ]
+
         ListComments message ->
             model ! [ Commands.fetchComments message.comments_url ]
 
