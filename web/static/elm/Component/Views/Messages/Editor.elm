@@ -19,9 +19,19 @@ import Router as Router exposing (..)
 -- VIEW
 
 
-view : Html Msg
-view =
-    div [] []
+view : User -> Message -> List (Html Msg) -> Html Msg
+view user message content =
+    layout
+        [ div [ contenteditable True, bind title ]
+            [ text message.title ]
+        ]
+        [ div [ contenteditable True, bind body ]
+            [ text message.body ]
+        ]
+        []
+        [ avatar 24 user ]
+        []
+        content
 
 
 
