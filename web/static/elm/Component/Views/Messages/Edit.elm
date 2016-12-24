@@ -46,6 +46,7 @@ view model =
                 []
                 [ avatar 24 model.user ]
                 []
+                []
     in
         model.messageDetail
             |> Maybe.map render

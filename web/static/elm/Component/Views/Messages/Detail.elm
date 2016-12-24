@@ -35,19 +35,18 @@ view : Model m -> Html Msg
 view model =
     let
         render message =
-            div []
-                [ layout [ text message.title ]
-                    [ text message.body ]
-                    [ Layout.createdAt message.created_at model.now ]
-                    [ avatar 24 message.creator ]
-                    [ Buttons.button (Buttons.default |> Buttons.small |> outlined |> primary)
-                        (NavigateTo (Router.Messages <| Edit message.id))
-                        [ span [ class "icon is-small" ]
-                            [ i [ class "fa fa-pencil" ] [] ]
-                        , span [] [ text "EDIT" ]
-                        ]
+            layout [ text message.title ]
+                [ text message.body ]
+                [ Layout.createdAt message.created_at model.now ]
+                [ avatar 24 message.creator ]
+                [ Buttons.button (Buttons.default |> Buttons.small |> outlined |> primary)
+                    (NavigateTo (Router.Messages <| Edit message.id))
+                    [ span [ class "icon is-small" ]
+                        [ i [ class "fa fa-pencil" ] [] ]
+                    , span [] [ text "EDIT" ]
                     ]
-                , hr [] []
+                ]
+                [ hr [] []
                 , CommentList.view model
                 ]
     in

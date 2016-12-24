@@ -50,11 +50,11 @@ type alias Actions =
     List (Html Msg)
 
 
-layout : Title -> Body -> CreatedAt -> Creator -> Actions -> Html Msg
-layout title body createdAt avatar actions =
+layout : Title -> Body -> CreatedAt -> Creator -> Actions -> List (Html Msg) -> Html Msg
+layout title body createdAt avatar actions content =
     div [ Attribute.content ]
-        [ h1 [ Attribute.title 2 ] title
-        , div [ subtitle 6, style removeSpace ]
+        ([ h1 [ Attribute.title 2 ] title
+         , div [ subtitle 6, style removeSpace ]
             [ p [ level ]
                 [ div [ levelLeft ] []
                 , div [ levelRight ]
@@ -64,9 +64,11 @@ layout title body createdAt avatar actions =
                     ]
                 ]
             ]
-        , hr [ style separator ] []
-        , p [] body
-        ]
+         , hr [ style separator ] []
+         , p [] body
+         ]
+            ++ content
+        )
 
 
 avatar : Int -> User -> Html Msg
