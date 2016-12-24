@@ -81,8 +81,8 @@ fetchMessages url =
     get Message.decodeList url App.RefreshMessages
 
 
-addMessage : Url -> Message -> Cmd App.Msg
-addMessage url message =
+createMessage : Url -> Message -> Cmd App.Msg
+createMessage url message =
     Message.encode message
         |> \payload -> post Message.decode url payload App.SaveMessage
 
