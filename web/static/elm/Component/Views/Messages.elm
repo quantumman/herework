@@ -1,7 +1,8 @@
 module Component.Views.Messages exposing (..)
 
-import Component.Views.Messages.Edit as Edit exposing (view)
 import Component.Views.Messages.Detail as Detail exposing (view)
+import Component.Views.Messages.Edit as Edit exposing (view)
+import Component.Views.Messages.List as List exposing (view)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -16,6 +17,9 @@ import Router as Router exposing (..)
 view : Route -> App.Model -> Html Msg
 view route model =
     case route of
+        Messages ->
+            List.view model
+
         MessageDetail id ->
             Detail.view model
 
