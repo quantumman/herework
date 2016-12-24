@@ -25,7 +25,6 @@ type alias Model =
     , resource : Resource
     , user : User
     , messages : List Message
-    , editMessage : Message
     , messageDetail : Maybe Message
     , comments : List Comment
     , error : Error.Model
@@ -39,7 +38,6 @@ initialModel router =
     , resource = initialModelResource
     , user = User.initialModel
     , messages = []
-    , editMessage = Message.initialModel
     , messageDetail = Nothing
     , comments = []
     , error = Error.initialModel
