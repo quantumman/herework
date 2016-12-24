@@ -26,6 +26,7 @@ type Msg
     | ListMessages
     | RefreshMessages (Result Http.Error (List Message))
     | SaveMessage (Result Http.Error Message)
+    | CreateMessage Message
     | UpdateMessage Message
       -- Resource Comment
     | ListComments Message
