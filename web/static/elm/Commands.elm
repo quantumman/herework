@@ -87,6 +87,12 @@ createMessage url message =
         |> \payload -> post Message.decode url payload App.SaveMessage
 
 
+updateMessage : Url -> Message -> Cmd App.Msg
+updateMessage url message =
+    Message.encode message
+        |> \payload -> patch Message.decode url payload App.SaveMessage
+
+
 fetchComments : Url -> Cmd App.Msg
 fetchComments url =
     get Comment.decodeList url App.RefreshComments
