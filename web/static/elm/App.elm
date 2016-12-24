@@ -72,6 +72,9 @@ view model =
                                 Router.NewMessage ->
                                     MessageDetail.edit model
 
+                                Router.EditMessage id ->
+                                    MessageDetail.edit model
+
                                 _ ->
                                     div [] []
                             ]
