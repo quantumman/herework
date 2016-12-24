@@ -22,3 +22,24 @@ import Router as Router exposing (..)
 view : Html Msg
 view =
     div [] []
+
+
+
+-- HELPER
+
+
+title : Maybe Message -> String -> Maybe Message
+title message value =
+    message
+        |> Maybe.map (\m -> { m | title = value })
+
+
+body : Maybe Message -> String -> Maybe Message
+body message value =
+    message
+        |> Maybe.map (\m -> { m | body = value })
+
+
+bind : (Maybe Message -> String -> Maybe Message) -> Attribute Msg
+bind set =
+    Helper.bind (\model value -> { model | messageDetail = set model.messageDetail value })
