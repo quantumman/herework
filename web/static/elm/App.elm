@@ -6,8 +6,7 @@ import Component.Infrastructures.DateTime as DateTime exposing (init)
 import Component.UI.Attribute exposing (..)
 import Component.UI.Columns as Columns exposing (..)
 import Component.UI.Nav as Nav exposing (..)
-import Component.Views.MessageDetail as MessageDetail exposing (..)
-import Component.Views.MessageList as MessageList exposing (..)
+import Component.Views.Messages as Messages exposing (view)
 import Component.Views.Toolbar as Toolbar exposing (..)
 import FontAwesome.Web as Icon exposing (edit)
 import Html exposing (..)
@@ -62,21 +61,7 @@ view model =
                 [ column [ Eight, Offset Two ]
                     [ div [ box ]
                         [ div [ scrollable ]
-                            [ case model.router.route of
-                                Messages ->
-                                    MessageList.view model
-
-                                MessageDetail id ->
-                                    MessageDetail.view model
-
-                                Router.NewMessage ->
-                                    MessageDetail.edit model
-
-                                Router.EditMessage id ->
-                                    MessageDetail.edit model
-
-                                _ ->
-                                    div [] []
+                            [ Messages.view model.router.route model
                             ]
                         ]
                     ]

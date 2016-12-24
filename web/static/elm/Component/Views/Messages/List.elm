@@ -1,4 +1,4 @@
-module Component.Views.MessageList exposing (..)
+module Component.Views.Messages.List exposing (..)
 
 import Component.UI.Attribute as Attribute exposing (..)
 import Component.UI.MediaObject as MediaObject exposing (..)
