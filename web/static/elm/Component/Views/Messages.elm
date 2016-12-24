@@ -8,26 +8,23 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Message exposing (..)
 import Models as App exposing (..)
-import Router as Router exposing (..)
+import Router as Router exposing (SubRoute(..))
 
 
 -- VIEW
 
 
-view : Route -> App.Model -> Html Msg
+view : SubRoute id -> App.Model -> Html Msg
 view route model =
     case route of
-        Messages ->
+        List ->
             List.view model
 
-        MessageDetail id ->
+        Show id ->
             Detail.view model
 
-        Router.NewMessage ->
+        New ->
             Edit.view model
 
-        Router.EditMessage id ->
+        Edit id ->
             Edit.view model
-
-        _ ->
-            div [] []

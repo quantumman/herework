@@ -11,7 +11,7 @@ import List.Extra as List exposing (..)
 import Message exposing (..)
 import Models exposing (..)
 import Models.Message exposing (Message)
-import Router as Router exposing (Route(..), navigateTo, newUrl)
+import Router as Router exposing (Route(..), SubRoute(..), navigateTo, newUrl)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -21,7 +21,7 @@ update message model =
             model ! []
 
         ClickAddMessage ->
-            model ! [ newUrl Router.NewMessage ]
+            model ! [ newUrl (Messages New) ]
 
         InitResource (Ok resource) ->
             { model | resource = resource } ! [ Commands.fetchMessages resource.messages_url ]
@@ -107,16 +107,16 @@ updateRoute : Route -> Cmd Msg
 updateRoute route =
     Cmd.batch <|
         case route of
-            Messages ->
+            Messages List ->
                 [ Commands.run ListMessages ]
 
-            MessageDetail id ->
+            Messages (Show id) ->
                 [ Commands.run (FindMessageWithComments id) ]
 
-            Router.NewMessage ->
+            Messages New ->
                 [ Commands.run InitMessage ]
 
-            Router.EditMessage id ->
+            Messages (Edit id) ->
                 [ Commands.run (FindMessage id) ]
 
             Tasks ->

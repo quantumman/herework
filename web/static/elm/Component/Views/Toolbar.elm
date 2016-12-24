@@ -22,16 +22,7 @@ type alias Model m =
 view : Model m -> Html Msg
 view model =
     case model.router.route of
-        Messages ->
-            message
-
-        MessageDetail id ->
-            message
-
-        Router.NewMessage ->
-            message
-
-        Router.EditMessage id ->
+        Messages _ ->
             message
 
         Tasks ->
@@ -67,7 +58,7 @@ message : Html Msg
 message =
     toolbar
         [ Buttons.button primary
-            (NavigateTo Router.NewMessage)
+            (NavigateTo (Messages New))
             [ span [ class "icon is-small" ]
                 [ i [ class "fa fa-plus" ] [] ]
             , span [] [ text "POST MESSAGE" ]

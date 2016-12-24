@@ -41,7 +41,7 @@ view model =
                     [ Layout.createdAt message.created_at model.now ]
                     [ avatar 24 message.creator ]
                     [ Buttons.button (\c -> Buttons.small c |> outlined |> primary)
-                        (NavigateTo (Router.EditMessage message.id))
+                        (NavigateTo (Router.Messages <| Edit message.id))
                         [ span [ class "icon is-small" ]
                             [ i [ class "fa fa-pencil" ] [] ]
                         , span [] [ text "EDIT" ]

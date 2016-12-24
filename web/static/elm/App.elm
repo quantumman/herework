@@ -18,7 +18,7 @@ import Models as App exposing (Model)
 import Models exposing (..)
 import Models.User exposing (User)
 import Navigation
-import Router as Router exposing (Route(..))
+import Router as Router exposing (Route(..), SubRoute(..))
 
 
 -- MODEL
@@ -50,7 +50,7 @@ view : App.Model -> Html Msg
 view model =
     div []
         [ Nav.tabs
-            [ Nav.tab [ activeAt model (messages model), navigateTo Messages ] [ text "Mesasges" ]
+            [ Nav.tab [ activeAt model (messages model), navigateTo (Messages List) ] [ text "Mesasges" ]
             , Nav.tab [ activeAt model [ Tasks ], navigateTo Tasks ] [ text "Tasks" ]
             , Nav.tab [ activeAt model [ Activity ], navigateTo Activity ] [ text "Activtiy" ]
             , Nav.tab [] [ text "Setting" ]
@@ -61,7 +61,12 @@ view model =
                 [ column [ Eight, Offset Two ]
                     [ div [ box ]
                         [ div [ scrollable ]
-                            [ Messages.view model.router.route model
+                            [ case model.router.route of
+                                Messages subRoute ->
+                                    Messages.view subRoute model
+
+                                _ ->
+                                    div [] []
                             ]
                         ]
                     ]
@@ -82,12 +87,12 @@ messages : App.Model -> List Route
 messages model =
     let
         messageRoutes =
-            [ Messages, Router.NewMessage ]
+            [ Messages List, Messages New ]
     in
         model.messageDetail
             |> Maybe.map .id
-            |> Maybe.map MessageDetail
-            |> Maybe.map (\r -> r :: messageRoutes)
+            |> Maybe.map (\id -> [ Messages <| Show id, Messages <| Edit id ])
+            |> Maybe.map (\r -> r ++ messageRoutes)
             |> Maybe.withDefault messageRoutes
 
 
