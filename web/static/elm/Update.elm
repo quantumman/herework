@@ -32,6 +32,19 @@ update message model =
         FindMessage id ->
             { model | messageDetail = findMessage id model.messages } ! []
 
+        FindMessageWithComments id ->
+            let
+                messageDetail =
+                    findMessage id model.messages
+
+                listComments =
+                    messageDetail
+                        |> Maybe.map ListComments
+                        |> Maybe.map Commands.run
+                        |> Maybe.withDefault Cmd.none
+            in
+                { model | messageDetail = messageDetail } ! [ listComments ]
+
         ListMessages ->
             model ! [ Commands.fetchMessages model.resource.messages_url ]
 
