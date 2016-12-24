@@ -7,6 +7,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Message exposing (..)
 import Models exposing (..)
+import Models.User exposing (User)
 
 
 -- STYLE
@@ -65,3 +66,22 @@ layout title body createdAt avatar actions =
         , hr [ style separator ] []
         , p [] body
         ]
+
+
+avatar : Int -> User -> Html Msg
+avatar size creator =
+    let
+        size_ =
+            toString size
+
+        figureSize =
+            "is-" ++ size_ ++ "x" ++ size_
+
+        imgStyle =
+            [ ( "border-radius", "50%" )
+            , ( "width", size_ ++ "px" )
+            , ( "height", size_ ++ "px" )
+            ]
+    in
+        figure [ levelItem, image, class figureSize ]
+            [ img [ src creator.avatar, style imgStyle ] [] ]
