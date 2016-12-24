@@ -107,17 +107,7 @@ updateRoute route model =
             model ! [ Commands.run ListMessages ]
 
         MessageDetail id ->
-            let
-                messageDetail =
-                    List.find (\x -> x.id == id) model.messages
-
-                command =
-                    messageDetail
-                        |> Maybe.map ListComments
-                        |> Maybe.map Commands.run
-                        |> Maybe.withDefault Cmd.none
-            in
-                { model | messageDetail = messageDetail } ! [ command ]
+            model ! [ Commands.run (FindMessageWithComments id) ]
 
         Router.NewMessage ->
             { model | messageDetail = Just Models.Message.initialModel } ! []
