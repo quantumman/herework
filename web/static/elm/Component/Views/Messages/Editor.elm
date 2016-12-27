@@ -8,7 +8,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import HtmlHelpers as Helper exposing (bind)
-import Message exposing (..)
+import Message as App exposing (..)
 import Models exposing (..)
 import Models.Comment exposing (Comment)
 import Models.Message exposing (Message)
@@ -19,7 +19,7 @@ import Router as Router exposing (..)
 -- VIEW
 
 
-view : User -> Message -> List (Html Msg) -> Html Msg
+view : User -> Message -> List (Html App.Msg) -> Html App.Msg
 view user message content =
     layout
         [ textarea [ bind title ]
