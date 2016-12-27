@@ -22,10 +22,10 @@ import Router as Router exposing (..)
 view : User -> Message -> List (Html Msg) -> Html Msg
 view user message content =
     layout
-        [ div [ contenteditable True, bind title ]
+        [ textarea [ bind title ]
             [ text message.title ]
         ]
-        [ div [ contenteditable True, bind body ]
+        [ textarea [ bind body ]
             [ text message.body ]
         ]
         []
