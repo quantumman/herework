@@ -57,8 +57,8 @@ update message model =
         SaveMessage message ->
             model ! []
 
-        CreateMessage message ->
-            model ! [ Commands.createMessage model.resource.messages_url message ]
+        CreateMessage ->
+            model ! [ Commands.withDefaultNone (Commands.createMessage model.resource.messages_url) model.messageDetail ]
 
         UpdateMessage message ->
             model ! [ Commands.updateMessage message.url message ]
