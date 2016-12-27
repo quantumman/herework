@@ -128,3 +128,10 @@ run msg =
 routeUpdate : Route -> Cmd App.Msg
 routeUpdate route =
     Task.perform RouteUpdate <| Task.succeed route
+
+
+withDefaultNone : (model -> Cmd App.Msg) -> Maybe model -> Cmd App.Msg
+withDefaultNone cmd model =
+    model
+        |> Maybe.map cmd
+        |> Maybe.withDefault Cmd.none
