@@ -14,6 +14,7 @@ import Models.Extra as Extra exposing (..)
 import Models.Message as Message exposing (..)
 import Models.Resource as Resource exposing (..)
 import Models.User as User exposing (..)
+import Models.Views as Views exposing (..)
 import Router as Router exposing (..)
 
 
@@ -22,6 +23,7 @@ import Router as Router exposing (..)
 
 type alias Model =
     { router : Router.Model
+    , views : Views.Model
     , resource : Resource
     , user : User
     , messages : List Message
@@ -35,6 +37,7 @@ type alias Model =
 initialModel : Router.Model -> Model
 initialModel router =
     { router = router
+    , views = Views.initialModel
     , resource = initialModelResource
     , user = User.initialModel
     , messages = []
