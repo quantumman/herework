@@ -6,8 +6,6 @@ import Date exposing (Date)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Message exposing (..)
-import Models exposing (..)
 import Models.User exposing (User)
 
 
