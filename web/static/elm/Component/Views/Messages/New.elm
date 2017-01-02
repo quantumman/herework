@@ -36,20 +36,16 @@ type alias Model m =
 
 view : Model m -> Html Msg
 view model =
-    let
-        render message =
-            div []
-                [ editor model.views
-                    model.user
-                    message
-                    [ Buttons.button (Buttons.default |> primary)
-                        CreateMessage
-                        [ text "Create New Message" ]
-                    ]
-                , div [] [ text message.title ]
-                ]
-    in
-        render model.views.messages.new
+    div []
+        [ editor model.views
+            model.user
+            model.views.messages.new
+            [ Buttons.button (Buttons.default |> primary)
+                CreateMessage
+                [ text "Create New Message" ]
+            ]
+        , div [] [ text model.views.messages.new.title ]
+        ]
 
 
 editor : Views.Model -> User -> Message -> List (Html Msg) -> Html Msg
