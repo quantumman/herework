@@ -105,24 +105,19 @@ update message model =
                 views =
                     model.views
 
-                ( newModel, command ) =
-                    Editor.update msg views.messages
+                messages =
+                    views.messages
+
+                ( newEditor, command ) =
+                    Editor.update msg messages.editor
+
+                newMessages =
+                    { messages | editor = newEditor }
 
                 newViews =
-                    { views | messages = newModel }
-
-                title =
-                    Editor.title newModel
-
-                body =
-                    Editor.body newModel
-
-                messageDetail =
-                    model.messageDetail
-                        |> Maybe.map (\m -> { m | title = title })
-                        |> Maybe.map (\m -> { m | body = body })
+                    { views | messages = newMessages }
             in
-                { model | views = newViews, messageDetail = messageDetail } ! [ Cmd.map MessagesEditor command ]
+                { model | views = newViews } ! [ Cmd.map MessagesEditor command ]
 
 
 updateRoute : Route -> Cmd Msg
