@@ -4,6 +4,7 @@ import Component.Infrastructures.DateTime as DateTime exposing (view)
 import Component.UI.Buttons as Buttons exposing (..)
 import Component.Views.CommentList as CommentList exposing (..)
 import Component.Views.Messages.Layout as Layout exposing (..)
+import Date exposing (Date)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -37,7 +38,7 @@ view model =
         render message =
             layout [ text message.title ]
                 [ text message.body ]
-                [ Layout.createdAt message.created_at model.now ]
+                [ createdAt message.created_at model.now ]
                 [ avatar 24 message.creator ]
                 [ Buttons.button (Buttons.default |> Buttons.small |> outlined |> primary)
                     (NavigateTo (Router.Messages <| Edit message.id))
