@@ -100,7 +100,7 @@ update message model =
             in
                 { model | now = now } ! [ Cmd.map Now command ]
 
-        MessagesEditor msg ->
+        MessagesForm msg ->
             let
                 views =
                     model.views
@@ -117,7 +117,7 @@ update message model =
                 newViews =
                     { views | messages = newMessages }
             in
-                { model | views = newViews } ! [ Cmd.map MessagesEditor command ]
+                { model | views = newViews } ! [ Cmd.map MessagesForm command ]
 
 
 updateRoute : Route -> Cmd Msg

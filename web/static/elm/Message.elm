@@ -39,4 +39,4 @@ type Msg
     | HandleError Error.Msg
     | Bind (Form.Msg Model)
     | Now DateTime.Msg
-    | MessagesEditor MessagesForm.Msg
+    | MessagesForm MessagesForm.Msg
