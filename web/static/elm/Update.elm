@@ -122,8 +122,8 @@ update message model =
 
 updateRoute : Route -> Cmd Msg
 updateRoute route =
-    Cmd.batch <|
-        case route of
+    Cmd.batch
+        <| case route of
             Messages List ->
                 [ Commands.run ListMessages ]
 
