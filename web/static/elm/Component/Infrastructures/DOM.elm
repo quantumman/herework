@@ -9,6 +9,8 @@ type alias TextArea =
     , selectionEnd : Int
     , rows : Int
     , cols : Int
+    , scrollHeight : Int
+    , value : String
     , style : Style
     }
 
@@ -26,11 +28,13 @@ textarea fmsg =
                 (field "height" Decode.string)
 
         decoder =
-            Decode.map5 TextArea
+            Decode.map7 TextArea
                 (field "selectionStart" Decode.int)
                 (field "selectionEnd" Decode.int)
                 (field "rows" Decode.int)
                 (field "cols" Decode.int)
+                (field "scrollHeight" Decode.int)
+                (field "value" Decode.string)
                 (field "style" styleDecoder)
     in
         target decoder |> map fmsg
