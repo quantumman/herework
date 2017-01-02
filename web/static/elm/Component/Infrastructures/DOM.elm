@@ -38,3 +38,17 @@ textarea fmsg =
                 (field "style" styleDecoder)
     in
         target decoder |> map fmsg
+
+
+initialTextarea : TextArea
+initialTextarea =
+    { selectionStart = 0
+    , selectionEnd = 0
+    , rows = 0
+    , cols = 0
+    , scrollHeight = 0
+    , value = ""
+    , style =
+        { height = "auto"
+        }
+    }
