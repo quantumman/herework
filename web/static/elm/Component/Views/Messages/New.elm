@@ -2,7 +2,7 @@ module Component.Views.Messages.New exposing (..)
 
 import Component.Infrastructures.DateTime as DateTime exposing (view)
 import Component.UI.Buttons as Buttons exposing (..)
-import Component.Views.Messages.Editor as Editor exposing (view, Model)
+import Component.Views.Messages.Form as Form exposing (view, Model)
 import Component.Views.Messages.Layout as Layout exposing (..)
 import Date exposing (..)
 import Html exposing (..)
@@ -50,5 +50,5 @@ view model =
 
 editor : Views.Model -> User -> Message -> List (Html Msg) -> Html Msg
 editor model user message content =
-    Editor.view model.messages.editor user message []
+    Form.view model.messages.editor user message []
         |> Html.map MessagesEditor

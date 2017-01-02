@@ -4,7 +4,7 @@ import Commands exposing (..)
 import Component.Error.Update as Error exposing (..)
 import Component.Infrastructures.DateTime as DateTime exposing (update)
 import Component.Infrastructures.Form as Form exposing (update)
-import Component.Views.Messages.Editor as Editor exposing (update, title, body)
+import Component.Views.Messages.Form as MessagesForm exposing (update, title, body)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Http as Http exposing (Error)
@@ -109,7 +109,7 @@ update message model =
                     views.messages
 
                 ( newEditor, command ) =
-                    Editor.update msg messages.editor
+                    MessagesForm.update msg messages.editor
 
                 newMessages =
                     { messages | editor = newEditor }

@@ -1,4 +1,4 @@
-module Component.Views.Messages.Editor exposing (..)
+module Component.Views.Messages.Form exposing (..)
 
 import Component.Infrastructures.DOM as DOM exposing (..)
 import Component.Infrastructures.DateTime as DateTime exposing (view)

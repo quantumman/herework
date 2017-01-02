@@ -1,6 +1,6 @@
 module Models.Views exposing (..)
 
-import Component.Views.Messages.Editor as Editor exposing (..)
+import Component.Views.Messages.Form as Form exposing (..)
 import Models.Message as Message exposing (Message, initialModel)
 import Models.Comment as Comment exposing (Comment)
 
@@ -22,7 +22,7 @@ type alias MessagesView =
     , edit : Message
     , new : Message
     , comments : List Comment
-    , editor : Editor.Model
+    , editor : Form.Model
     }
 
 
@@ -33,5 +33,5 @@ initialMessageView =
     , edit = Message.initialModel
     , new = Message.initialModel
     , comments = []
-    , editor = Editor.initialModel
+    , editor = Form.initialModel
     }
