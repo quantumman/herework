@@ -30,27 +30,27 @@ separator =
 -- VIEW
 
 
-type alias Title =
-    List (Html Msg)
+type alias Title msg =
+    List (Html msg)
 
 
-type alias Body =
-    List (Html Msg)
+type alias Body msg =
+    List (Html msg)
 
 
-type alias CreatedAt =
-    List (Html Msg)
+type alias CreatedAt msg =
+    List (Html msg)
 
 
-type alias Creator =
-    List (Html Msg)
+type alias Creator msg =
+    List (Html msg)
 
 
-type alias Actions =
-    List (Html Msg)
+type alias Actions msg =
+    List (Html msg)
 
 
-layout : Title -> Body -> CreatedAt -> Creator -> Actions -> List (Html Msg) -> Html Msg
+layout : Title msg -> Body msg -> CreatedAt msg -> Creator msg -> Actions msg -> List (Html msg) -> Html msg
 layout title body createdAt avatar actions content =
     div [ Attribute.content ]
         ([ h1 [ Attribute.title 2 ] title
@@ -71,7 +71,7 @@ layout title body createdAt avatar actions content =
         )
 
 
-avatar : Int -> User -> Html Msg
+avatar : Int -> User -> Html msg
 avatar size creator =
     let
         size_ =
