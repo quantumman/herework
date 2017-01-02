@@ -36,13 +36,10 @@ type alias Model m =
 
 view : Model m -> Html Msg
 view model =
-    let
-        render message =
-            editor model.views message.creator message []
-    in
-        model.messageDetail
-            |> Maybe.map render
-            |> Maybe.withDefault (div [] [])
+    editor model.views
+        model.views.messages.edit.creator
+        model.views.messages.edit
+        []
 
 
 editor : Views.Model -> User -> Message -> List (Html Msg) -> Html Msg
