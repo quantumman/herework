@@ -49,9 +49,7 @@ view model =
                 , div [] [ text message.title ]
                 ]
     in
-        model.messageDetail
-            |> Maybe.map render
-            |> Maybe.withDefault (div [] [])
+        render model.views.messages.new
 
 
 editor : Views.Model -> User -> Message -> List (Html Msg) -> Html Msg
