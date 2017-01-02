@@ -22,7 +22,7 @@ type alias MessagesView =
     , edit : Message
     , new : Message
     , comments : List Comment
-    , editor : Form.Model
+    , form : Form.Model
     }
 
 
@@ -33,5 +33,5 @@ initialMessageView =
     , edit = Message.initialModel
     , new = Message.initialModel
     , comments = []
-    , editor = Form.initialModel
+    , form = Form.initialModel
     }

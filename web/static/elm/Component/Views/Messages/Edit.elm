@@ -44,5 +44,5 @@ view model =
 
 editor : Views.Model -> User -> Message -> List (Html Msg) -> Html Msg
 editor model user message content =
-    Form.view model.messages.editor user message []
+    Form.view model.messages.form user message []
         |> Html.map MessagesEditor

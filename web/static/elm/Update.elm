@@ -108,11 +108,11 @@ update message model =
                 messages =
                     views.messages
 
-                ( newEditor, command ) =
-                    MessagesForm.update msg messages.editor
+                ( newForm, command ) =
+                    MessagesForm.update msg messages.form
 
                 newMessages =
-                    { messages | editor = newEditor }
+                    { messages | form = newForm }
 
                 newViews =
                     { views | messages = newMessages }
