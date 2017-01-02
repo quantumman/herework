@@ -9,6 +9,7 @@ import HtmlHelpers exposing (..)
 import InlineHover exposing (..)
 import Message exposing (..)
 import Models.Message exposing (..)
+import Models.Views as Views exposing (..)
 import Router exposing (Route(..))
 
 
@@ -16,6 +17,7 @@ type alias Model m =
     { m
         | messages : List Message
         , messageDetail : Maybe Message
+        , views : Views.Model
     }
 
 
@@ -106,7 +108,7 @@ view model =
                 ]
     in
         div []
-            (List.map render model.messages)
+            (List.map render model.views.messages.list)
 
 
 hover_ :
