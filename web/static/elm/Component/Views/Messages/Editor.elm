@@ -1,54 +1,96 @@
 module Component.Views.Messages.Editor exposing (..)
 
+import Component.Infrastructures.DOM as DOM exposing (..)
 import Component.Infrastructures.DateTime as DateTime exposing (view)
 import Component.UI.Buttons as Buttons exposing (..)
 import Component.Views.Messages.Layout as Layout exposing (..)
 import Date exposing (..)
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes as Attributes exposing (..)
 import Html.Events exposing (..)
-import HtmlHelpers as Helper exposing (bind)
-import Message as App exposing (..)
-import Models.Comment exposing (Comment)
-import Models.Message exposing (Message)
-import Models.User exposing (User)
-import Router as Router exposing (..)
+import Models.Message as Message exposing (Message, initialModel)
+import Models.User as User exposing (User, initialModel)
+
+
+-- MODEL
+
+
+type alias Model =
+    { title : DOM.TextArea
+    , body : DOM.TextArea
+    }
+
+
+initialModel : Model
+initialModel =
+    { title = DOM.initialTextarea
+    , body = DOM.initialTextarea
+    }
+
+
+title : Model -> String
+title model =
+    model |> .title |> .value
+
+
+body : Model -> String
+body model =
+    model |> .body |> .value
+
+
+
+-- UPDATE
+
+
+type Msg
+    = Title DOM.TextArea
+    | Body DOM.TextArea
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
+update message model =
+    case message of
+        Title textarea ->
+            { model | title = textarea } ! []
+
+        Body textarea ->
+            { model | body = textarea } ! []
+
 
 
 -- VIEW
 
 
-view : User -> Message -> List (Html App.Msg) -> Html App.Msg
-view user message content =
+elasticHeight : DOM.TextArea -> Attribute Msg
+elasticHeight textarea =
+    let
+        height =
+            if textarea.scrollHeight == 0 then
+                "auto"
+            else
+                (toString textarea.scrollHeight)
+    in
+        style
+            [ ( "height", height ++ "px" )
+            ]
+
+
+view : Model -> User -> Message -> List (Html Msg) -> Html Msg
+view model user message content =
     layout
-        [ textarea [ bind title ]
+        [ Html.textarea
+            [ elasticHeight model.title
+            , on "input" (DOM.textarea Title)
+            ]
             [ text message.title ]
         ]
-        [ textarea [ bind body ]
+        [ Html.textarea
+            [ elasticHeight model.body
+            , on "input" (DOM.textarea Body)
+            ]
             [ text message.body ]
         ]
         []
         [ avatar 24 user ]
         []
         content
-
-
-
--- HELPER
-
-
-title : Maybe Message -> String -> Maybe Message
-title message value =
-    message
-        |> Maybe.map (\m -> { m | title = value })
-
-
-body : Maybe Message -> String -> Maybe Message
-body message value =
-    message
-        |> Maybe.map (\m -> { m | body = value })
-
-
-bind : (Maybe Message -> String -> Maybe Message) -> Attribute Msg
-bind set =
-    Helper.bind (\model value -> { model | messageDetail = set model.messageDetail value })

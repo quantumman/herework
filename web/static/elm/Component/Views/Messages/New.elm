@@ -2,7 +2,7 @@ module Component.Views.Messages.New exposing (..)
 
 import Component.Infrastructures.DateTime as DateTime exposing (view)
 import Component.UI.Buttons as Buttons exposing (..)
-import Component.Views.Messages.Editor as Editor exposing (view)
+import Component.Views.Messages.Editor as Editor exposing (view, Model)
 import Component.Views.Messages.Layout as Layout exposing (..)
 import Date exposing (..)
 import Html exposing (..)
@@ -13,6 +13,7 @@ import Models exposing (..)
 import Models.Comment exposing (Comment)
 import Models.Message exposing (Message)
 import Models.User exposing (User)
+import Models.Views as Views exposing (Model)
 import Router as Router exposing (..)
 
 
@@ -25,6 +26,7 @@ type alias Model m =
         , comments : List Comment
         , user : User
         , now : DateTime.Model
+        , views : Views.Model
     }
 
 
@@ -36,13 +38,23 @@ view : Model m -> Html Msg
 view model =
     let
         render message =
-            Editor.view model.user
-                message
-                [ Buttons.button (Buttons.default |> primary)
-                    CreateMessage
-                    [ text "Create New Message" ]
+            div []
+                [ editor model.views
+                    model.user
+                    message
+                    [ Buttons.button (Buttons.default |> primary)
+                        CreateMessage
+                        [ text "Create New Message" ]
+                    ]
+                , div [] [ text message.title ]
                 ]
     in
         model.messageDetail
             |> Maybe.map render
             |> Maybe.withDefault (div [] [])
+
+
+editor : Views.Model -> User -> Message -> List (Html Msg) -> Html Msg
+editor model user message content =
+    Editor.view model.messages.editor user message []
+        |> Html.map MessagesEditor
