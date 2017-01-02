@@ -88,8 +88,3 @@ avatar size creator =
     in
         figure [ levelItem, image, class figureSize ]
             [ img [ src creator.avatar, style imgStyle ] [] ]
-
-
-createdAt : Date -> DateTime.Model -> Html Msg
-createdAt date model =
-    Html.map Now <| DateTime.view date model
