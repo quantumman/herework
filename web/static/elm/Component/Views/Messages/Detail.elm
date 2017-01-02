@@ -53,3 +53,8 @@ view model =
         model.messageDetail
             |> Maybe.map render
             |> Maybe.withDefault (div [] [])
+
+
+createdAt : Date -> DateTime.Model -> Html Msg
+createdAt date model =
+    Html.map Now <| DateTime.view date model
