@@ -13,6 +13,7 @@ import Models exposing (..)
 import Models.Comment exposing (Comment)
 import Models.Message exposing (Message)
 import Models.User exposing (User)
+import Models.Views as Views exposing (..)
 import Router as Router exposing (..)
 
 
@@ -25,6 +26,7 @@ type alias Model m =
         , comments : List Comment
         , user : User
         , now : DateTime.Model
+        , views : Views.Model
     }
 
 
@@ -51,9 +53,7 @@ view model =
                 , CommentList.view model
                 ]
     in
-        model.messageDetail
-            |> Maybe.map render
-            |> Maybe.withDefault (div [] [])
+        render model.views.messages.detail
 
 
 createdAt : Date -> DateTime.Model -> Html Msg
