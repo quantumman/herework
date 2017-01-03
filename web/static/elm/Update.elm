@@ -28,7 +28,14 @@ update message model =
             handleHttpError error model
 
         NewMessage ->
-            { model | messageDetail = Models.Message.initialModel } ! []
+            let
+                messageDetail =
+                    Models.Message.initialModel
+
+                newMessageDetail =
+                    { messageDetail | creator = model.user }
+            in
+                { model | messageDetail = newMessageDetail } ! []
 
         FindMessage id ->
             { model | messageDetail = findMessageOrDefault id model.messages model.messageDetail } ! []
