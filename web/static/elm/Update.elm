@@ -102,22 +102,16 @@ update message model =
 
         MessagesForm msg ->
             let
-                views =
-                    model.views
-
                 messages =
-                    views.messages
+                    messagesOfModel.get model
 
                 ( newForm, command ) =
                     MessagesForm.update msg messages.form
 
                 newMessages =
                     { messages | form = newForm }
-
-                newViews =
-                    { views | messages = newMessages }
             in
-                { model | views = newViews } ! [ Cmd.map MessagesForm command ]
+                (messagesOfModel.set newMessages model) ! [ Cmd.map MessagesForm command ]
 
 
 updateRoute : Route -> Cmd Msg
