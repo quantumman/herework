@@ -28,10 +28,10 @@ update message model =
             handleHttpError error model
 
         InitMessage ->
-            { model | messageDetail = Just Models.Message.initialModel } ! []
+            { model | messageDetail = Models.Message.initialModel } ! []
 
         FindMessage id ->
-            { model | messageDetail = findMessage id model.messages } ! []
+            { model | messageDetail = findMessageOrDefault id model.messages model.messageDetail } ! []
 
         FindMessageWithComments id ->
             let
@@ -44,7 +44,7 @@ update message model =
                         |> Maybe.map Commands.run
                         |> Maybe.withDefault Cmd.none
             in
-                { model | messageDetail = messageDetail } ! [ listComments ]
+                { model | messageDetail = messageDetail |> Maybe.withDefault model.messageDetail } ! [ listComments ]
 
         ListMessages ->
             model ! [ Commands.fetchMessages model.resource.messages_url ]
@@ -59,7 +59,7 @@ update message model =
             model ! []
 
         CreateMessage ->
-            model ! [ Commands.withDefaultNone (Commands.createMessage model.resource.messages_url) model.messageDetail ]
+            model ! [ Commands.createMessage model.resource.messages_url model.messageDetail ]
 
         UpdateMessage message ->
             model ! [ Commands.updateMessage message.url message ]
@@ -152,3 +152,9 @@ handleHttpError error model =
 findMessage : Int -> List Message -> Maybe Message
 findMessage id messages =
     List.find (\x -> x.id == id) messages
+
+
+findMessageOrDefault : Int -> List Message -> Message -> Message
+findMessageOrDefault id messages default =
+    findMessage id messages
+        |> Maybe.withDefault default

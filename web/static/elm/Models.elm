@@ -28,7 +28,7 @@ type alias Model =
     , resource : Resource
     , user : User
     , messages : List Message
-    , messageDetail : Maybe Message
+    , messageDetail : Message
     , comments : List Comment
     , error : Error.Model
     , now : DateTime.Model
@@ -42,7 +42,7 @@ initialModel router =
     , resource = initialModelResource
     , user = User.initialModel
     , messages = []
-    , messageDetail = Nothing
+    , messageDetail = Message.initialModel
     , comments = []
     , error = Error.initialModel
     , now = DateTime.initialModel

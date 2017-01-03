@@ -22,7 +22,7 @@ import Router as Router exposing (..)
 
 type alias Model m =
     { m
-        | messageDetail : Maybe Message
+        | messageDetail : Message
         , comments : List Comment
         , user : User
         , now : DateTime.Model
@@ -39,12 +39,12 @@ view model =
     div []
         [ editor model.views
             model.user
-            model.views.messages.entity
+            model.messageDetail
             [ Buttons.button (Buttons.default |> primary)
                 CreateMessage
                 [ text "Create New Message" ]
             ]
-        , div [] [ text model.views.messages.entity.title ]
+        , div [] [ text model.messageDetail.title ]
         ]
 
 

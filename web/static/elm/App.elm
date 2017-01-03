@@ -89,11 +89,8 @@ messages model =
         messageRoutes =
             [ Messages List, Messages New ]
     in
-        model.messageDetail
-            |> Maybe.map .id
-            |> Maybe.map (\id -> [ Messages <| Show id, Messages <| Edit id ])
-            |> Maybe.map (\r -> r ++ messageRoutes)
-            |> Maybe.withDefault messageRoutes
+        model.messageDetail.id
+            |> (\id -> messageRoutes ++ [ Messages <| Show id, Messages <| Edit id ])
 
 
 scrollable : Attribute Msg

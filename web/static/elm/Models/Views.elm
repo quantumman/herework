@@ -18,19 +18,13 @@ initialModel =
 
 
 type alias MessagesView =
-    { list : List Message
-    , entity : Message
-    , comments : List Comment
-    , form : Form.Model
+    { form : Form.Model
     }
 
 
 initialMessageView : MessagesView
 initialMessageView =
-    { list = []
-    , entity = Message.initialModel
-    , comments = []
-    , form = Form.initialModel
+    { form = Form.initialModel
     }
 
 

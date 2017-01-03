@@ -22,7 +22,7 @@ import Router as Router exposing (..)
 
 type alias Model m =
     { m
-        | messageDetail : Maybe Message
+        | messageDetail : Message
         , comments : List Comment
         , user : User
         , now : DateTime.Model
@@ -37,8 +37,8 @@ type alias Model m =
 view : Model m -> Html Msg
 view model =
     editor model.views
-        model.views.messages.entity.creator
-        model.views.messages.entity
+        model.messageDetail.creator
+        model.messageDetail
         []
 
 
