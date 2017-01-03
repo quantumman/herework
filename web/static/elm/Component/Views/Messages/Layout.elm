@@ -12,6 +12,15 @@ import Models.User exposing (User)
 -- MODEL
 
 
+type alias Layout msg =
+    { title : Title msg
+    , body : Body msg
+    , createdAt : CreatedAt msg
+    , creator : Creator msg
+    , actions : Actions msg
+    }
+
+
 type alias Title msg =
     List (Html msg)
 
