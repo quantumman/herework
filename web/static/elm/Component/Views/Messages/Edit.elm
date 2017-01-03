@@ -24,7 +24,6 @@ type alias Model m =
     { m
         | messageDetail : Message
         , comments : List Comment
-        , user : User
         , now : DateTime.Model
         , views : Views.Model
     }
@@ -36,13 +35,12 @@ type alias Model m =
 
 view : Model m -> Html Msg
 view model =
-    editor model.views
-        model.messageDetail.creator
+    form model.views
         model.messageDetail
         []
 
 
-editor : Views.Model -> User -> Message -> List (Html Msg) -> Html Msg
-editor model user message content =
-    Form.view model.messages.form user message []
+form : Views.Model -> Message -> List (Html Msg) -> Html Msg
+form model message content =
+    Form.view model.messages.form message []
         |> Html.map MessagesForm

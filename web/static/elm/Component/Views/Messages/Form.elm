@@ -75,8 +75,8 @@ elasticHeight textarea =
             ]
 
 
-view : Model -> User -> Message -> List (Html Msg) -> Html Msg
-view model user message content =
+view : Model -> Message -> List (Html Msg) -> Html Msg
+view model message content =
     layout
         [ Html.textarea
             [ elasticHeight model.title
@@ -91,6 +91,6 @@ view model user message content =
             [ text message.body ]
         ]
         []
-        [ avatar 24 user ]
+        [ avatar 24 message.creator ]
         []
         content
