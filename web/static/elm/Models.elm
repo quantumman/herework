@@ -15,6 +15,7 @@ import Models.Message as Message exposing (..)
 import Models.Resource as Resource exposing (..)
 import Models.User as User exposing (..)
 import Models.Views as Views exposing (..)
+import Monocle.Lens exposing (Lens, compose)
 import Router as Router exposing (..)
 
 
@@ -58,3 +59,24 @@ type alias Url =
 
 type alias SelectableItem a =
     Extra.SelectableItem a
+
+
+
+-- HELPER
+
+
+messagesOfModel : Lens Model Views.MessagesView
+messagesOfModel =
+    compose viewsOfModel Views.messagesOfViews
+
+
+viewsOfModel : Lens Model Views.Model
+viewsOfModel =
+    let
+        get model =
+            model.views
+
+        set views model =
+            { model | views = views }
+    in
+        Lens get set
