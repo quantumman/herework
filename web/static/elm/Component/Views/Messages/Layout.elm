@@ -9,23 +9,7 @@ import Html.Events exposing (..)
 import Models.User exposing (User)
 
 
--- STYLE
-
-
-removeSpace : List ( String, String )
-removeSpace =
-    [ ( "margin-bottom", "0" )
-    ]
-
-
-separator : List ( String, String )
-separator =
-    [ ( "margin-top", "10px" )
-    ]
-
-
-
--- VIEW
+-- MODEL
 
 
 type alias Title msg =
@@ -46,6 +30,26 @@ type alias Creator msg =
 
 type alias Actions msg =
     List (Html msg)
+
+
+
+-- STYLE
+
+
+removeSpace : List ( String, String )
+removeSpace =
+    [ ( "margin-bottom", "0" )
+    ]
+
+
+separator : List ( String, String )
+separator =
+    [ ( "margin-top", "10px" )
+    ]
+
+
+
+-- VIEW
 
 
 layout : Title msg -> Body msg -> CreatedAt msg -> Creator msg -> Actions msg -> List (Html msg) -> Html msg
