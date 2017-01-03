@@ -25,7 +25,7 @@ type Msg
     | FindMessage Int
     | FindMessageWithComments Int
     | ListMessages
-    | RefreshMessages (Result Http.Error (List Message))
+    | FetchMessages (Result Http.Error (List Message))
     | SaveMessage (Result Http.Error Message)
     | CreateMessage
     | UpdateMessage Message

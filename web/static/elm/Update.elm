@@ -56,10 +56,10 @@ update message model =
         ListMessages ->
             model ! [ Commands.fetchMessages model.resource.messages_url ]
 
-        RefreshMessages (Ok messages) ->
+        FetchMessages (Ok messages) ->
             { model | messages = messages } ! []
 
-        RefreshMessages (Err error) ->
+        FetchMessages (Err error) ->
             handleHttpError error model
 
         SaveMessage message ->

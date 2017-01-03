@@ -78,7 +78,7 @@ initApp url =
 
 fetchMessages : Url -> Cmd App.Msg
 fetchMessages url =
-    get Message.decodeList url App.RefreshMessages
+    get Message.decodeList url App.FetchMessages
 
 
 createMessage : Url -> Message -> Cmd App.Msg

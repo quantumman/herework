@@ -7,7 +7,7 @@ import Component.Views.Messages.New as New exposing (view)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Message exposing (..)
+import Message as App exposing (..)
 import Models as App exposing (..)
 import Router as Router exposing (SubRoute(..))
 
@@ -15,7 +15,7 @@ import Router as Router exposing (SubRoute(..))
 -- VIEW
 
 
-view : SubRoute id -> App.Model -> Html Msg
+view : SubRoute id -> App.Model -> Html App.Msg
 view route model =
     case route of
         List ->
