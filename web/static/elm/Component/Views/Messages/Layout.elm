@@ -51,8 +51,8 @@ type alias Actions msg =
 layout : Title msg -> Body msg -> CreatedAt msg -> Creator msg -> Actions msg -> List (Html msg) -> Html msg
 layout title body createdAt avatar actions content =
     div [ Attribute.content ]
-        ([ h1 [ Attribute.title 2 ] title
-         , div [ subtitle 6, style removeSpace ]
+        [ h1 [ Attribute.title 2 ] title
+        , div [ subtitle 6, style removeSpace ]
             [ p [ level ]
                 [ div [ levelLeft ] []
                 , div [ levelRight ]
@@ -62,11 +62,10 @@ layout title body createdAt avatar actions content =
                     ]
                 ]
             ]
-         , hr [ style separator ] []
-         , p [] body
-         ]
-            ++ content
-        )
+        , hr [ style separator ] []
+        , p [] body
+        , div [] content
+        ]
 
 
 avatar : Int -> User -> Html msg
