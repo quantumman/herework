@@ -27,7 +27,7 @@ update message model =
         InitResource (Err error) ->
             handleHttpError error model
 
-        InitMessage ->
+        NewMessage ->
             { model | messageDetail = Models.Message.initialModel } ! []
 
         FindMessage id ->
@@ -125,7 +125,7 @@ updateRoute route =
                 [ Commands.run (FindMessageWithComments id) ]
 
             Messages New ->
-                [ Commands.run InitMessage ]
+                [ Commands.run NewMessage ]
 
             Messages (Edit id) ->
                 [ Commands.run (FindMessage id) ]
