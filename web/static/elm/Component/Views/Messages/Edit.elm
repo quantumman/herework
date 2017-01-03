@@ -37,8 +37,8 @@ type alias Model m =
 view : Model m -> Html Msg
 view model =
     editor model.views
-        model.views.messages.edit.creator
-        model.views.messages.edit
+        model.views.messages.entity.creator
+        model.views.messages.entity
         []
 
 

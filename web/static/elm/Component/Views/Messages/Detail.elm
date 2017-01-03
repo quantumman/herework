@@ -36,12 +36,12 @@ type alias Model m =
 
 view : Model m -> Html Msg
 view model =
-    layout [ text model.views.messages.detail.title ]
-        [ text model.views.messages.detail.body ]
-        [ createdAt model.views.messages.detail.created_at model.now ]
-        [ avatar 24 model.views.messages.detail.creator ]
+    layout [ text model.views.messages.entity.title ]
+        [ text model.views.messages.entity.body ]
+        [ createdAt model.views.messages.entity.created_at model.now ]
+        [ avatar 24 model.views.messages.entity.creator ]
         [ Buttons.button (Buttons.default |> Buttons.small |> outlined |> primary)
-            (NavigateTo (Router.Messages <| Edit model.views.messages.detail.id))
+            (NavigateTo (Router.Messages <| Edit model.views.messages.entity.id))
             [ span [ class "icon is-small" ]
                 [ i [ class "fa fa-pencil" ] [] ]
             , span [] [ text "EDIT" ]

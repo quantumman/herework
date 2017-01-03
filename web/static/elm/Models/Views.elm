@@ -19,9 +19,7 @@ initialModel =
 
 type alias MessagesView =
     { list : List Message
-    , detail : Message
-    , edit : Message
-    , new : Message
+    , entity : Message
     , comments : List Comment
     , form : Form.Model
     }
@@ -30,9 +28,7 @@ type alias MessagesView =
 initialMessageView : MessagesView
 initialMessageView =
     { list = []
-    , detail = Message.initialModel
-    , edit = Message.initialModel
-    , new = Message.initialModel
+    , entity = Message.initialModel
     , comments = []
     , form = Form.initialModel
     }

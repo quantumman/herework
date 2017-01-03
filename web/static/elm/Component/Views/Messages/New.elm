@@ -39,12 +39,12 @@ view model =
     div []
         [ editor model.views
             model.user
-            model.views.messages.new
+            model.views.messages.entity
             [ Buttons.button (Buttons.default |> primary)
                 CreateMessage
                 [ text "Create New Message" ]
             ]
-        , div [] [ text model.views.messages.new.title ]
+        , div [] [ text model.views.messages.entity.title ]
         ]
 
 
