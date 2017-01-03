@@ -28,16 +28,6 @@ initialModel =
     }
 
 
-title : Model -> String
-title model =
-    model |> .title |> .value
-
-
-body : Model -> String
-body model =
-    model |> .body |> .value
-
-
 
 -- UPDATE
 
@@ -77,20 +67,34 @@ elasticHeight textarea =
 
 view : Model -> Message -> List (Html Msg) -> Html Msg
 view model message content =
-    layout
-        [ Html.textarea
-            [ elasticHeight model.title
-            , on "input" (DOM.textarea Title)
+    let
+        title =
+            [ Html.textarea
+                [ elasticHeight model.title
+                , on "input" (DOM.textarea Title)
+                ]
+                [ text message.title ]
             ]
-            [ text message.title ]
-        ]
-        [ Html.textarea
-            [ elasticHeight model.body
-            , on "input" (DOM.textarea Body)
+
+        body =
+            [ Html.textarea
+                [ elasticHeight model.body
+                , on "input" (DOM.textarea Body)
+                ]
+                [ text message.body ]
             ]
-            [ text message.body ]
-        ]
-        []
-        [ avatar 24 message.creator ]
-        []
-        content
+
+        createdAt =
+            []
+
+        creator =
+            [ avatar 24 message.creator ]
+
+        actions =
+            []
+
+        layoutContent =
+            Layout title body createdAt creator actions
+    in
+        layout layoutContent
+            content

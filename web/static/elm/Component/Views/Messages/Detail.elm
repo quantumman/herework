@@ -36,20 +36,35 @@ type alias Model m =
 
 view : Model m -> Html Msg
 view model =
-    layout [ text model.messageDetail.title ]
-        [ text model.messageDetail.body ]
-        [ createdAt model.messageDetail.created_at model.now ]
-        [ avatar 24 model.messageDetail.creator ]
-        [ Buttons.button (Buttons.default |> Buttons.small |> outlined |> primary)
-            (NavigateTo (Router.Messages <| Edit model.messageDetail.id))
-            [ span [ class "icon is-small" ]
-                [ i [ class "fa fa-pencil" ] [] ]
-            , span [] [ text "EDIT" ]
+    let
+        title =
+            [ text model.messageDetail.title ]
+
+        body =
+            [ text model.messageDetail.body ]
+
+        createdAt_ =
+            [ createdAt model.messageDetail.created_at model.now ]
+
+        creator =
+            [ avatar 24 model.messageDetail.creator ]
+
+        actions =
+            [ Buttons.button (Buttons.default |> Buttons.small |> outlined |> primary)
+                (NavigateTo (Router.Messages <| Edit model.messageDetail.id))
+                [ span [ class "icon is-small" ]
+                    [ i [ class "fa fa-pencil" ] [] ]
+                , span [] [ text "EDIT" ]
+                ]
             ]
-        ]
-        [ hr [] []
-        , CommentList.view model
-        ]
+
+        content =
+            Layout title body createdAt_ creator actions
+    in
+        layout content
+            [ hr [] []
+            , CommentList.view model
+            ]
 
 
 createdAt : Date -> DateTime.Model -> Html Msg

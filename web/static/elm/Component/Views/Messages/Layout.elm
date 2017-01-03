@@ -61,8 +61,8 @@ separator =
 -- VIEW
 
 
-layout : Title msg -> Body msg -> CreatedAt msg -> Creator msg -> Actions msg -> List (Html msg) -> Html msg
-layout title body createdAt avatar actions content =
+layout : Layout msg -> List (Html msg) -> Html msg
+layout { title, body, createdAt, creator, actions } content =
     div [ Attribute.content ]
         [ h1 [ Attribute.title 2 ] title
         , div [ subtitle 6, style removeSpace ]
@@ -70,7 +70,7 @@ layout title body createdAt avatar actions content =
                 [ div [ levelLeft ] []
                 , div [ levelRight ]
                     [ div [ levelItem ] createdAt
-                    , div [ levelItem ] avatar
+                    , div [ levelItem ] creator
                     , div [ levelItem ] actions
                     ]
                 ]
