@@ -9,10 +9,10 @@ import Html.Attributes exposing (..)
 import Json.Decode as Decode exposing (..)
 import Json.Decode.Extra as Decode exposing (..)
 import Json.Encode as Encode exposing (..)
+import Models.App as App exposing (..)
 import Models.Comment as Comment exposing (..)
 import Models.Extra as Extra exposing (..)
 import Models.Message as Message exposing (..)
-import Models.Resource as Resource exposing (..)
 import Models.User as User exposing (..)
 import Models.Views as Views exposing (..)
 import Monocle.Lens exposing (Lens, compose)
@@ -25,7 +25,7 @@ import Router as Router exposing (..)
 type alias Model =
     { router : Router.Model
     , views : Views.Model
-    , resource : Resource
+    , app : App.Model
     , user : User
     , messages : List Message
     , messageDetail : Message
@@ -39,7 +39,7 @@ initialModel : Router.Model -> Model
 initialModel router =
     { router = router
     , views = Views.initialModel
-    , resource = initialModelResource
+    , app = App.initialModel
     , user = User.initialModel
     , messages = []
     , messageDetail = Message.initialModel

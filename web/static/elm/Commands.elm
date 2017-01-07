@@ -11,7 +11,7 @@ import Message as App exposing (..)
 import Models exposing (..)
 import Models.Comment as Comment exposing (..)
 import Models.Message as Message exposing (..)
-import Models.Resource as Resource exposing (..)
+import Models.App as App exposing (..)
 import Models.User as User exposing (..)
 import Router exposing (Route)
 import Task exposing (Task)
@@ -73,7 +73,7 @@ delete resource msg =
 
 initApp : Url -> Cmd App.Msg
 initApp url =
-    get Resource.decode url InitResource
+    get App.decode url InitResource
 
 
 fetchMessages : Url -> Cmd App.Msg

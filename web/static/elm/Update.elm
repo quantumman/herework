@@ -21,8 +21,8 @@ update message model =
         NoOp ->
             model ! []
 
-        InitResource (Ok resource) ->
-            { model | resource = resource } ! [ Commands.fetchMessages resource.messages_url ]
+        InitResource (Ok app) ->
+            { model | app = app } ! [ Commands.fetchMessages model.app.messages_url ]
 
         InitResource (Err error) ->
             handleHttpError error model
@@ -54,7 +54,7 @@ update message model =
                 { model | messageDetail = messageDetail |> Maybe.withDefault model.messageDetail } ! [ listComments ]
 
         ListMessages ->
-            model ! [ Commands.fetchMessages model.resource.messages_url ]
+            model ! [ Commands.fetchMessages model.app.messages_url ]
 
         FetchMessages (Ok messages) ->
             { model | messages = messages } ! []
@@ -66,7 +66,7 @@ update message model =
             model ! []
 
         CreateMessage ->
-            model ! [ Commands.createMessage model.resource.messages_url model.messageDetail ]
+            model ! [ Commands.createMessage model.app.messages_url model.messageDetail ]
 
         UpdateMessage message ->
             model ! [ Commands.updateMessage message.url message ]
@@ -123,8 +123,8 @@ update message model =
 
 updateRoute : Route -> Cmd Msg
 updateRoute route =
-    Cmd.batch
-        <| case route of
+    Cmd.batch <|
+        case route of
             Messages List ->
                 [ Commands.run ListMessages ]
 

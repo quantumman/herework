@@ -1,4 +1,4 @@
-module Models.Resource exposing (..)
+module Models.App exposing (..)
 
 import Date exposing (..)
 import Date.Extra.Core exposing (..)
@@ -8,23 +8,24 @@ import Json.Encode as Encode exposing (..)
 import Models.Extra exposing (..)
 
 
-type alias Resource =
+type alias Model =
     { messages_url : Url
     , tasks_url : Url
     , activity_url : Url
     }
 
 
-initialModelResource =
+initialModel : Model
+initialModel =
     { messages_url = ""
     , tasks_url = ""
     , activity_url = ""
     }
 
 
-decode : Decoder Resource
+decode : Decoder Model
 decode =
-    Decode.map3 Resource
+    Decode.map3 Model
         (field "messages_url" Decode.string)
         (field "tasks_url" Decode.string)
         (field "activity_url" Decode.string)
