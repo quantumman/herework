@@ -8,6 +8,7 @@ import Html.Events exposing (..)
 import HtmlHelpers exposing (..)
 import InlineHover exposing (..)
 import Message exposing (..)
+import Models exposing (..)
 import Models.Message exposing (..)
 import Models.Views as Views exposing (..)
 import Router exposing (Route(..))
@@ -15,8 +16,7 @@ import Router exposing (Route(..))
 
 type alias Model m =
     { m
-        | messages : List Message
-        , messageDetail : Message
+        | messages : Resource Message
         , views : Views.Model
     }
 
@@ -34,7 +34,7 @@ avatarStyle =
 
 
 selected : Message -> Model m -> List ( String, String )
-selected message { messageDetail } =
+selected message { messages } =
     let
         makeStyle m =
             if m.id == message.id then
@@ -44,7 +44,7 @@ selected message { messageDetail } =
             else
                 []
     in
-        makeStyle messageDetail
+        makeStyle messages.entity
 
 
 hoverStyle : List ( String, String )
@@ -106,7 +106,7 @@ view model =
                 ]
     in
         div []
-            (List.map render model.messages)
+            (List.map render model.messages.list)
 
 
 hover_ :
@@ -116,7 +116,7 @@ hover_ :
     -> List (Attribute Msg)
     -> List (Media Msg)
     -> Html Msg
-hover_ message { messageDetail } tag attrs children =
+hover_ message { messages } tag attrs children =
     let
         hoverOrNot m =
             if message.id == m.id then
@@ -124,4 +124,4 @@ hover_ message { messageDetail } tag attrs children =
             else
                 hover hoverStyle (\a _ -> tag a children) attrs []
     in
-        hoverOrNot messageDetail
+        hoverOrNot messages.entity

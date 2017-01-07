@@ -89,7 +89,7 @@ messages model =
         messageRoutes =
             [ Messages List, Messages New ]
     in
-        model.messageDetail.id
+        model.messages.entity.id
             |> (\id -> messageRoutes ++ [ Messages <| Show id, Messages <| Edit id ])
 
 

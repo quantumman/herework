@@ -29,35 +29,56 @@ update message model =
 
         NewMessage ->
             let
-                messageDetail =
+                entity =
                     Models.Message.initialModel
 
-                newMessageDetail =
-                    { messageDetail | creator = model.user }
+                newEntity =
+                    { entity | creator = model.user }
+
+                messages =
+                    model.messages
             in
-                { model | messageDetail = newMessageDetail } ! []
+                { model | messages = { messages | entity = newEntity } } ! []
 
         FindMessage id ->
-            { model | messageDetail = findMessageOrDefault id model.messages model.messageDetail } ! []
+            let
+                entity =
+                    findMessageOrDefault id model.messages.list model.messages.entity
+
+                messages =
+                    model.messages
+            in
+                { model | messages = { messages | entity = entity } } ! []
 
         FindMessageWithComments id ->
             let
-                messageDetail =
-                    findMessage id model.messages
+                entity =
+                    findMessage id model.messages.list
+
+                messages =
+                    model.messages
 
                 listComments =
-                    messageDetail
+                    entity
                         |> Maybe.map ListComments
                         |> Maybe.map Commands.run
                         |> Maybe.withDefault Cmd.none
+
+                newEntity =
+                    entity
+                        |> Maybe.withDefault model.messages.entity
             in
-                { model | messageDetail = messageDetail |> Maybe.withDefault model.messageDetail } ! [ listComments ]
+                { model | messages = { messages | entity = newEntity } } ! [ listComments ]
 
         ListMessages ->
             model ! [ Commands.fetchMessages model.app.messages_url ]
 
         FetchMessages (Ok messages) ->
-            { model | messages = messages } ! []
+            let
+                ms =
+                    model.messages
+            in
+                { model | messages = { ms | list = messages } } ! []
 
         FetchMessages (Err error) ->
             handleHttpError error model
@@ -66,7 +87,7 @@ update message model =
             model ! []
 
         CreateMessage ->
-            model ! [ Commands.createMessage model.app.messages_url model.messageDetail ]
+            model ! [ Commands.createMessage model.app.messages_url model.messages.entity ]
 
         UpdateMessage message ->
             model ! [ Commands.updateMessage message.url message ]

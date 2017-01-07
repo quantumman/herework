@@ -22,7 +22,7 @@ import Router as Router exposing (..)
 
 type alias Model m =
     { m
-        | messageDetail : Message
+        | messages : Resource Message
         , comments : List Comment
         , user : User
         , now : DateTime.Model
@@ -38,20 +38,20 @@ view : Model m -> Html Msg
 view model =
     let
         title =
-            [ text model.messageDetail.title ]
+            [ text model.messages.entity.title ]
 
         body =
-            [ text model.messageDetail.body ]
+            [ text model.messages.entity.body ]
 
         createdAt_ =
-            [ createdAt model.messageDetail.created_at model.now ]
+            [ createdAt model.messages.entity.created_at model.now ]
 
         creator =
-            [ avatar 24 model.messageDetail.creator ]
+            [ avatar 24 model.messages.entity.creator ]
 
         actions =
             [ Buttons.button (Buttons.default |> Buttons.small |> outlined |> primary)
-                (NavigateTo (Router.Messages <| Edit model.messageDetail.id))
+                (NavigateTo (Router.Messages <| Edit model.messages.entity.id))
                 [ span [ class "icon is-small" ]
                     [ i [ class "fa fa-pencil" ] [] ]
                 , span [] [ text "EDIT" ]

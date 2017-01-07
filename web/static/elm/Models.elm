@@ -27,8 +27,7 @@ type alias Model =
     , views : Views.Model
     , app : App.Model
     , user : User
-    , messages : List Message
-    , messageDetail : Message
+    , messages : Resource Message
     , comments : List Comment
     , error : Error.Model
     , now : DateTime.Model
@@ -41,8 +40,10 @@ initialModel router =
     , views = Views.initialModel
     , app = App.initialModel
     , user = User.initialModel
-    , messages = []
-    , messageDetail = Message.initialModel
+    , messages =
+        { list = []
+        , entity = Message.initialModel
+        }
     , comments = []
     , error = Error.initialModel
     , now = DateTime.initialModel
