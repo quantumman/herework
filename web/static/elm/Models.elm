@@ -49,6 +49,12 @@ initialModel router =
     }
 
 
+type alias Resource m =
+    { list : List m
+    , entity : m
+    }
+
+
 
 -- RE-EXPORT
 
