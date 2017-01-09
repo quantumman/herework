@@ -1,5 +1,6 @@
 module Message exposing (..)
 
+import CommentList.Msg as CommentList exposing (Msg)
 import Component.Error.Message as Error exposing (..)
 import Component.Infrastructures.DateTime as DateTime exposing (Msg)
 import Component.Infrastructures.Form as Form exposing (..)
@@ -44,3 +45,4 @@ type Msg
     | MessagesForm MessagesForm.Msg
     | MessageList MessageList.Msg
     | Message Message.Msg
+    | CommentList CommentList.Msg
