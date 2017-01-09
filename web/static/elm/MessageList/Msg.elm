@@ -7,3 +7,4 @@ import Models.User exposing (User)
 
 type Msg
     = List
+    | Fetch (Result Http.Error (List Message))

@@ -151,7 +151,7 @@ update message model =
                 , message = Message.update message model.message
             }
                 ! [ CommentList.updateCommand message model.commentList
-                  , MessageList.updateCommand message model.messageList
+                  , MessageList.updateCommand message model
                   , Message.updateCommand message model.message
                   ]
 
