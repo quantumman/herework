@@ -120,7 +120,7 @@ show e =
 -- Misc
 
 
-run : App.Msg -> Cmd App.Msg
+run : msg -> Cmd msg
 run msg =
     Task.perform identity <| Task.succeed msg
 
