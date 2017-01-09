@@ -76,9 +76,6 @@ view model =
                                 Messages (Show _) ->
                                     Message.view model.message
 
-                                Messages subRoute ->
-                                    Messages.view subRoute model
-
                                 _ ->
                                     div [] []
                             ]
