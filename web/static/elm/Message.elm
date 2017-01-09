@@ -7,6 +7,7 @@ import Component.Views.Messages.Form as MessagesForm exposing (Msg)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Http as Http exposing (Error)
+import Message.Msg as Message exposing (Msg)
 import MessageList.Msg as MessageList exposing (Msg)
 import Models as App exposing (..)
 import Models.App as AppResource exposing (Model)
@@ -42,3 +43,4 @@ type Msg
     | Now DateTime.Msg
     | MessagesForm MessagesForm.Msg
     | MessageList MessageList.Msg
+    | Message Message.Msg
