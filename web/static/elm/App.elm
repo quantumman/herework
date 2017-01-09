@@ -8,7 +8,6 @@ import Component.UI.Attribute exposing (..)
 import Component.UI.Columns as Columns exposing (..)
 import Component.UI.Nav as Nav exposing (..)
 import Component.Views.Messages as Messages exposing (view)
-import Component.Views.Toolbar as Toolbar exposing (..)
 import FontAwesome.Web as Icon exposing (edit)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -23,6 +22,7 @@ import Models exposing (..)
 import Models.User exposing (User)
 import Navigation
 import Router as Router exposing (Route(..), SubRoute(..))
+import View.Toolbar as Toolbar exposing (..)
 
 
 -- MODEL
@@ -60,7 +60,12 @@ view model =
             , Nav.tab [] [ text "Setting" ]
             ]
         , div [ class "container" ]
-            [ Toolbar.view model
+            [ case model.router.route of
+                Messages _ ->
+                    Toolbar.view [ postMessage ]
+
+                _ ->
+                    div [] []
             , columns []
                 [ column [ Eight, Offset Two ]
                     [ div [ box ]
