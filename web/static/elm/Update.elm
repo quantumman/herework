@@ -5,7 +5,6 @@ import CommentList.Update as CommentList exposing (..)
 import Component.Error.Update as Error exposing (..)
 import Component.Infrastructures.DateTime as DateTime exposing (update)
 import Component.Infrastructures.Form as Form exposing (update)
-import Component.Views.Messages.Form as MessagesForm exposing (update)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Http as Http exposing (Error)
@@ -27,83 +26,10 @@ update message model =
             model ! []
 
         InitResource (Ok app) ->
-            { model | app = app } ! [ Commands.fetchMessages model.app.messages_url FetchMessages ]
+            { model | app = app }
+                ! [ MessageList.fetch app.messages_url ]
 
         InitResource (Err error) ->
-            handleHttpError error model
-
-        NewMessage ->
-            let
-                entity =
-                    Models.Message.initialModel
-
-                newEntity =
-                    { entity | creator = model.user }
-
-                messages =
-                    model.messages
-            in
-                { model | messages = { messages | entity = newEntity } } ! []
-
-        FindMessage id ->
-            let
-                entity =
-                    findMessageOrDefault id model.messages.list model.messages.entity
-
-                messages =
-                    model.messages
-            in
-                { model | messages = { messages | entity = entity } } ! []
-
-        FindMessageWithComments id ->
-            let
-                entity =
-                    findMessage id model.messages.list
-
-                messages =
-                    model.messages
-
-                listComments =
-                    entity
-                        |> Maybe.map ListComments
-                        |> Maybe.map Commands.run
-                        |> Maybe.withDefault Cmd.none
-
-                newEntity =
-                    entity
-                        |> Maybe.withDefault model.messages.entity
-            in
-                { model | messages = { messages | entity = newEntity } } ! [ listComments ]
-
-        ListMessages ->
-            model ! [ Commands.fetchMessages model.app.messages_url FetchMessages ]
-
-        FetchMessages (Ok messages) ->
-            let
-                ms =
-                    model.messages
-            in
-                { model | messages = { ms | list = messages } } ! []
-
-        FetchMessages (Err error) ->
-            handleHttpError error model
-
-        SaveMessage message ->
-            model ! []
-
-        CreateMessage ->
-            model ! [ Commands.createMessage model.app.messages_url model.messages.entity SaveMessage ]
-
-        UpdateMessage message ->
-            model ! [ Commands.updateMessage message.url message SaveMessage ]
-
-        ListComments message ->
-            model ! [ Commands.fetchComments message.comments_url RefreshComments ]
-
-        RefreshComments (Ok comments) ->
-            { model | comments = comments } ! []
-
-        RefreshComments (Err error) ->
             handleHttpError error model
 
         NavigateTo route ->
@@ -132,19 +58,6 @@ update message model =
                     DateTime.update msg model.now
             in
                 { model | now = now } ! [ Cmd.map Now command ]
-
-        MessagesForm msg ->
-            let
-                messages =
-                    messagesOfModel.get model
-
-                ( newForm, command ) =
-                    MessagesForm.update msg messages.form
-
-                newMessages =
-                    { messages | form = newForm }
-            in
-                (messagesOfModel.set newMessages model) ! [ Cmd.map MessagesForm command ]
 
         _ ->
             { model

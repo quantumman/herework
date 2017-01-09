@@ -4,7 +4,6 @@ import CommentList.Msg as CommentList exposing (Msg)
 import Component.Error.Message as Error exposing (..)
 import Component.Infrastructures.DateTime as DateTime exposing (Msg)
 import Component.Infrastructures.Form as Form exposing (..)
-import Component.Views.Messages.Form as MessagesForm exposing (Msg)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Http as Http exposing (Error)
@@ -23,18 +22,6 @@ type Msg
       NoOp
       -- Resource locations
     | InitResource (Result Http.Error AppResource.Model)
-      -- Resource Message
-    | NewMessage
-    | FindMessage Int
-    | FindMessageWithComments Int
-    | ListMessages
-    | FetchMessages (Result Http.Error (List Message))
-    | SaveMessage (Result Http.Error Message)
-    | CreateMessage
-    | UpdateMessage Message
-      -- Resource Comment
-    | ListComments Message
-    | RefreshComments (Result Http.Error (List Comment))
       -- Rotue navigation
     | NavigateTo Route
     | RouteUpdate Route
@@ -42,7 +29,6 @@ type Msg
     | HandleError Error.Msg
     | Bind (Form.Msg App.Model)
     | Now DateTime.Msg
-    | MessagesForm MessagesForm.Msg
     | MessageList MessageList.Msg
     | Message Message.Msg
     | CommentList CommentList.Msg

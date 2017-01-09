@@ -17,7 +17,6 @@ import Models.Comment as Comment exposing (..)
 import Models.Extra as Extra exposing (..)
 import Models.Message as Message exposing (..)
 import Models.User as User exposing (..)
-import Models.Views as Views exposing (..)
 import Monocle.Lens exposing (Lens, compose)
 import Router as Router exposing (..)
 
@@ -27,11 +26,8 @@ import Router as Router exposing (..)
 
 type alias Model =
     { router : Router.Model
-    , views : Views.Model
     , app : App.Model
     , user : User
-    , messages : Resource Message
-    , comments : List Comment
     , error : Error.Model
     , now : DateTime.Model
     , commentList : CommentList.Model
@@ -43,25 +39,13 @@ type alias Model =
 initialModel : Router.Model -> Model
 initialModel router =
     { router = router
-    , views = Views.initialModel
     , app = App.initialModel
     , user = User.initialModel
-    , messages =
-        { list = []
-        , entity = Message.initialModel
-        }
-    , comments = []
     , error = Error.initialModel
     , now = DateTime.initialModel
     , commentList = CommentList.initialModel
     , messageList = MessageList.initialModel
     , message = MessageModel.initialModel
-    }
-
-
-type alias Resource m =
-    { list : List m
-    , entity : m
     }
 
 
@@ -75,24 +59,3 @@ type alias Url =
 
 type alias SelectableItem a =
     Extra.SelectableItem a
-
-
-
--- HELPER
-
-
-messagesOfModel : Lens Model Views.MessagesView
-messagesOfModel =
-    compose viewsOfModel Views.messagesOfViews
-
-
-viewsOfModel : Lens Model Views.Model
-viewsOfModel =
-    let
-        get model =
-            model.views
-
-        set views model =
-            { model | views = views }
-    in
-        Lens get set
