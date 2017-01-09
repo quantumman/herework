@@ -68,13 +68,13 @@ view model =
                                     MessageList.view model.messageList
 
                                 Messages (Edit _) ->
-                                    Message.view model.message
+                                    Message.view model.now model.message
 
                                 Messages New ->
-                                    Message.view model.message
+                                    Message.view model.now model.message
 
                                 Messages (Show _) ->
-                                    Message.view model.message
+                                    Message.view model.now model.message
 
                                 _ ->
                                     div [] []
