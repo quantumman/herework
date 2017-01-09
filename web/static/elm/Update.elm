@@ -141,6 +141,9 @@ update message model =
             in
                 (messagesOfModel.set newMessages model) ! [ Cmd.map MessagesForm command ]
 
+        _ ->
+            model ! []
+
 
 updateRoute : Route -> Cmd Msg
 updateRoute route =

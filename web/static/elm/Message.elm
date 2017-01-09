@@ -7,10 +7,11 @@ import Component.Views.Messages.Form as MessagesForm exposing (Msg)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Http as Http exposing (Error)
+import MessageList.Msg as MessageList exposing (Msg)
 import Models as App exposing (..)
+import Models.App as AppResource exposing (Model)
 import Models.Comment exposing (Comment)
 import Models.Message exposing (Message)
-import Models.App as AppResource exposing (Model)
 import Models.User exposing (User)
 import Router exposing (Route)
 
@@ -40,3 +41,4 @@ type Msg
     | Bind (Form.Msg App.Model)
     | Now DateTime.Msg
     | MessagesForm MessagesForm.Msg
+    | MessageList MessageList.Msg
