@@ -25,7 +25,7 @@ update message model =
             model ! []
 
         InitResource (Ok app) ->
-            { model | app = app } ! [ Commands.fetchMessages model.app.messages_url ]
+            { model | app = app } ! [ Commands.fetchMessages model.app.messages_url FetchMessages ]
 
         InitResource (Err error) ->
             handleHttpError error model
@@ -74,7 +74,7 @@ update message model =
                 { model | messages = { messages | entity = newEntity } } ! [ listComments ]
 
         ListMessages ->
-            model ! [ Commands.fetchMessages model.app.messages_url ]
+            model ! [ Commands.fetchMessages model.app.messages_url FetchMessages ]
 
         FetchMessages (Ok messages) ->
             let
@@ -90,13 +90,13 @@ update message model =
             model ! []
 
         CreateMessage ->
-            model ! [ Commands.createMessage model.app.messages_url model.messages.entity ]
+            model ! [ Commands.createMessage model.app.messages_url model.messages.entity SaveMessage ]
 
         UpdateMessage message ->
-            model ! [ Commands.updateMessage message.url message ]
+            model ! [ Commands.updateMessage message.url message SaveMessage ]
 
         ListComments message ->
-            model ! [ Commands.fetchComments message.comments_url ]
+            model ! [ Commands.fetchComments message.comments_url RefreshComments ]
 
         RefreshComments (Ok comments) ->
             { model | comments = comments } ! []

@@ -76,26 +76,26 @@ initApp url =
     get App.decode url InitResource
 
 
-fetchMessages : Url -> Cmd App.Msg
-fetchMessages url =
-    get Message.decodeList url App.FetchMessages
+fetchMessages : Url -> (Result Http.Error (List Message) -> msg) -> Cmd msg
+fetchMessages url msgf =
+    get Message.decodeList url msgf
 
 
-createMessage : Url -> Message -> Cmd App.Msg
-createMessage url message =
+createMessage : Url -> Message -> (Result Http.Error Message -> msg) -> Cmd msg
+createMessage url message msgf =
     Message.encode message
-        |> \payload -> post Message.decode url payload App.SaveMessage
+        |> \payload -> post Message.decode url payload msgf
 
 
-updateMessage : Url -> Message -> Cmd App.Msg
-updateMessage url message =
+updateMessage : Url -> Message -> (Result Http.Error Message -> msg) -> Cmd msg
+updateMessage url message msgf =
     Message.encode message
-        |> \payload -> patch Message.decode url payload App.SaveMessage
+        |> \payload -> patch Message.decode url payload msgf
 
 
-fetchComments : Url -> Cmd App.Msg
-fetchComments url =
-    get Comment.decodeList url App.RefreshComments
+fetchComments : Url -> (Result Http.Error (List Comment) -> msg) -> Cmd msg
+fetchComments url msgf =
+    get Comment.decodeList url msgf
 
 
 
