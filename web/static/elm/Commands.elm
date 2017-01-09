@@ -81,6 +81,11 @@ fetchMessages url msgf =
     get Message.decodeList url msgf
 
 
+fetchMessage : Url -> (Result Http.Error Message -> msg) -> Cmd msg
+fetchMessage url msgf =
+    get Message.decode url msgf
+
+
 createMessage : Url -> Message -> (Result Http.Error Message -> msg) -> Cmd msg
 createMessage url message msgf =
     Message.encode message
