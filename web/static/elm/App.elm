@@ -14,6 +14,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import HtmlHelpers exposing (..)
 import Message exposing (..)
+import MessageList.View.List as MessageList exposing (..)
 import Models as App exposing (Model)
 import Models exposing (..)
 import Models.User exposing (User)
@@ -62,6 +63,9 @@ view model =
                     [ div [ box ]
                         [ div [ scrollable ]
                             [ case model.router.route of
+                                Messages List ->
+                                    MessageList.view model.messageList
+
                                 Messages subRoute ->
                                     Messages.view subRoute model
 
