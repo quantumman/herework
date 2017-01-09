@@ -1,6 +1,7 @@
 module Update exposing (..)
 
 import Commands exposing (..)
+import CommentList.Update as CommentList exposing (..)
 import Component.Error.Update as Error exposing (..)
 import Component.Infrastructures.DateTime as DateTime exposing (update)
 import Component.Infrastructures.Form as Form exposing (update)
@@ -10,6 +11,8 @@ import Html.Attributes exposing (..)
 import Http as Http exposing (Error)
 import List.Extra as List exposing (..)
 import Message exposing (..)
+import Message.Update as Message exposing (..)
+import MessageList.Update as MessageList exposing (..)
 import Models exposing (..)
 import Models.Message exposing (Message)
 import Router as Router exposing (Route(..), SubRoute(..), navigateTo, newUrl)
@@ -142,7 +145,15 @@ update message model =
                 (messagesOfModel.set newMessages model) ! [ Cmd.map MessagesForm command ]
 
         _ ->
-            model ! []
+            { model
+                | commentList = CommentList.update message model.commentList
+                , messageList = MessageList.update message model.messageList
+                , message = Message.update message model.message
+            }
+                ! [ CommentList.updateCommand message model.commentList
+                  , MessageList.updateCommand message model.messageList
+                  , Message.updateCommand message model.message
+                  ]
 
 
 updateRoute : Route -> Cmd Msg

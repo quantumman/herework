@@ -1,5 +1,6 @@
 module Models exposing (..)
 
+import CommentList.Model as CommentList exposing (..)
 import Component.Error.Model as Error exposing (..)
 import Component.Infrastructures.DateTime as DateTime exposing (..)
 import Date exposing (..)
@@ -9,6 +10,8 @@ import Html.Attributes exposing (..)
 import Json.Decode as Decode exposing (..)
 import Json.Decode.Extra as Decode exposing (..)
 import Json.Encode as Encode exposing (..)
+import Message.Model as MessageModel exposing (..)
+import MessageList.Model as MessageList exposing (..)
 import Models.App as App exposing (..)
 import Models.Comment as Comment exposing (..)
 import Models.Extra as Extra exposing (..)
@@ -31,6 +34,9 @@ type alias Model =
     , comments : List Comment
     , error : Error.Model
     , now : DateTime.Model
+    , commentList : CommentList.Model
+    , messageList : MessageList.Model
+    , message : MessageModel.Model
     }
 
 
@@ -47,6 +53,9 @@ initialModel router =
     , comments = []
     , error = Error.initialModel
     , now = DateTime.initialModel
+    , commentList = CommentList.initialModel
+    , messageList = MessageList.initialModel
+    , message = MessageModel.initialModel
     }
 
 
