@@ -154,7 +154,7 @@ update message model =
             }
                 ! [ CommentList.updateCommand message model.commentList
                   , MessageList.updateCommand message model
-                  , Message.updateCommand message model.message
+                  , Message.updateCommand message model
                   ]
 
 
@@ -166,13 +166,13 @@ updateRoute route model =
                 [ Cmd.map MessageList <| Commands.run MessageList.List ]
 
             Messages (Router.Show id) ->
-                [ Commands.run (FindMessageWithComments id) ]
+                [ Cmd.map App.Message <| Commands.run (Message.Show id) ]
 
             Messages (Router.New) ->
                 [ Cmd.map App.Message <| Commands.run (Message.New model.user) ]
 
             Messages (Router.Edit id) ->
-                [ Commands.run (FindMessage id) ]
+                [ Cmd.map App.Message <| Commands.run (Message.Edit id) ]
 
             Tasks ->
                 []
