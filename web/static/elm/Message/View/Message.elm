@@ -11,7 +11,7 @@ import Message as App exposing (Msg)
 import Message.Model as Message exposing (..)
 import Message.View.Avatar as Message exposing (..)
 import Models.Message exposing (Message)
-import Router as Router exposing (Route(..))
+import Router.Msg as Router exposing (..)
 
 
 -- STYLE
@@ -57,7 +57,7 @@ view now { message, isEditing } =
         ]
 
 
-createdAt : Date -> DateTime.Model -> Html Msg
+createdAt : Date -> DateTime.Model -> Html App.Msg
 createdAt date model =
     Html.map App.Now <| DateTime.view date model
 

@@ -14,7 +14,6 @@ import Models.App as AppResource exposing (Model)
 import Models.Comment exposing (Comment)
 import Models.Message exposing (Message)
 import Models.User exposing (User)
-import Router exposing (Route)
 import Router.Msg as Router exposing (Msg)
 
 
@@ -24,8 +23,7 @@ type Msg
       -- Resource locations
     | InitResource (Result Http.Error AppResource.Model)
       -- Rotue navigation
-    | NavigateTo Route
-    | RouteUpdate Route
+    | NavigateTo Router.Msg
       -- Child Components
     | HandleError Error.Msg
     | Bind (Form.Msg App.Model)

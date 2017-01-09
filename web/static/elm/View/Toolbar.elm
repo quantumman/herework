@@ -9,19 +9,19 @@ import Component.UI.Nav as Nav exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Message exposing (..)
-import Router as Router exposing (..)
+import Message as App exposing (..)
+import Router.Msg as Router exposing (..)
 
 
 -- VIEW
 
 
-view : List (Html Msg) -> Html Msg
+view : List (Html App.Msg) -> Html App.Msg
 view items =
     toolbar items
 
 
-toolbar : List (Html Msg) -> Html Msg
+toolbar : List (Html App.Msg) -> Html App.Msg
 toolbar items =
     let
         toolbarStyle =
@@ -35,7 +35,7 @@ toolbar items =
             ]
 
 
-postMessage : Html Msg
+postMessage : Html App.Msg
 postMessage =
     Buttons.button (Buttons.default |> primary)
         (NavigateTo (Messages New))

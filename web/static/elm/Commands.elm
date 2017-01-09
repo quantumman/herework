@@ -13,7 +13,6 @@ import Models.Comment as Comment exposing (..)
 import Models.Message as Message exposing (..)
 import Models.App as App exposing (..)
 import Models.User as User exposing (..)
-import Router exposing (Route)
 import Task exposing (Task)
 
 
@@ -133,11 +132,6 @@ run msg =
 mapRun : (msg -> msg_) -> msg -> Cmd msg_
 mapRun msgf msg =
     run msg |> Cmd.map msgf
-
-
-routeUpdate : Route -> Cmd App.Msg
-routeUpdate route =
-    Task.perform RouteUpdate <| Task.succeed route
 
 
 withDefaultNone : (model -> Cmd App.Msg) -> Maybe model -> Cmd App.Msg

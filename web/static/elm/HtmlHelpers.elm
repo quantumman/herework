@@ -6,7 +6,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Message as App exposing (..)
 import Models as App exposing (..)
-import Router as Route exposing (..)
+import Router.Msg as Router exposing (Msg)
 
 
 bind : Binder App.Model String -> Attribute App.Msg
@@ -19,6 +19,6 @@ bindCheck binder =
     Form.bindCheck binder Bind
 
 
-navigateTo : Route -> Attribute App.Msg
+navigateTo : Router.Msg -> Attribute App.Msg
 navigateTo route =
     onClick (NavigateTo route)

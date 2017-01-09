@@ -16,7 +16,8 @@ import MessageList.Msg as MessageList exposing (..)
 import MessageList.Update as MessageList exposing (..)
 import Models exposing (..)
 import Models.Message exposing (Message)
-import Router as Router exposing (Route(..), SubRoute(..), navigateTo, newUrl)
+import Router.Command as Router exposing (..)
+import Router.Update as Router exposing (..)
 
 
 update : App.Msg -> Model -> ( Model, Cmd App.Msg )
@@ -34,9 +35,6 @@ update message model =
 
         NavigateTo route ->
             model ! [ Router.navigateTo route ]
-
-        RouteUpdate route ->
-            model ! [ updateRoute route model ]
 
         HandleError msg ->
             let
@@ -64,37 +62,13 @@ update message model =
                 | commentList = CommentList.update message model.commentList
                 , messageList = MessageList.update message model.messageList
                 , message = Message.update message model.message
+                , router = Router.update message model.router
             }
                 ! [ CommentList.updateCommand message model
                   , MessageList.updateCommand message model
                   , Message.updateCommand message model
+                  , Router.updateCommand message model
                   ]
-
-
-updateRoute : Route -> Model -> Cmd App.Msg
-updateRoute route model =
-    Cmd.batch <|
-        case route of
-            Messages (Router.List) ->
-                [ Cmd.map MessageList <| Commands.run MessageList.List ]
-
-            Messages (Router.Show id) ->
-                [ Cmd.map App.Message <| Commands.run (Message.Show id) ]
-
-            Messages (Router.New) ->
-                [ Cmd.map App.Message <| Commands.run (Message.New model.user) ]
-
-            Messages (Router.Edit id) ->
-                [ Cmd.map App.Message <| Commands.run (Message.Edit id) ]
-
-            Tasks ->
-                []
-
-            Activity ->
-                []
-
-            NotFound ->
-                []
 
 
 

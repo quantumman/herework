@@ -10,7 +10,7 @@ import Message as App exposing (Msg)
 import MessageList.Model as MessageList exposing (..)
 import MessageList.View.Hover as MessageList exposing (..)
 import Models.Message as Message exposing (Message)
-import Router as Router exposing (Route(..))
+import Router.Msg as Router exposing (..)
 
 
 -- STYLE

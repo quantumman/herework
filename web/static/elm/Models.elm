@@ -18,7 +18,7 @@ import Models.Extra as Extra exposing (..)
 import Models.Message as Message exposing (..)
 import Models.User as User exposing (..)
 import Monocle.Lens exposing (Lens, compose)
-import Router as Router exposing (..)
+import Router.Model as Router exposing (..)
 
 
 -- Appliation Model

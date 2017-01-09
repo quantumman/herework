@@ -13,21 +13,22 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import HtmlHelpers exposing (..)
 import List.Extra as List exposing (..)
-import Message exposing (..)
+import Message as App exposing (..)
 import Message.View.Message as Message exposing (..)
 import MessageList.View.List as MessageList exposing (..)
 import Models as App exposing (Model)
 import Models exposing (..)
 import Models.User exposing (User)
 import Navigation
-import Router as Router exposing (Route(..), SubRoute(..))
+import Router.Model as Router exposing (..)
+import Router.Msg as Router exposing (..)
 import View.Toolbar as Toolbar exposing (..)
 
 
 -- MODEL
 
 
-init : Router.Model -> ( App.Model, Cmd Msg )
+init : Router.Model -> ( App.Model, Cmd App.Msg )
 init router =
     let
         ( _, dateTimeCommand ) =
@@ -40,7 +41,7 @@ init router =
 -- SUBSCRIPTION
 
 
-subscriptions : App.Model -> Sub Msg
+subscriptions : App.Model -> Sub App.Msg
 subscriptions model =
     Sub.none
 
@@ -49,7 +50,7 @@ subscriptions model =
 -- VIEW
 
 
-view : App.Model -> Html Msg
+view : App.Model -> Html App.Msg
 view model =
     div []
         [ Nav.tabs
@@ -95,7 +96,7 @@ view model =
         ]
 
 
-activeAt : Int -> App.Model -> Attribute Msg
+activeAt : Int -> App.Model -> Attribute App.Msg
 activeAt id model =
     let
         currentId =
@@ -138,7 +139,7 @@ other =
     3
 
 
-scrollable : Attribute Msg
+scrollable : Attribute App.Msg
 scrollable =
     style
         [ ( "height", "75vh" )
