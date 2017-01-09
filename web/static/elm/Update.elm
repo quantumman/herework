@@ -11,6 +11,7 @@ import Html.Attributes exposing (..)
 import Http as Http exposing (Error)
 import List.Extra as List exposing (..)
 import Message as App exposing (..)
+import Message.Msg as Message exposing (..)
 import Message.Update as Message exposing (..)
 import MessageList.Msg as MessageList exposing (..)
 import MessageList.Update as MessageList exposing (..)
@@ -109,7 +110,7 @@ update message model =
             model ! [ Router.navigateTo route ]
 
         RouteUpdate route ->
-            model ! [ updateRoute route ]
+            model ! [ updateRoute route model ]
 
         HandleError msg ->
             let
@@ -157,20 +158,20 @@ update message model =
                   ]
 
 
-updateRoute : Route -> Cmd App.Msg
-updateRoute route =
+updateRoute : Route -> Model -> Cmd App.Msg
+updateRoute route model =
     Cmd.batch <|
         case route of
             Messages (Router.List) ->
                 [ Cmd.map MessageList <| Commands.run MessageList.List ]
 
-            Messages (Show id) ->
+            Messages (Router.Show id) ->
                 [ Commands.run (FindMessageWithComments id) ]
 
-            Messages New ->
-                [ Commands.run NewMessage ]
+            Messages (Router.New) ->
+                [ Cmd.map App.Message <| Commands.run (Message.New model.user) ]
 
-            Messages (Edit id) ->
+            Messages (Router.Edit id) ->
                 [ Commands.run (FindMessage id) ]
 
             Tasks ->
