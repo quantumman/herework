@@ -19,13 +19,19 @@ update message model =
 updateModel : Message.Msg -> Model -> Model
 updateModel message model =
     case message of
+        Edit _ ->
+            { model | isEditing = True }
+
         New creator ->
             let
                 message =
                     Message.initialModel
                         |> (\m -> { m | creator = creator })
             in
-                { model | message = message }
+                { model | message = message, isEditing = True }
+
+        Show _ ->
+            { model | isEditing = False }
 
         _ ->
             model
