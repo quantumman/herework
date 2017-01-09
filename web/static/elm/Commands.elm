@@ -130,6 +130,11 @@ run msg =
     Task.perform identity <| Task.succeed msg
 
 
+mapRun : (msg -> msg_) -> msg -> Cmd msg_
+mapRun msgf msg =
+    run msg |> Cmd.map msgf
+
+
 routeUpdate : Route -> Cmd App.Msg
 routeUpdate route =
     Task.perform RouteUpdate <| Task.succeed route
