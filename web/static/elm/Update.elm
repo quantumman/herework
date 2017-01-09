@@ -152,7 +152,7 @@ update message model =
                 , messageList = MessageList.update message model.messageList
                 , message = Message.update message model.message
             }
-                ! [ CommentList.updateCommand message model.commentList
+                ! [ CommentList.updateCommand message model
                   , MessageList.updateCommand message model
                   , Message.updateCommand message model
                   ]
