@@ -10,15 +10,16 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Http as Http exposing (Error)
 import List.Extra as List exposing (..)
-import Message exposing (..)
+import Message as App exposing (..)
 import Message.Update as Message exposing (..)
+import MessageList.Msg as MessageList exposing (..)
 import MessageList.Update as MessageList exposing (..)
 import Models exposing (..)
 import Models.Message exposing (Message)
 import Router as Router exposing (Route(..), SubRoute(..), navigateTo, newUrl)
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
+update : App.Msg -> Model -> ( Model, Cmd App.Msg )
 update message model =
     case message of
         NoOp ->
@@ -156,12 +157,12 @@ update message model =
                   ]
 
 
-updateRoute : Route -> Cmd Msg
+updateRoute : Route -> Cmd App.Msg
 updateRoute route =
     Cmd.batch <|
         case route of
-            Messages List ->
-                [ Commands.run ListMessages ]
+            Messages (Router.List) ->
+                [ Cmd.map MessageList <| Commands.run MessageList.List ]
 
             Messages (Show id) ->
                 [ Commands.run (FindMessageWithComments id) ]
@@ -186,7 +187,7 @@ updateRoute route =
 -- HELPERS
 
 
-handleHttpError : Http.Error -> Model -> ( Model, Cmd Msg )
+handleHttpError : Http.Error -> Model -> ( Model, Cmd App.Msg )
 handleHttpError error model =
     model ! [ Commands.show error ]
 
