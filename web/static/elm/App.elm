@@ -73,6 +73,9 @@ view model =
                                 Messages New ->
                                     Message.view model.message
 
+                                Messages (Show _) ->
+                                    Message.view model.message
+
                                 Messages subRoute ->
                                     Messages.view subRoute model
 
