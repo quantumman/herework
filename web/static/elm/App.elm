@@ -14,6 +14,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import HtmlHelpers exposing (..)
 import Message exposing (..)
+import Message.View.Message as Message exposing (..)
 import MessageList.View.List as MessageList exposing (..)
 import Models as App exposing (Model)
 import Models exposing (..)
@@ -65,6 +66,12 @@ view model =
                             [ case model.router.route of
                                 Messages List ->
                                     MessageList.view model.messageList
+
+                                Messages (Edit _) ->
+                                    Message.view model.message
+
+                                Messages New ->
+                                    Message.view model.message
 
                                 Messages subRoute ->
                                     Messages.view subRoute model
