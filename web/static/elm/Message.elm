@@ -15,6 +15,7 @@ import Models.Comment exposing (Comment)
 import Models.Message exposing (Message)
 import Models.User exposing (User)
 import Router exposing (Route)
+import Router.Msg as Router exposing (Msg)
 
 
 type Msg
@@ -29,6 +30,7 @@ type Msg
     | HandleError Error.Msg
     | Bind (Form.Msg App.Model)
     | Now DateTime.Msg
+    | Router Router.Msg
     | MessageList MessageList.Msg
     | Message Message.Msg
     | CommentList CommentList.Msg
