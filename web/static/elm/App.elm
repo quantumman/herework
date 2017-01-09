@@ -1,6 +1,7 @@
 module App exposing (..)
 
 import Commands as Commands exposing (..)
+import CommentList.View.List as CommentList exposing (view)
 import Component.Error.View as Error exposing (..)
 import Component.Infrastructures.DateTime as DateTime exposing (init)
 import Component.UI.Attribute exposing (..)
@@ -74,7 +75,10 @@ view model =
                                     Message.view model.now model.message
 
                                 Messages (Show _) ->
-                                    Message.view model.now model.message
+                                    div []
+                                        [ Message.view model.now model.message
+                                        , CommentList.view model.now model.commentList
+                                        ]
 
                                 _ ->
                                     div [] []
