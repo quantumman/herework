@@ -14,6 +14,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import HtmlHelpers exposing (..)
+import List.Extra as List exposing (..)
 import Message exposing (..)
 import Message.View.Message as Message exposing (..)
 import MessageList.View.List as MessageList exposing (..)
@@ -53,9 +54,9 @@ view : App.Model -> Html Msg
 view model =
     div []
         [ Nav.tabs
-            [ Nav.tab [ activeAt model (messages model), navigateTo (Messages List) ] [ text "Mesasges" ]
-            , Nav.tab [ activeAt model [ Tasks ], navigateTo Tasks ] [ text "Tasks" ]
-            , Nav.tab [ activeAt model [ Activity ], navigateTo Activity ] [ text "Activtiy" ]
+            [ Nav.tab [ activeAt messages model, navigateTo (Messages List) ] [ text "Mesasges" ]
+            , Nav.tab [ activeAt tasks model, navigateTo Tasks ] [ text "Tasks" ]
+            , Nav.tab [ activeAt activity model, navigateTo Activity ] [ text "Activtiy" ]
             , Nav.tab [] [ text "Setting" ]
             ]
         , div [ class "container" ]
@@ -90,22 +91,47 @@ view model =
         ]
 
 
-activeAt : App.Model -> List Route -> Attribute Msg
-activeAt model routes =
-    if List.member model.router.route routes then
-        active
-    else
-        class ""
-
-
-messages : App.Model -> List Route
-messages model =
+activeAt : Int -> App.Model -> Attribute Msg
+activeAt id model =
     let
-        messageRoutes =
-            [ Messages List, Messages New ]
+        currentId =
+            case model.router.route of
+                Messages _ ->
+                    messages
+
+                Tasks ->
+                    tasks
+
+                Activity ->
+                    activity
+
+                _ ->
+                    other
     in
-        model.messages.entity.id
-            |> (\id -> messageRoutes ++ [ Messages <| Show id, Messages <| Edit id ])
+        if id == currentId then
+            active
+        else
+            class ""
+
+
+messages : Int
+messages =
+    0
+
+
+tasks : Int
+tasks =
+    1
+
+
+activity : Int
+activity =
+    2
+
+
+other : Int
+other =
+    3
 
 
 scrollable : Attribute Msg
