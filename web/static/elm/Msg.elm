@@ -15,6 +15,7 @@ import Model.Comment exposing (Comment)
 import Model.Message exposing (Message)
 import Model.User exposing (User)
 import Router.Msg as Router exposing (Msg)
+import App.Msg as App exposing (Msg)
 
 type Msg
     = -- UI actions
@@ -22,6 +23,7 @@ type Msg
       -- Resource locations
     | InitResource (Result Http.Error AppResource.Model)
       -- Child View.
+    | App App.Msg
     | Router Router.Msg
     | MessageList MessageList.Msg
     | Message Message.Msg
