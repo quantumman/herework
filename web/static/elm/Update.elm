@@ -67,7 +67,7 @@ update message model =
                 ! [ CommentList.command message model
                   , MessageList.command message model
                   , Message.command message model
-                  , Router.updateCommand message model
+                  , Router.command message model
                   ]
 
 

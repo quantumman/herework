@@ -1,4 +1,10 @@
-module Router.Update exposing (..)
+module Router.Update
+    exposing
+        ( update
+        , command
+        , urlUpdate
+        , init
+        )
 
 import Commands as Commands exposing (..)
 import CommentList.Update as CommentList exposing (fetch)
@@ -34,23 +40,23 @@ update message model =
             model
 
 
-updateModel : Router.Msg -> Router.Model -> Router.Model
-updateModel message model =
-    { model | route = message }
-
-
-updateCommand : App.Msg -> App.Model -> Cmd App.Msg
-updateCommand message model =
+command : App.Msg -> App.Model -> Cmd App.Msg
+command message model =
     case message of
         Router msg ->
-            updateSubCommand msg model
+            updateCommand msg model
 
         _ ->
             Cmd.none
 
 
-updateSubCommand : Router.Msg -> App.Model -> Cmd App.Msg
-updateSubCommand message model =
+updateModel : Router.Msg -> Router.Model -> Router.Model
+updateModel message model =
+    { model | route = message }
+
+
+updateCommand : Router.Msg -> App.Model -> Cmd App.Msg
+updateCommand message model =
     Cmd.batch <|
         case message of
             Messages (Router.List) ->
