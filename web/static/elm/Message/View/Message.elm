@@ -1,9 +1,10 @@
 module Message.View.Message exposing (..)
 
-import Component.Infrastructures.DateTime as DateTime exposing (Model)
 import Component.UI.Attribute as Attribute exposing (..)
 import Component.UI.Buttons as Buttons exposing (..)
 import Date exposing (..)
+import DateTime.Model as DateTime exposing (..)
+import DateTime.View.DateTime as DateTime exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -43,7 +44,7 @@ view now { message, isEditing } =
             [ p [ level ]
                 [ div [ levelLeft ] []
                 , div [ levelRight ]
-                    [ div [ levelItem ] [ createdAt message.created_at now ]
+                    [ div [ levelItem ] [ DateTime.view message.created_at now ]
                     , div [ levelItem ] [ text message.creator.name ]
                     , if isEditing then
                         div [] []
@@ -55,11 +56,6 @@ view now { message, isEditing } =
         , hr [ style separator ] []
         , p [] [ div [ contenteditable isEditing ] [ text message.body ] ]
         ]
-
-
-createdAt : Date -> DateTime.Model -> Html App.Msg
-createdAt date model =
-    Html.map App.Now <| DateTime.view date model
 
 
 editButton : Message -> Html App.Msg

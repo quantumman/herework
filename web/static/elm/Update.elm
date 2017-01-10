@@ -3,8 +3,8 @@ module Update exposing (..)
 import Commands exposing (..)
 import CommentList.Update as CommentList exposing (..)
 import Component.Error.Update as Error exposing (..)
-import Component.Infrastructures.DateTime as DateTime exposing (update)
 import Component.Infrastructures.Form as Form exposing (update)
+import DateTime.Update as DateTime exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Http as Http exposing (Error)
@@ -50,24 +50,19 @@ update message model =
             in
                 newModel ! [ Cmd.map Bind command ]
 
-        Now msg ->
-            let
-                ( now, command ) =
-                    DateTime.update msg model.now
-            in
-                { model | now = now } ! [ Cmd.map Now command ]
-
         _ ->
             { model
                 | commentList = CommentList.update message model.commentList
                 , messageList = MessageList.update message model.messageList
                 , message = Message.update message model.message
                 , router = Router.update message model.router
+                , now = DateTime.update message model.now
             }
                 ! [ CommentList.command message model
                   , MessageList.command message model
                   , Message.command message model
                   , Router.command message model
+                  , DateTime.command message model
                   ]
 
 

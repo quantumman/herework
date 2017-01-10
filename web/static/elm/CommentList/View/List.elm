@@ -1,10 +1,11 @@
 module CommentList.View.List exposing (..)
 
 import CommentList.Model as CommentList exposing (..)
-import Component.Infrastructures.DateTime as DateTime exposing (Model, view)
 import Component.UI.Attribute as Attribute exposing (..)
 import Component.UI.MediaObject as MediaObject exposing (..)
 import Date as Date exposing (..)
+import DateTime.Model as DateTime exposing (..)
+import DateTime.View.DateTime as DateTime exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -44,7 +45,7 @@ view now model =
                                 ]
                             , text " "
                             , small []
-                                [ createdAt comment.created_at now ]
+                                [ DateTime.view comment.created_at now ]
                             ]
                         , text comment.body
                         ]
@@ -53,8 +54,3 @@ view now model =
     in
         div []
             (List.map render model.comments)
-
-
-createdAt : Date -> DateTime.Model -> Html Msg
-createdAt date model =
-    Html.map App.Now <| DateTime.view date model

@@ -3,10 +3,10 @@ module App exposing (..)
 import Commands as Commands exposing (..)
 import CommentList.View.List as CommentList exposing (view)
 import Component.Error.View as Error exposing (..)
-import Component.Infrastructures.DateTime as DateTime exposing (init)
 import Component.UI.Attribute exposing (..)
 import Component.UI.Columns as Columns exposing (..)
 import Component.UI.Nav as Nav exposing (..)
+import DateTime.View.DateTime as DateTime exposing (..)
 import FontAwesome.Web as Icon exposing (edit)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -23,7 +23,6 @@ import Navigation
 import Router.Model as Router exposing (..)
 import Router.Msg as Router exposing (..)
 import View.Toolbar as Toolbar exposing (..)
-
 
 -- SUBSCRIPTION
 

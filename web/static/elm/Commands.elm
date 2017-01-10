@@ -2,16 +2,15 @@ module Commands exposing (..)
 
 import Component.Error.Message as Error exposing (..)
 import Component.Error.Update as Error exposing (show)
-import Component.Infrastructures.DateTime as DateTime exposing (getNow)
 import Http as Http exposing (..)
 import Http exposing (Error)
 import Json.Decode as Decode exposing (..)
 import Json.Encode as Encode exposing (..)
 import Message as App exposing (..)
 import Models exposing (..)
+import Models.App as App exposing (..)
 import Models.Comment as Comment exposing (..)
 import Models.Message as Message exposing (..)
-import Models.App as App exposing (..)
 import Models.User as User exposing (..)
 import Task exposing (Task)
 
@@ -100,15 +99,6 @@ updateMessage url message msgf =
 fetchComments : Url -> (Result Http.Error (List Comment) -> msg) -> Cmd msg
 fetchComments url msgf =
     get Comment.decodeList url msgf
-
-
-
--- Current Date
-
-
-now : Cmd App.Msg
-now =
-    Cmd.map Now DateTime.getNow
 
 
 
