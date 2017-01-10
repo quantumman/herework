@@ -17,6 +17,7 @@ import Model.User exposing (User)
 import Router.Msg as Router exposing (Msg)
 import App.Msg as App exposing (Msg)
 
+
 type Msg
     = -- UI actions
       NoOp
