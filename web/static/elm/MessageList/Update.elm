@@ -1,4 +1,9 @@
-module MessageList.Update exposing (..)
+module MessageList.Update
+    exposing
+        ( update
+        , command
+        , fetch
+        )
 
 import Commands as Commands exposing (..)
 import Message as App exposing (Msg(..))
@@ -17,6 +22,16 @@ update message model =
             model
 
 
+command : App.Msg -> App.Model -> Cmd App.Msg
+command message model =
+    case message of
+        MessageList msg ->
+            updateCommand msg model
+
+        _ ->
+            Cmd.none
+
+
 updateModel : MessageList.Msg -> MessageList.Model -> MessageList.Model
 updateModel message model =
     case message of
@@ -30,11 +45,11 @@ updateModel message model =
             model
 
 
-updateCommand : App.Msg -> App.Model -> Cmd App.Msg
+updateCommand : MessageList.Msg -> App.Model -> Cmd App.Msg
 updateCommand message model =
     Cmd.batch <|
         case message of
-            MessageList List ->
+            List ->
                 [ fetch model ]
 
             _ ->
