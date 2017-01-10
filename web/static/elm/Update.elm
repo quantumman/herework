@@ -2,9 +2,9 @@ module Update exposing (..)
 
 import Commands exposing (..)
 import CommentList.Update as CommentList exposing (..)
-import Component.Error.Update as Error exposing (..)
 import Component.Infrastructures.Form as Form exposing (update)
 import DateTime.Update as DateTime exposing (..)
+import Error.Update as Error exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Http as Http exposing (Error)
@@ -36,13 +36,6 @@ update message model =
         NavigateTo route ->
             model ! [ Router.navigateTo route ]
 
-        HandleError msg ->
-            let
-                ( error, command ) =
-                    Error.update msg model.error
-            in
-                { model | error = error } ! [ Cmd.map HandleError command ]
-
         Bind msg ->
             let
                 ( newModel, command ) =
@@ -57,12 +50,14 @@ update message model =
                 , message = Message.update message model.message
                 , router = Router.update message model.router
                 , now = DateTime.update message model.now
+                , error = Error.update message model.error
             }
                 ! [ CommentList.command message model
                   , MessageList.command message model
                   , Message.command message model
                   , Router.command message model
                   , DateTime.command message model
+                  , Error.command message model
                   ]
 
 
@@ -72,7 +67,7 @@ update message model =
 
 handleHttpError : Http.Error -> Model -> ( Model, Cmd App.Msg )
 handleHttpError error model =
-    model ! [ Commands.show error ]
+    model ! [ Error.show error ]
 
 
 findMessage : Int -> List Message -> Maybe Message

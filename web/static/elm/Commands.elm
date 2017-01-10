@@ -1,7 +1,5 @@
 module Commands exposing (..)
 
-import Component.Error.Message as Error exposing (..)
-import Component.Error.Update as Error exposing (show)
 import Http as Http exposing (..)
 import Http exposing (Error)
 import Json.Decode as Decode exposing (..)
@@ -99,15 +97,6 @@ updateMessage url message msgf =
 fetchComments : Url -> (Result Http.Error (List Comment) -> msg) -> Cmd msg
 fetchComments url msgf =
     get Comment.decodeList url msgf
-
-
-
--- Show http error
-
-
-show : Http.Error -> Cmd App.Msg
-show e =
-    Cmd.map HandleError <| Error.show e
 
 
 

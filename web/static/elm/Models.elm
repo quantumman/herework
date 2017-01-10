@@ -1,10 +1,10 @@
 module Models exposing (..)
 
 import CommentList.Model as CommentList exposing (..)
-import Component.Error.Model as Error exposing (..)
 import Date exposing (..)
 import Date.Extra.Core exposing (..)
 import DateTime.Model as DateTime exposing (..)
+import Error.Model as Error exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Json.Decode as Decode exposing (..)
