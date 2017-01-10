@@ -4,6 +4,7 @@ module View.Toolbar
         , postMessage
         )
 
+import Control.Command as Control exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -38,7 +39,7 @@ toolbar items =
 postMessage : Html App.Msg
 postMessage =
     Buttons.button (Buttons.default |> primary)
-        (NavigateTo (Messages New))
+        (Control.navigateTo (Messages New))
         [ span [ class "icon is-small" ]
             [ i [ class "fa fa-plus" ] [] ]
         , span [] [ text "POST MESSAGE" ]

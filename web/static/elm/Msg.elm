@@ -16,14 +16,11 @@ import Model.Message exposing (Message)
 import Model.User exposing (User)
 import Router.Msg as Router exposing (Msg)
 
-
 type Msg
     = -- UI actions
       NoOp
       -- Resource locations
     | InitResource (Result Http.Error AppResource.Model)
-      -- Rotue navigation
-    | NavigateTo Router.Msg
       -- Child View.
     | Router Router.Msg
     | MessageList MessageList.Msg

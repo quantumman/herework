@@ -1,5 +1,7 @@
 module Message.View.Message exposing (..)
 
+import Control.Command as Control exposing (..)
+import Control.Msg as Control exposing (..)
 import Date exposing (..)
 import DateTime.Model as DateTime exposing (..)
 import DateTime.View.DateTime as DateTime exposing (..)
@@ -67,7 +69,7 @@ editButton message =
         navigation =
             Router.Edit message.id
                 |> Router.Messages
-                |> App.NavigateTo
+                |> Control.navigateTo
     in
         Buttons.button style
             navigation
