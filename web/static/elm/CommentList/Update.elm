@@ -1,4 +1,9 @@
-module CommentList.Update exposing (..)
+module CommentList.Update
+    exposing
+        ( update
+        , command
+        , fetch
+        )
 
 import Commands as Commands exposing (..)
 import CommentList.Model as CommentList exposing (..)
@@ -17,6 +22,16 @@ update message model =
             model
 
 
+command : App.Msg -> App.Model -> Cmd App.Msg
+command message model =
+    case message of
+        CommentList msg ->
+            updateCommand msg model
+
+        _ ->
+            Cmd.none
+
+
 updateModel : CommentList.Msg -> CommentList.Model -> CommentList.Model
 updateModel message model =
     case message of
@@ -30,11 +45,11 @@ updateModel message model =
             model
 
 
-updateCommand : App.Msg -> App.Model -> Cmd App.Msg
+updateCommand : CommentList.Msg -> App.Model -> Cmd App.Msg
 updateCommand message model =
     Cmd.batch <|
         case message of
-            CommentList (List url) ->
+            List url ->
                 [ fetch url ]
 
             _ ->
