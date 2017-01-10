@@ -28,7 +28,7 @@ update message model =
 
         InitResource (Ok app) ->
             { model | app = app }
-                ! [ MessageList.fetch app.messages_url ]
+                ! [ MessageList.fetch model ]
 
         InitResource (Err error) ->
             handleHttpError error model
