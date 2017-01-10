@@ -1,8 +1,6 @@
 module CommentList.View.List exposing (..)
 
 import CommentList.Model as CommentList exposing (..)
-import View.UI.Attribute as Attribute exposing (..)
-import View.UI.MediaObject as MediaObject exposing (..)
 import Date as Date exposing (..)
 import DateTime.Model as DateTime exposing (..)
 import DateTime.View.DateTime as DateTime exposing (..)
@@ -10,6 +8,8 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Msg as App exposing (Msg)
+import View.UI.Attribute as Attribute exposing (..)
+import View.UI.MediaObject as MediaObject exposing (..)
 
 
 -- STYLE

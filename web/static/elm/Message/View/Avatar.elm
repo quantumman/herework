@@ -1,10 +1,10 @@
 module Message.View.Avatar exposing (..)
 
-import View.UI.Attribute as Attribute exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Model.User exposing (User)
+import View.UI.Attribute as Attribute exposing (..)
 
 
 avatar : Int -> User -> Html msg

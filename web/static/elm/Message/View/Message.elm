@@ -1,18 +1,18 @@
 module Message.View.Message exposing (..)
 
-import View.UI.Attribute as Attribute exposing (..)
-import View.UI.Buttons as Buttons exposing (..)
 import Date exposing (..)
 import DateTime.Model as DateTime exposing (..)
 import DateTime.View.DateTime as DateTime exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Msg as App exposing (Msg)
 import Message.Model as Message exposing (..)
 import Message.View.Avatar as Message exposing (..)
 import Model.Message exposing (Message)
+import Msg as App exposing (Msg)
 import Router.Msg as Router exposing (..)
+import View.UI.Attribute as Attribute exposing (..)
+import View.UI.Buttons as Buttons exposing (..)
 
 
 -- STYLE

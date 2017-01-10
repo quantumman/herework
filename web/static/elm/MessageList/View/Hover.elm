@@ -1,14 +1,14 @@
 module MessageList.View.Hover exposing (..)
 
-import View.UI.Attribute as Attribute exposing (..)
-import View.UI.MediaObject as MediaObject exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import InlineHover as InlineHover exposing (..)
-import Msg as App exposing (Msg)
 import MessageList.Model as MessageList exposing (Model)
 import Model.Message exposing (Message)
+import Msg as App exposing (Msg)
+import View.UI.Attribute as Attribute exposing (..)
+import View.UI.MediaObject as MediaObject exposing (..)
 
 
 hoverStyle : List ( String, String )

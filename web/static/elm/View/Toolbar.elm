@@ -4,13 +4,13 @@ module View.Toolbar
         , postMessage
         )
 
-import View.UI.Buttons as Buttons exposing (..)
-import View.UI.Nav as Nav exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Msg as App exposing (..)
 import Router.Msg as Router exposing (..)
+import View.UI.Buttons as Buttons exposing (..)
+import View.UI.Nav as Nav exposing (..)
 
 
 -- VIEW
