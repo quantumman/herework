@@ -2,8 +2,9 @@ module Message exposing (..)
 
 import CommentList.Msg as CommentList exposing (Msg)
 import Component.Error.Message as Error exposing (..)
-import Component.Infrastructures.DateTime as DateTime exposing (Msg)
+import Component.Infrastructures.DateTime as IDateTime exposing (Msg)
 import Component.Infrastructures.Form as Form exposing (..)
+import DateTime.Msg as DateTime exposing (Msg)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Http as Http exposing (Error)
@@ -27,8 +28,9 @@ type Msg
       -- Child Components
     | HandleError Error.Msg
     | Bind (Form.Msg App.Model)
-    | Now DateTime.Msg
+    | Now IDateTime.Msg
     | Router Router.Msg
     | MessageList MessageList.Msg
     | Message Message.Msg
     | CommentList CommentList.Msg
+    | DateTime DateTime.Msg
