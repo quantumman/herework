@@ -30,7 +30,7 @@ init location =
 
 subscriptions : Model -> Sub App.Msg
 subscriptions model =
-    App.subscriptions model
+    Sub.none
 
 
 view : Model -> Html App.Msg

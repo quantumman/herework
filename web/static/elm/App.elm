@@ -24,14 +24,6 @@ import Router.Model as Router exposing (..)
 import Router.Msg as Router exposing (..)
 import View.Toolbar as Toolbar exposing (..)
 
--- SUBSCRIPTION
-
-
-subscriptions : App.Model -> Sub App.Msg
-subscriptions model =
-    Sub.none
-
-
 
 -- VIEW
 
