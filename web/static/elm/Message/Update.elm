@@ -1,4 +1,10 @@
-module Message.Update exposing (..)
+module Message.Update
+    exposing
+        ( update
+        , command
+        , fetch
+        , fetchCommentsOf
+        )
 
 import Commands as Commands exposing (..)
 import CommentList.Msg as CommentList exposing (Msg(List))
@@ -17,6 +23,16 @@ update message model =
 
         _ ->
             model
+
+
+command : App.Msg -> App.Model -> Cmd App.Msg
+command message model =
+    case message of
+        Message msg ->
+            updateCommand msg model
+
+        _ ->
+            Cmd.none
 
 
 updateModel : Message.Msg -> Message.Model -> Message.Model
@@ -43,17 +59,17 @@ updateModel message model =
             model
 
 
-updateCommand : App.Msg -> App.Model -> Cmd App.Msg
+updateCommand : Message.Msg -> App.Model -> Cmd App.Msg
 updateCommand msg model =
     Cmd.batch <|
         case msg of
-            Message (Show id) ->
+            Show id ->
                 [ fetch model id ]
 
-            Message (Edit id) ->
+            Edit id ->
                 [ fetch model id ]
 
-            Message (Fetch (Ok message)) ->
+            Fetch (Ok message) ->
                 [ fetchCommentsOf message ]
 
             _ ->
