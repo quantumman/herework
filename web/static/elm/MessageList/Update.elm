@@ -35,7 +35,7 @@ updateCommand message model =
     Cmd.batch <|
         case message of
             MessageList List ->
-                [ fetch model.app.messages_url ]
+                [ fetch model ]
 
             _ ->
                 []
@@ -45,7 +45,7 @@ updateCommand message model =
 -- COMMADN
 
 
-fetch : Url -> Cmd App.Msg
-fetch url =
-    Commands.fetchMessages url Fetch
+fetch : App.Model -> Cmd App.Msg
+fetch { app } =
+    Commands.fetchMessages app.messages_url Fetch
         |> Cmd.map MessageList

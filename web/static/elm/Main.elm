@@ -1,10 +1,11 @@
 module Main exposing (..)
 
 import App as App exposing (..)
-import Commands as App exposing (now)
+import Commands as App exposing (now, initApp)
+import Component.Infrastructures.DateTime as DateTime exposing (init)
 import Html exposing (Html)
 import Message as App exposing (..)
-import Models as App exposing (Model)
+import Models as App exposing (Model, initialModel)
 import Navigation exposing (..)
 import Router.Msg as Router exposing (Msg)
 import Router.Update as Router exposing (urlUpdate, init)
@@ -17,13 +18,16 @@ init location =
         ( router, routerCommand ) =
             Router.init location
 
-        ( model, appCommand ) =
-            App.init router
+        ( _, dateTimeCommand ) =
+            DateTime.init
+
+        model =
+            App.initialModel router
     in
         { model | router = router }
-            ! [ App.now
+            ! [ Cmd.map Now dateTimeCommand
               , Cmd.map Router routerCommand
-              , appCommand
+              , App.initApp "/api/app"
               ]
 
 
