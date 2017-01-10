@@ -1,4 +1,4 @@
-module Component.Infrastructures.DOM exposing (..)
+module View.Html.DOM exposing (..)
 
 import DOM exposing (..)
 import Json.Decode as Decode exposing (..)
