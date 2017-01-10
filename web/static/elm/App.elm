@@ -25,19 +25,6 @@ import Router.Msg as Router exposing (..)
 import View.Toolbar as Toolbar exposing (..)
 
 
--- MODEL
-
-
-init : Router.Model -> ( App.Model, Cmd App.Msg )
-init router =
-    let
-        ( _, dateTimeCommand ) =
-            DateTime.init
-    in
-        (initialModel router) ! [ Commands.initApp "/api/app", Cmd.map Now dateTimeCommand ]
-
-
-
 -- SUBSCRIPTION
 
 
