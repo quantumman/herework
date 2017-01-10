@@ -1,6 +1,7 @@
 module Msg exposing (..)
 
 import CommentList.Msg as CommentList exposing (Msg)
+import Control.Msg as Control exposing (Msg)
 import DateTime.Msg as DateTime exposing (Msg)
 import Error.Msg as Error exposing (Msg)
 import Html exposing (..)
@@ -30,3 +31,4 @@ type Msg
     | CommentList CommentList.Msg
     | DateTime DateTime.Msg
     | Error Error.Msg
+    | Control Control.Msg
