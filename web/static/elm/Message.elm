@@ -1,9 +1,10 @@
 module Message exposing (..)
 
 import CommentList.Msg as CommentList exposing (Msg)
-import Component.Error.Message as Error exposing (..)
+import Component.Error.Message as IError exposing (..)
 import Component.Infrastructures.Form as Form exposing (..)
 import DateTime.Msg as DateTime exposing (Msg)
+import Error.Msg as Error exposing (Msg)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Http as Http exposing (Error)
@@ -25,10 +26,11 @@ type Msg
       -- Rotue navigation
     | NavigateTo Router.Msg
       -- Child Components
-    | HandleError Error.Msg
+    | HandleError IError.Msg
     | Bind (Form.Msg App.Model)
     | Router Router.Msg
     | MessageList MessageList.Msg
     | Message Message.Msg
     | CommentList CommentList.Msg
     | DateTime DateTime.Msg
+    | Error Error.Msg
