@@ -2,7 +2,6 @@ module Update exposing (..)
 
 import Commands exposing (..)
 import CommentList.Update as CommentList exposing (..)
-import Component.Infrastructures.Form as Form exposing (update)
 import DateTime.Update as DateTime exposing (..)
 import Error.Update as Error exposing (..)
 import Html exposing (..)
@@ -35,13 +34,6 @@ update message model =
 
         NavigateTo route ->
             model ! [ Router.navigateTo route ]
-
-        Bind msg ->
-            let
-                ( newModel, command ) =
-                    Form.update msg model
-            in
-                newModel ! [ Cmd.map Bind command ]
 
         _ ->
             { model
