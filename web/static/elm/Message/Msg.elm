@@ -1,8 +1,8 @@
 module Message.Msg exposing (..)
 
 import Http exposing (..)
-import Models.Message exposing (Message)
-import Models.User exposing (User)
+import Model.Message exposing (Message)
+import Model.User exposing (User)
 
 
 type alias Creator =

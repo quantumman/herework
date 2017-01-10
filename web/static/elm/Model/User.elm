@@ -1,10 +1,10 @@
-module Models.User exposing (..)
+module Model.User exposing (..)
 
 import Date exposing (..)
 import Json.Decode as Decode exposing (..)
 import Json.Decode.Extra as Decode exposing (..)
 import Json.Encode as Encode exposing (..)
-import Models.Extra exposing (..)
+import Model.Extra exposing (..)
 
 
 type alias User =

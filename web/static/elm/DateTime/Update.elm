@@ -8,8 +8,8 @@ module DateTime.Update
 import Date
 import DateTime.Model as DateTime exposing (..)
 import DateTime.Msg as DateTime exposing (..)
-import Message as App exposing (..)
-import Models as App exposing (..)
+import Msg as App exposing (..)
+import Model as App exposing (..)
 import Task
 
 

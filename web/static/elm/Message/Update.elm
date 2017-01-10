@@ -6,13 +6,13 @@ module Message.Update
         , fetchCommentsOf
         )
 
-import Commands as Commands exposing (..)
+import Command as Command exposing (..)
 import CommentList.Msg as CommentList exposing (Msg(List))
-import Message as App exposing (Msg(..))
+import Msg as App exposing (Msg(..))
 import Message.Model as Message exposing (..)
 import Message.Msg as Message exposing (..)
-import Models as App exposing (..)
-import Models.Message as MessageModel exposing (Message, initialModel)
+import Model as App exposing (..)
+import Model.Message as MessageModel exposing (Message, initialModel)
 
 
 update : App.Msg -> Message.Model -> Message.Model
@@ -82,11 +82,11 @@ updateCommand msg model =
 
 fetch : App.Model -> Int -> Cmd App.Msg
 fetch model id =
-    Commands.fetchMessage (model.app.messages_url ++ "/" ++ toString id) Fetch
+    Command.fetchMessage (model.app.messages_url ++ "/" ++ toString id) Fetch
         |> Cmd.map App.Message
 
 
 fetchCommentsOf : Message -> Cmd App.Msg
 fetchCommentsOf message =
-    Commands.run (CommentList.List message.comments_url)
+    Command.run (CommentList.List message.comments_url)
         |> Cmd.map App.CommentList

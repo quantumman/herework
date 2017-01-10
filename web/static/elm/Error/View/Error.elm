@@ -3,7 +3,7 @@ module Error.View.Error exposing (..)
 import Error.Model as Error exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Message as App exposing (..)
+import Msg as App exposing (..)
 
 
 -- Style

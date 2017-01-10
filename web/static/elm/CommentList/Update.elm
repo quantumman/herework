@@ -5,11 +5,11 @@ module CommentList.Update
         , fetch
         )
 
-import Commands as Commands exposing (..)
+import Command as Command exposing (..)
 import CommentList.Model as CommentList exposing (..)
 import CommentList.Msg as CommentList exposing (..)
-import Message as App exposing (Msg(..))
-import Models as App exposing (..)
+import Msg as App exposing (Msg(..))
+import Model as App exposing (..)
 
 
 update : App.Msg -> CommentList.Model -> CommentList.Model
@@ -62,5 +62,5 @@ updateCommand message model =
 
 fetch : Url -> Cmd App.Msg
 fetch url =
-    Commands.fetchComments url Fetch
+    Command.fetchComments url Fetch
         |> Cmd.map App.CommentList

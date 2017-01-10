@@ -6,15 +6,15 @@ module Router.Update
         , init
         )
 
-import Commands as Commands exposing (..)
+import Command as Command exposing (..)
 import CommentList.Update as CommentList exposing (fetch)
 import DateTime.Update as DateTime exposing (getNow)
-import Message as App exposing (..)
+import Msg as App exposing (..)
 import Message.Msg as Message exposing (..)
 import Message.Update as Message exposing (fetch, fetchCommentsOf)
 import MessageList.Msg as MessageList exposing (..)
 import MessageList.Update as MessageList exposing (fetch)
-import Models as App exposing (..)
+import Model as App exposing (..)
 import Navigation exposing (..)
 import Router.Model as Router exposing (..)
 import Router.Msg as Router exposing (..)
@@ -67,7 +67,7 @@ updateCommand message model =
                 [ Message.fetch model id ]
 
             Messages (Router.New) ->
-                [ Commands.mapRun App.Message (Message.New model.user) ]
+                [ Command.mapRun App.Message (Message.New model.user) ]
 
             Messages (Router.Edit id) ->
                 [ Message.fetch model id ]

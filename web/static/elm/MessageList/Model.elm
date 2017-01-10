@@ -1,6 +1,6 @@
 module MessageList.Model exposing (..)
 
-import Models.Message as Message exposing (Message, initialModel)
+import Model.Message as Message exposing (Message, initialModel)
 
 
 type alias Model =

@@ -1,4 +1,4 @@
-module Models.Extra exposing (..)
+module Model.Extra exposing (..)
 
 import Json.Decode as Decode exposing (..)
 import Json.Decode.Extra as Decode exposing (..)

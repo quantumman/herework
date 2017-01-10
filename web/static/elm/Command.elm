@@ -1,15 +1,15 @@
-module Commands exposing (..)
+module Command exposing (..)
 
 import Http as Http exposing (..)
 import Http exposing (Error)
 import Json.Decode as Decode exposing (..)
 import Json.Encode as Encode exposing (..)
-import Message as App exposing (..)
-import Models exposing (..)
-import Models.App as App exposing (..)
-import Models.Comment as Comment exposing (..)
-import Models.Message as Message exposing (..)
-import Models.User as User exposing (..)
+import Msg as App exposing (..)
+import Model exposing (..)
+import Model.App as App exposing (..)
+import Model.Comment as Comment exposing (..)
+import Model.Message as Message exposing (..)
+import Model.User as User exposing (..)
 import Task exposing (Task)
 
 

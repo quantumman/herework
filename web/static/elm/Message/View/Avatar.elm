@@ -4,7 +4,7 @@ import View.UI.Attribute as Attribute exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Models.User exposing (User)
+import Model.User exposing (User)
 
 
 avatar : Int -> User -> Html msg

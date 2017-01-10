@@ -8,10 +8,10 @@ import DateTime.View.DateTime as DateTime exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Message as App exposing (Msg)
+import Msg as App exposing (Msg)
 import Message.Model as Message exposing (..)
 import Message.View.Avatar as Message exposing (..)
-import Models.Message exposing (Message)
+import Model.Message exposing (Message)
 import Router.Msg as Router exposing (..)
 
 

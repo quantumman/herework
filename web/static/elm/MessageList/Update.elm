@@ -5,11 +5,11 @@ module MessageList.Update
         , fetch
         )
 
-import Commands as Commands exposing (..)
-import Message as App exposing (Msg(..))
+import Command as Command exposing (..)
+import Msg as App exposing (Msg(..))
 import MessageList.Model as MessageList exposing (..)
 import MessageList.Msg as MessageList exposing (..)
-import Models as App exposing (..)
+import Model as App exposing (..)
 
 
 update : App.Msg -> MessageList.Model -> MessageList.Model
@@ -62,5 +62,5 @@ updateCommand message model =
 
 fetch : App.Model -> Cmd App.Msg
 fetch { app } =
-    Commands.fetchMessages app.messages_url Fetch
+    Command.fetchMessages app.messages_url Fetch
         |> Cmd.map MessageList

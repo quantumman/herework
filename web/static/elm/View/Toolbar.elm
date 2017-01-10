@@ -9,7 +9,7 @@ import View.UI.Nav as Nav exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Message as App exposing (..)
+import Msg as App exposing (..)
 import Router.Msg as Router exposing (..)
 
 

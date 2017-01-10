@@ -8,8 +8,8 @@ module Error.Update
 import Error.Msg as Error exposing (..)
 import Error.Model as Error exposing (..)
 import Http as Http exposing (..)
-import Message as App exposing (..)
-import Models as App exposing (..)
+import Msg as App exposing (..)
+import Model as App exposing (..)
 import Task
 
 

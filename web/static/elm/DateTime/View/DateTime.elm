@@ -9,7 +9,7 @@ import DateTime.Model as DateTime exposing (Model)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Message as App exposing (Msg)
+import Msg as App exposing (Msg)
 
 
 view : Date -> DateTime.Model -> Html App.Msg

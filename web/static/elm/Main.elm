@@ -1,10 +1,10 @@
 module Main exposing (..)
 
-import Commands as App exposing (initApp)
+import Command as App exposing (initApp)
 import DateTime.Update as DateTime exposing (getNow)
 import Html exposing (Html)
-import Message as App exposing (..)
-import Models as App exposing (Model, initialModel)
+import Msg as App exposing (..)
+import Model as App exposing (Model, initialModel)
 import Navigation exposing (..)
 import Router.Msg as Router exposing (Msg)
 import Router.Update as Router exposing (urlUpdate, init)

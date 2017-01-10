@@ -1,6 +1,6 @@
 module CommentList.Model exposing (..)
 
-import Models.Comment as Comment exposing (Comment)
+import Model.Comment as Comment exposing (Comment)
 
 
 type alias Model =

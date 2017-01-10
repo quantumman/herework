@@ -1,9 +1,9 @@
 module CommentList.Msg exposing (..)
 
 import Http exposing (..)
-import Models exposing (Url)
-import Models.Comment exposing (Comment)
-import Models.User exposing (User)
+import Model exposing (Url)
+import Model.Comment exposing (Comment)
+import Model.User exposing (User)
 
 
 type Msg

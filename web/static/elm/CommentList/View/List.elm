@@ -9,7 +9,7 @@ import DateTime.View.DateTime as DateTime exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Message as App exposing (Msg)
+import Msg as App exposing (Msg)
 
 
 -- STYLE

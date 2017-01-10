@@ -1,11 +1,11 @@
-module Models.Message exposing (..)
+module Model.Message exposing (..)
 
 import Date exposing (..)
 import Date.Extra.Core exposing (..)
 import Json.Decode as Decode exposing (..)
 import Json.Decode.Extra as Decode exposing (..)
 import Json.Encode as Encode exposing (..)
-import Models.User as User exposing (..)
+import Model.User as User exposing (..)
 
 
 type alias Message =

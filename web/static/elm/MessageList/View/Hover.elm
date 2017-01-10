@@ -6,9 +6,9 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import InlineHover as InlineHover exposing (..)
-import Message as App exposing (Msg)
+import Msg as App exposing (Msg)
 import MessageList.Model as MessageList exposing (Model)
-import Models.Message exposing (Message)
+import Model.Message exposing (Message)
 
 
 hoverStyle : List ( String, String )

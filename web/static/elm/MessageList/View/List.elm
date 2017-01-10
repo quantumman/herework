@@ -6,10 +6,10 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import HtmlHelpers exposing (..)
-import Message as App exposing (Msg)
+import Msg as App exposing (Msg)
 import MessageList.Model as MessageList exposing (..)
 import MessageList.View.Hover as MessageList exposing (..)
-import Models.Message as Message exposing (Message)
+import Model.Message as Message exposing (Message)
 import Router.Msg as Router exposing (..)
 
 

@@ -1,8 +1,8 @@
-module Models.Views exposing (..)
+module Model.Views exposing (..)
 
 import View.Views.Messages.Form as Form exposing (..)
-import Models.Comment as Comment exposing (Comment)
-import Models.Message as Message exposing (Message, initialModel)
+import Model.Comment as Comment exposing (Comment)
+import Model.Message as Message exposing (Message, initialModel)
 import Monocle.Lens exposing (Lens)
 
 
