@@ -8,6 +8,7 @@ module Router.Update
 
 import Commands as Commands exposing (..)
 import CommentList.Update as CommentList exposing (fetch)
+import DateTime.Update as DateTime exposing (getNow)
 import Message as App exposing (..)
 import Message.Msg as Message exposing (..)
 import Message.Update as Message exposing (fetch, fetchCommentsOf)
@@ -44,7 +45,7 @@ command : App.Msg -> App.Model -> Cmd App.Msg
 command message model =
     case message of
         Router msg ->
-            updateCommand msg model
+            Cmd.batch [ updateCommand msg model, DateTime.getNow ]
 
         _ ->
             Cmd.none
