@@ -9,12 +9,10 @@ module Router.Update
 import Command as Command exposing (..)
 import CommentList.Update as CommentList exposing (fetch)
 import DateTime.Update as DateTime exposing (getNow)
-import Msg as App exposing (..)
 import Message.Msg as Message exposing (..)
-import Message.Update as Message exposing (fetch, fetchCommentsOf)
 import MessageList.Msg as MessageList exposing (..)
-import MessageList.Update as MessageList exposing (fetch)
 import Model as App exposing (..)
+import Msg as App exposing (..)
 import Navigation exposing (..)
 import Router.Model as Router exposing (..)
 import Router.Msg as Router exposing (..)
@@ -61,16 +59,16 @@ updateCommand message model =
     Cmd.batch <|
         case message of
             Messages (Router.List) ->
-                [ MessageList.fetch model ]
+                [ Command.mapRun App.MessageList MessageList.List ]
 
             Messages (Router.Show id) ->
-                [ Message.fetch model id ]
+                [ Command.mapRun App.Message (Message.Show id) ]
 
             Messages (Router.New) ->
                 [ Command.mapRun App.Message (Message.New model.user) ]
 
             Messages (Router.Edit id) ->
-                [ Message.fetch model id ]
+                [ Command.mapRun App.Message (Message.Edit id) ]
 
             Tasks ->
                 []
