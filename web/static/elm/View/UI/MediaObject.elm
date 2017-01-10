@@ -1,4 +1,4 @@
-module Component.UI.MediaObject exposing (..)
+module View.UI.MediaObject exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)

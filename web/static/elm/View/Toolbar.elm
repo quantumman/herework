@@ -4,8 +4,8 @@ module View.Toolbar
         , postMessage
         )
 
-import Component.UI.Buttons as Buttons exposing (..)
-import Component.UI.Nav as Nav exposing (..)
+import View.UI.Buttons as Buttons exposing (..)
+import View.UI.Nav as Nav exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)

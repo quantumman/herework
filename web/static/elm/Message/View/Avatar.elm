@@ -1,6 +1,6 @@
 module Message.View.Avatar exposing (..)
 
-import Component.UI.Attribute as Attribute exposing (..)
+import View.UI.Attribute as Attribute exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)

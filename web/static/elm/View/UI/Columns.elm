@@ -1,4 +1,4 @@
-module Component.UI.Columns exposing (..)
+module View.UI.Columns exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)

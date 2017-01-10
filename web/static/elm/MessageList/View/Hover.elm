@@ -1,7 +1,7 @@
 module MessageList.View.Hover exposing (..)
 
-import Component.UI.Attribute as Attribute exposing (..)
-import Component.UI.MediaObject as MediaObject exposing (..)
+import View.UI.Attribute as Attribute exposing (..)
+import View.UI.MediaObject as MediaObject exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)

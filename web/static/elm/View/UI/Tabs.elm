@@ -1,4 +1,4 @@
-module Component.UI.Tabs
+module View.UI.Tabs
     exposing
         ( tabGroup
         , tabs

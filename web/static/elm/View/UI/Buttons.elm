@@ -1,4 +1,4 @@
-module Component.UI.Buttons
+module View.UI.Buttons
     exposing
         ( button
         , primary

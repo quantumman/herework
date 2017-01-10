@@ -1,4 +1,4 @@
-module Component.UI.Layout exposing (group, item)
+module View.UI.Layout exposing (group, item)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)

@@ -1,8 +1,8 @@
 module CommentList.View.List exposing (..)
 
 import CommentList.Model as CommentList exposing (..)
-import Component.UI.Attribute as Attribute exposing (..)
-import Component.UI.MediaObject as MediaObject exposing (..)
+import View.UI.Attribute as Attribute exposing (..)
+import View.UI.MediaObject as MediaObject exposing (..)
 import Date as Date exposing (..)
 import DateTime.Model as DateTime exposing (..)
 import DateTime.View.DateTime as DateTime exposing (..)

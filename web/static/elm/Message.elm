@@ -23,7 +23,7 @@ type Msg
     | InitResource (Result Http.Error AppResource.Model)
       -- Rotue navigation
     | NavigateTo Router.Msg
-      -- Child Components
+      -- Child View.
     | Router Router.Msg
     | MessageList MessageList.Msg
     | Message Message.Msg

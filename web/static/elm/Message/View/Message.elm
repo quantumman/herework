@@ -1,7 +1,7 @@
 module Message.View.Message exposing (..)
 
-import Component.UI.Attribute as Attribute exposing (..)
-import Component.UI.Buttons as Buttons exposing (..)
+import View.UI.Attribute as Attribute exposing (..)
+import View.UI.Buttons as Buttons exposing (..)
 import Date exposing (..)
 import DateTime.Model as DateTime exposing (..)
 import DateTime.View.DateTime as DateTime exposing (..)

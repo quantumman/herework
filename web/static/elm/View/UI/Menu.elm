@@ -1,4 +1,4 @@
-module Component.UI.Menu exposing (..)
+module View.UI.Menu exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)

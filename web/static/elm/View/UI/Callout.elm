@@ -1,4 +1,4 @@
-module Component.UI.Callout exposing (callout)
+module View.UI.Callout exposing (callout)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
