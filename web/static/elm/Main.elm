@@ -1,6 +1,5 @@
 module Main exposing (..)
 
-import App as App exposing (..)
 import Commands as App exposing (initApp)
 import DateTime.Update as DateTime exposing (getNow)
 import Html exposing (Html)
@@ -10,6 +9,7 @@ import Navigation exposing (..)
 import Router.Msg as Router exposing (Msg)
 import Router.Update as Router exposing (urlUpdate, init)
 import Update as App exposing (update)
+import View.App as App exposing (..)
 
 
 init : Location -> ( App.Model, Cmd App.Msg )

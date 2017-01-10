@@ -1,10 +1,7 @@
-module App exposing (..)
+module View.App exposing (..)
 
 import Commands as Commands exposing (..)
 import CommentList.View.List as CommentList exposing (view)
-import View.UI.Attribute exposing (..)
-import View.UI.Columns as Columns exposing (..)
-import View.UI.Nav as Nav exposing (..)
 import DateTime.View.DateTime as DateTime exposing (..)
 import Error.View.Error as Error exposing (..)
 import FontAwesome.Web as Icon exposing (edit)
@@ -23,6 +20,9 @@ import Navigation
 import Router.Model as Router exposing (..)
 import Router.Msg as Router exposing (..)
 import View.Toolbar as Toolbar exposing (..)
+import View.UI.Attribute exposing (..)
+import View.UI.Columns as Columns exposing (..)
+import View.UI.Nav as Nav exposing (..)
 
 
 -- VIEW
